@@ -75,6 +75,24 @@
       .more-grid{grid-template-columns:1fr;}
       #toTop{bottom:16px;right:16px;}
     }
+
+    /* RADIO PLAYER */
+    #radio-player{position:fixed;bottom:0;left:0;right:0;background:#111;border-top:1px solid rgba(212,168,83,.25);padding:10px 24px;display:flex;align-items:center;gap:16px;z-index:997;transform:translateY(100%);transition:transform .4s ease;}
+    #radio-player.show{transform:translateY(0);}
+    .radio-dot{width:7px;height:7px;border-radius:50%;background:#D4A853;animation:pulse 1.8s ease-in-out infinite;flex-shrink:0;}
+    .radio-dot.paused{animation:none;background:rgba(212,168,83,.35);}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.8);}}
+    .radio-info{flex:1;min-width:0;}
+    .radio-label{font-family:var(--lb);font-size:8px;letter-spacing:3px;color:rgba(212,168,83,.7);text-transform:uppercase;margin-bottom:2px;}
+    .radio-name{font-family:var(--pf);font-size:13px;font-weight:700;color:#F4F0E6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .radio-playbtn{width:36px;height:36px;border-radius:50%;border:1px solid rgba(212,168,83,.4);background:transparent;color:#D4A853;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;transition:background .2s,color .2s;}
+    .radio-playbtn:hover{background:#D4A853;color:#111;}
+    .radio-closebtn{font-family:var(--lb);font-size:9px;color:rgba(244,240,230,.3);background:none;border:none;cursor:pointer;padding:4px 8px;flex-shrink:0;transition:color .2s;}
+    .radio-closebtn:hover{color:rgba(244,240,230,.7);}
+    .radio-trigger{position:fixed;bottom:24px;left:24px;background:#111;border:1px solid rgba(212,168,83,.35);padding:8px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;z-index:996;transition:border-color .2s;}
+    .radio-trigger:hover{border-color:#D4A853;}
+    .radio-trigger-dot{width:6px;height:6px;border-radius:50%;background:#D4A853;animation:pulse 1.8s ease-in-out infinite;}
+    .radio-trigger-txt{font-family:var(--lb);font-size:9px;letter-spacing:3px;color:rgba(244,240,230,.6);text-transform:uppercase;}
   </style>
 </head>
 <body>
@@ -85,6 +103,22 @@
   <button class="pwa-ibtn" id="pwaIBtn">Install</button>
   <button class="pwa-dbtn" id="pwaDBtn">&#10005;</button>
 </div>
+<!-- RADIO PLAYER -->
+<div id="radio-player">
+  <div class="radio-dot" id="radioDot"></div>
+  <div class="radio-info">
+    <div class="radio-label">Live Now</div>
+    <div class="radio-name">Afternoise Radio</div>
+  </div>
+  <button class="radio-playbtn" id="radioPlayBtn">&#9654;</button>
+  <button class="radio-closebtn" id="radioCloseBtn">&#10005;</button>
+</div>
+<div class="radio-trigger" id="radioTrigger">
+  <div class="radio-trigger-dot"></div>
+  <span class="radio-trigger-txt">Listen Live</span>
+</div>
+<audio id="radioAudio" src="https://streaming.live365.com/a82938" preload="none"></audio>
+
 <div id="root"></div>
 <script>
 // ─── PHOTO SLOTS ──────────────────────────────────────────────────────────────
@@ -425,6 +459,57 @@ function render(){
   },40);
   runTick();
 }
+
+// ─── RADIO PLAYER ─────────────────────────────────────────────────────────────
+(function(){
+  var audio = document.getElementById('radioAudio');
+  var player = document.getElementById('radio-player');
+  var trigger = document.getElementById('radioTrigger');
+  var playBtn = document.getElementById('radioPlayBtn');
+  var closeBtn = document.getElementById('radioCloseBtn');
+  var dot = document.getElementById('radioDot');
+  var playing = false;
+
+  function showPlayer(){ player.classList.add('show'); trigger.style.display='none'; }
+  function hidePlayer(){ player.classList.remove('show'); trigger.style.display='flex'; if(playing) stopRadio(); }
+
+  function playRadio(){
+    audio.play().then(function(){
+      playing=true;
+      playBtn.innerHTML='&#9646;&#9646;';
+      dot.classList.remove('paused');
+    }).catch(function(){
+      playing=false;
+      playBtn.innerHTML='&#9654;';
+      dot.classList.add('paused');
+    });
+  }
+
+  function stopRadio(){
+    audio.pause();
+    audio.currentTime=0;
+    playing=false;
+    playBtn.innerHTML='&#9654;';
+    dot.classList.add('paused');
+  }
+
+  trigger.addEventListener('click', function(){
+    showPlayer();
+    playRadio();
+  });
+
+  playBtn.addEventListener('click', function(){
+    if(playing) stopRadio(); else playRadio();
+  });
+
+  closeBtn.addEventListener('click', function(){
+    hidePlayer();
+  });
+
+  // Show trigger after splash hides
+  setTimeout(function(){ trigger.style.display='flex'; }, 2400);
+})();
+
 
 render();
 </script>
