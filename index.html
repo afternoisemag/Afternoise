@@ -200,8 +200,14 @@ function pImg(slot,extraStyle){
   return el;
 }
 
-function go(page,idx){
+function go(page,idx,skipHistory){
   cancelAnimationFrame(TRaf);window.onscroll=null;
+  // Push state so browser back button works within the site
+  if(!skipHistory){
+    var stateObj={page:page,idx:(idx!=null)?idx:null};
+    var url='#'+page+(idx!=null?'/'+idx:'');
+    window.history.pushState(stateObj,'',url);
+  }
   var w=document.getElementById('page-wrap');
   if(w){w.style.opacity='0';w.style.transform='translateY(10px)';}
   setTimeout(function(){
@@ -218,6 +224,19 @@ function go(page,idx){
     runTick();
   },240);
 }
+
+// Handle browser back/forward buttons
+window.addEventListener('popstate',function(e){
+  if(e.state&&e.state.page){
+    go(e.state.page,e.state.idx!=null?e.state.idx:null,true);
+  } else {
+    go('cover',null,true);
+  }
+});
+
+// Set initial history state so back works from first page
+window.history.replaceState({page:'cover',idx:null},'','#cover');
+
 
 function setupReveal(){
   var els=document.querySelectorAll('.reveal:not(.in)');
