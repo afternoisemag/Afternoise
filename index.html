@@ -361,6 +361,58 @@ function buildTOC(){
   });
   inner.appendChild(idx);
 
+  // ── EXTRA SECTIONS ROW ─────────────────────────────────
+  inner.appendChild(h('div',{className:'fade s5',style:{display:'flex',alignItems:'center',gap:'16px',marginBottom:'16px',marginTop:'8px'}}),);
+  var extHdr=h('div',{className:'fade s5',style:{display:'flex',alignItems:'center',gap:'16px',marginBottom:'16px'}});
+  extHdr.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'5px',color:'#999',textTransform:'uppercase'}},'Also In This Issue'));
+  extHdr.appendChild(h('div',{style:{flex:1,height:'.5px',background:'#ccc'}}));
+  inner.appendChild(extHdr);
+
+  var extGrid=h('div',{className:'fade s6',style:{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'3px',marginBottom:'32px'}});
+
+  // Playlist card
+  var plCard=h('div',{className:'card',style:{height:'240px',background:'#0D0D0D',cursor:'pointer'}});
+  var plTop=h('div',{style:{position:'absolute',top:0,left:0,right:0,padding:'16px 20px',display:'flex',justifyContent:'space-between',alignItems:'center'}});
+  plTop.appendChild(h('div',{style:{background:'#8B1A0A',padding:'3px 10px'}},h('span',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'3px',textTransform:'uppercase',color:'#F4F0E6'}},'SOUND')));
+  plCard.appendChild(plTop);
+  var plBot=h('div',{style:{position:'absolute',inset:0,padding:'16px 20px',display:'flex',flexDirection:'column',justifyContent:'flex-end',background:'linear-gradient(135deg,#0D0D0D 0%,#1a1a1a 100%)'}});
+  plBot.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'rgba(212,168,83,.6)',textTransform:'uppercase',marginBottom:'8px'}},'Vol. I'));
+  var plHl=h('div',{style:{fontFamily:"var(--pf)",fontSize:'22px',fontWeight:900,color:'#F4F0E6',lineHeight:1.05,marginBottom:'5px'}});plHl.textContent='The Playlist';plBot.appendChild(plHl);
+  var plShl=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'12px',color:'rgba(244,240,230,.5)',lineHeight:1.3}});plShl.textContent='The soundtrack to this issue';plBot.appendChild(plShl);
+  plCard.appendChild(plBot);
+  plCard.onclick=function(){go('playlist');};
+  extGrid.appendChild(plCard);
+
+  // Radar card
+  var rdCard=h('div',{className:'card',style:{height:'240px',background:'#0D0D0D',cursor:'pointer'}});
+  var rdTop=h('div',{style:{position:'absolute',top:0,left:0,right:0,padding:'16px 20px'}});
+  rdTop.appendChild(h('div',{style:{background:'#4A1A6B',padding:'3px 10px',display:'inline-block'}},h('span',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'3px',textTransform:'uppercase',color:'#F4F0E6'}},'RADAR')));
+  rdCard.appendChild(rdTop);
+  var rdBot=h('div',{style:{position:'absolute',inset:0,padding:'16px 20px',display:'flex',flexDirection:'column',justifyContent:'flex-end',background:'linear-gradient(135deg,#0D0D0D 0%,#1a1a2e 100%)'}});
+  rdBot.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'rgba(212,168,83,.6)',textTransform:'uppercase',marginBottom:'8px'}},'New Artist'));
+  var rdHl=h('div',{style:{fontFamily:"var(--pf)",fontSize:'22px',fontWeight:900,color:'#F4F0E6',lineHeight:1.05,marginBottom:'5px'}});rdHl.textContent='Yannabaiibee';rdBot.appendChild(rdHl);
+  var rdShl=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'12px',color:'rgba(244,240,230,.5)',lineHeight:1.3}});rdShl.textContent='Canada \u00b7 Watch this space';rdBot.appendChild(rdShl);
+  rdCard.appendChild(rdBot);
+  rdCard.onclick=function(){go('radar');};
+  extGrid.appendChild(rdCard);
+
+  // Photo Essay card
+  var peCard=h('div',{className:'card',style:{height:'240px',background:'#0D0D0D',cursor:'pointer'}});
+  var pePh=pImg('dt1',{position:'absolute',inset:0,filter:'brightness(.3)'});
+  peCard.appendChild(pePh);
+  var peTop=h('div',{style:{position:'absolute',top:0,left:0,right:0,padding:'16px 20px'}});
+  peTop.appendChild(h('div',{style:{background:'#1A1A2E',padding:'3px 10px',display:'inline-block'}},h('span',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'3px',textTransform:'uppercase',color:'#F4F0E6'}},'PHOTOS')));
+  peCard.appendChild(peTop);
+  var peBot=h('div',{style:{position:'absolute',inset:0,padding:'16px 20px',display:'flex',flexDirection:'column',justifyContent:'flex-end',background:'linear-gradient(to top,rgba(0,0,0,.85) 0%,transparent 60%)'}});
+  peBot.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'rgba(212,168,83,.6)',textTransform:'uppercase',marginBottom:'8px'}},'Toronto \u00b7 2026'));
+  var peHl=h('div',{style:{fontFamily:"var(--pf)",fontSize:'22px',fontWeight:900,color:'#F4F0E6',lineHeight:1.05,marginBottom:'5px'}});peHl.textContent='In Frame';peBot.appendChild(peHl);
+  var peShl=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'12px',color:'rgba(244,240,230,.5)',lineHeight:1.3}});peShl.textContent='Carnival season in pictures';peBot.appendChild(peShl);
+  peCard.appendChild(peBot);
+  peCard.onclick=function(){go('essay');};
+  extGrid.appendChild(peCard);
+
+  inner.appendChild(extGrid);
+
   // Follow strip
   var fw=h('div',{className:'fade s5',style:{display:'flex',alignItems:'center',gap:'24px',padding:'16px 0',borderTop:'.5px solid #ddd',borderBottom:'.5px solid #ddd',marginBottom:'40px',flexWrap:'wrap'}});
   fw.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'4px',color:'#bbb',textTransform:'uppercase',flexShrink:0}},'Follow Us'));
