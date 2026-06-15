@@ -275,7 +275,7 @@ function buildCover(){
 
   var right=h('div',{style:{background:'#0D0D0D',display:'flex',flexDirection:'column',justifyContent:'center',padding:'0 clamp(20px,4vw,48px)'}});
   var nav=h('div',{className:'fade',style:{display:'flex',justifyContent:'space-between',padding:'18px 0',borderBottom:'.5px solid rgba(255,255,255,.07)',marginBottom:'28px',flexWrap:'wrap',gap:'8px'}});
-  var ib=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.4)'}},'ISSUES \u203a');ib.onclick=function(){go('toc');};nav.appendChild(ib);
+  var ib=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.4)'}},'ISSUES \u203a');ib.onclick=function(){go('archive');};nav.appendChild(ib);
   var ab=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.4)'}},'ABOUT');ab.onclick=function(){go('about');};nav.appendChild(ab);
   var lb2=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.4)'}},'LETTER');lb2.onclick=function(){go('letter');};nav.appendChild(lb2);
   var mast=h('div',{className:'fade s1',style:{textAlign:'center',marginBottom:'6px'}},h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(36px,5vw,64px)',fontWeight:900,letterSpacing:'14px',lineHeight:1,color:'#F4F0E6'}},'AFTERNOISE'),h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'6px',color:'rgba(212,168,83,.65)',marginTop:'7px',textTransform:'uppercase'}},'Vol. I \u00b7 Origins \u00b7 2026'));
@@ -840,6 +840,167 @@ function buildEssay(){
 }
 
 
+// ─── ARCHIVE PAGE ─────────────────────────────────────────────────────────────
+var ISSUES = [
+  {
+    vol:"I", theme:"Origins", date:"Aug 2026", city:"Toronto, ON",
+    stories:6, status:"current",
+    color:"#8B1A0A",
+    desc:"The Caribbean diaspora, the carnival circuit, and the artists building the Toronto sound from the ground up.",
+    coverSlot:"cover",
+    action:function(){go('toc');}
+  },
+  {
+    vol:"II", theme:"[Theme]", date:"Coming Soon", city:"[City]",
+    stories:0, status:"coming",
+    color:"#1A3A5C",
+    desc:"Vol. II is in production. Subscribe to be first when it drops.",
+    coverSlot:null,
+    action:function(){
+      window.open('https://docs.google.com/forms/d/e/1FAIpQLSfxJSrzkS67_vu9WFARVyRTcT6wtNcMDrkG7h1nKoqLt5Y63Q/viewform','_blank');
+    }
+  },
+  {
+    vol:"III", theme:"[Theme]", date:"2027", city:"[City]",
+    stories:0, status:"future",
+    color:"#0A3D2E",
+    desc:"More cities. More artists. More culture.",
+    coverSlot:null,
+    action:null
+  }
+];
+
+function buildArchive(){
+  var wrap=h('div',{style:{background:'#0D0D0D',minHeight:'calc(100vh - 28px)'}});
+
+  // Nav
+  var nav=h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 44px',borderBottom:'.5px solid rgba(255,255,255,.08)',position:'sticky',top:0,zIndex:20,background:'#0D0D0D',flexWrap:'wrap',gap:'8px'}});
+  var bb=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.4)'}},'\u2190 Cover');bb.onclick=function(){go('cover');};nav.appendChild(bb);
+  nav.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'18px',fontWeight:900,letterSpacing:'8px',color:'#F4F0E6'}},'AFTERNOISE'));
+  var rb=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.4)'}},'Read Vol. I');rb.onclick=function(){go('toc');};nav.appendChild(rb);
+  wrap.appendChild(nav);
+
+  var inner=h('div',{style:{maxWidth:'1100px',margin:'0 auto',padding:'56px 44px 100px'}});
+
+  // Header
+  var hdr=h('div',{className:'fade',style:{marginBottom:'48px'}});
+  hdr.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'6px',color:'rgba(212,168,83,.65)',textTransform:'uppercase',marginBottom:'14px'}},'The Collection'));
+  hdr.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(32px,5vw,62px)',fontWeight:900,lineHeight:1,color:'#F4F0E6',letterSpacing:'2px',marginBottom:'12px'}},'All Issues'));
+  var hdSub=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'16px',color:'rgba(244,240,230,.45)',maxWidth:'520px',lineHeight:1.6}});
+  hdSub.textContent='Every volume of Afternoise — digital and print. Independent urban culture, documented issue by issue.';
+  hdr.appendChild(hdSub);
+  inner.appendChild(hdr);
+  inner.appendChild(h('div',{style:{height:'1px',background:'rgba(212,168,83,.2)',marginBottom:'48px'}}));
+
+  // Issues grid
+  var grid=h('div',{className:'fade s1',style:{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'24px',marginBottom:'60px'}});
+
+  ISSUES.forEach(function(issue){
+    var card=h('div',{style:{
+      border:'.5px solid rgba(255,255,255,.08)',
+      cursor:issue.action?'pointer':'default',
+      transition:'border-color .2s,transform .2s',
+      position:'relative',
+      overflow:'hidden'
+    }});
+    if(issue.action){
+      card.onmouseenter=function(){card.style.borderColor='rgba(212,168,83,.4)';card.style.transform='translateY(-3px)';};
+      card.onmouseleave=function(){card.style.borderColor='rgba(255,255,255,.08)';card.style.transform='none';};
+      card.onclick=issue.action;
+    }
+
+    // Cover area
+    var coverArea=h('div',{style:{height:'320px',position:'relative',overflow:'hidden'}});
+    if(issue.coverSlot && P[issue.coverSlot]){
+      var cvi=h('img',{src:P[issue.coverSlot],alt:'Vol. '+issue.vol,style:{width:'100%',height:'100%',objectFit:'cover',display:'block',filter:'brightness(.7)'}});
+      coverArea.appendChild(cvi);
+    } else {
+      var ph=h('div',{style:{
+        width:'100%',height:'100%',
+        background:'linear-gradient(135deg,'+issue.color+'33 0%,#0D0D0D 100%)',
+        display:'flex',alignItems:'center',justifyContent:'center',flexDirection:'column',gap:'12px'
+      }});
+      var volNum=h('div',{style:{fontFamily:"var(--pf)",fontSize:'72px',fontWeight:900,color:issue.color,opacity:.25,lineHeight:1}});volNum.textContent=issue.vol;
+      ph.appendChild(volNum);
+      if(issue.status==='coming'){
+        var badge=h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'4px',textTransform:'uppercase',color:'rgba(244,240,230,.3)',border:'.5px solid rgba(244,240,230,.15)',padding:'6px 16px'}});
+        badge.textContent='Coming Soon';ph.appendChild(badge);
+      }
+      if(issue.status==='future'){
+        var badge2=h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'4px',textTransform:'uppercase',color:'rgba(244,240,230,.2)',border:'.5px solid rgba(244,240,230,.08)',padding:'6px 16px'}});
+        badge2.textContent='In Development';ph.appendChild(badge2);
+      }
+      coverArea.appendChild(ph);
+    }
+    // Vol badge overlay
+    var volBadge=h('div',{style:{position:'absolute',top:'14px',left:'14px',background:issue.color,padding:'4px 12px'}});
+    volBadge.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',textTransform:'uppercase',color:'#F4F0E6'}},'Vol. '+issue.vol));
+    coverArea.appendChild(volBadge);
+    // Status badge
+    if(issue.status==='current'){
+      var cur=h('div',{style:{position:'absolute',top:'14px',right:'14px',background:'rgba(212,168,83,.9)',padding:'3px 10px'}});
+      cur.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'2px',textTransform:'uppercase',color:'#111'}},'Current Issue'));
+      coverArea.appendChild(cur);
+    }
+    card.appendChild(coverArea);
+
+    // Info area
+    var info=h('div',{style:{padding:'20px 22px 24px',borderTop:'.5px solid rgba(255,255,255,.06)'}});
+    info.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'rgba(212,168,83,.6)',textTransform:'uppercase',marginBottom:'6px'}},issue.city+' \u00b7 '+issue.date));
+    var themeEl=h('div',{style:{fontFamily:"var(--pf)",fontSize:'22px',fontWeight:900,color:'#F4F0E6',letterSpacing:'2px',marginBottom:'8px'}});themeEl.textContent=issue.theme;
+    info.appendChild(themeEl);
+    var descEl=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'12px',color:'rgba(244,240,230,.45)',lineHeight:1.7,marginBottom:'18px'}});descEl.textContent=issue.desc;
+    info.appendChild(descEl);
+
+    // Action button
+    if(issue.status==='current'){
+      var readBtn=h('button',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',textTransform:'uppercase',background:'#D4A853',color:'#111',border:'none',padding:'10px 20px',cursor:'pointer',fontWeight:'bold',transition:'background .2s'}},'Read Now \u2192');
+      readBtn.onmouseenter=function(){readBtn.style.background='#F4F0E6';};readBtn.onmouseleave=function(){readBtn.style.background='#D4A853';};
+      readBtn.onclick=function(e){e.stopPropagation();go('toc');};
+      info.appendChild(readBtn);
+      if(issue.stories>0){
+        info.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'2px',color:'rgba(244,240,230,.3)',textTransform:'uppercase',marginLeft:'12px'}},issue.stories+' Stories'));
+      }
+    } else if(issue.status==='coming'){
+      var notifyBtn=h('button',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',textTransform:'uppercase',background:'transparent',color:'rgba(212,168,83,.7)',border:'1px solid rgba(212,168,83,.3)',padding:'10px 20px',cursor:'pointer',transition:'all .2s'}},'Notify Me \u2192');
+      notifyBtn.onmouseenter=function(){notifyBtn.style.borderColor='#D4A853';notifyBtn.style.color='#D4A853';};
+      notifyBtn.onmouseleave=function(){notifyBtn.style.borderColor='rgba(212,168,83,.3)';notifyBtn.style.color='rgba(212,168,83,.7)';};
+      notifyBtn.onclick=function(e){e.stopPropagation();window.open('https://docs.google.com/forms/d/e/1FAIpQLSfxJSrzkS67_vu9WFARVyRTcT6wtNcMDrkG7h1nKoqLt5Y63Q/viewform','_blank');};
+      info.appendChild(notifyBtn);
+    } else {
+      var futureEl=h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'rgba(244,240,230,.2)',textTransform:'uppercase'}},'Coming '+issue.date);
+      info.appendChild(futureEl);
+    }
+    card.appendChild(info);
+    grid.appendChild(card);
+  });
+
+  inner.appendChild(grid);
+
+  // Print note
+  var print=h('div',{className:'fade s2',style:{borderTop:'.5px solid rgba(255,255,255,.07)',paddingTop:'32px',display:'flex',gap:'40px',flexWrap:'wrap',alignItems:'flex-start'}});
+  var pl=h('div',{style:{flex:1,minWidth:'240px'}});
+  pl.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'4px',color:'rgba(212,168,83,.6)',textTransform:'uppercase',marginBottom:'10px'}},'Print Editions'));
+  var plT=h('div',{style:{fontFamily:"var(--pf)",fontSize:'15px',color:'#F4F0E6',lineHeight:1.7}});
+  plT.textContent='Limited print runs accompany each digital issue. Vol. I print edition ships worldwide. Subscribe to get notified when Vol. II print goes live.';
+  pl.appendChild(plT);print.appendChild(pl);
+  var pr=h('div',{style:{flexShrink:0}});
+  var pBtn=h('a',{href:'https://docs.google.com/forms/d/e/1FAIpQLSfxJSrzkS67_vu9WFARVyRTcT6wtNcMDrkG7h1nKoqLt5Y63Q/viewform',target:'_blank',rel:'noopener',style:{display:'inline-block',fontFamily:"var(--lb)",fontSize:'10px',letterSpacing:'3px',textTransform:'uppercase',background:'#D4A853',color:'#111',padding:'13px 28px',textDecoration:'none',fontWeight:'bold',transition:'background .2s'}},'Join the List \u2192');
+  pBtn.onmouseenter=function(){pBtn.style.background='#F4F0E6';};pBtn.onmouseleave=function(){pBtn.style.background='#D4A853';};
+  pr.appendChild(pBtn);print.appendChild(pr);
+  inner.appendChild(print);
+
+  // Footer
+  var ft=h('div',{style:{marginTop:'48px',paddingTop:'18px',borderTop:'.5px solid rgba(255,255,255,.07)',display:'flex',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap',gap:'8px'}});
+  ft.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'2px',color:'rgba(244,240,230,.18)',textTransform:'uppercase'}},'\u00a9 Afternoise 2026'));
+  var fmid=h('span',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'11px',color:'rgba(244,240,230,.18)'}});fmid.textContent="Culture Doesn't Wait";ft.appendChild(fmid);
+  ft.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'2px',color:'rgba(244,240,230,.18)',textTransform:'uppercase'}},'afternoisemag.com'));
+  inner.appendChild(ft);
+
+  wrap.appendChild(inner);return wrap;
+}
+
+
 // ─── RENDER ───────────────────────────────────────────────────────────────────
 function render(){
   cancelAnimationFrame(TRaf);window.onscroll=null;
@@ -854,6 +1015,7 @@ function render(){
   if(ST.page==='playlist')pw.appendChild(buildPlaylist());
   if(ST.page==='radar')pw.appendChild(buildRadar());
   if(ST.page==='essay')pw.appendChild(buildEssay());
+  if(ST.page==='archive')pw.appendChild(buildArchive());
   root.appendChild(pw);
   setTimeout(function(){
     pw.style.transition='opacity .45s ease,transform .45s ease';pw.style.opacity='1';pw.style.transform='translateY(0)';
