@@ -138,12 +138,16 @@ var C = {dt:"#8B1A0A",fd:"#1A3A5C",soca:"#8B4A00",costume:"#4A1A6B",dj:"#0A3D2E"
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 var LINES = [
-  {sec:"MUSIC",text:"DT the Artist — the rap-soca fusion nobody saw coming"},
-  {sec:"MUSIC",text:"4D — engineer, producer, artist: the full picture"},
-  {sec:"CULTURE",text:"Toronto Carnival: soca, mas, and the diaspora"},
-  {sec:"FASHION",text:"Costume Creators — the mas band making art you wear"},
+  {sec:"MUSIC",    text:"DT the Artist — the rap-soca fusion nobody saw coming"},
+  {sec:"MUSIC",    text:"4D — engineer, producer, artist: the full picture"},
+  {sec:"CULTURE",  text:"Toronto Carnival: soca, mas, and the diaspora"},
+  {sec:"FASHION",  text:"Costume Creators — the mas band making art you wear"},
   {sec:"EXCLUSIVE",text:"DJ Black Ent & DJ 3 Live — from clubs to carnival"},
-  {sec:"TRAVEL",text:"Toronto after dark: the Afternoise hotspot guide"}
+  {sec:"TRAVEL",   text:"Toronto after dark: the Afternoise hotspot guide"},
+  {sec:"PLAYLIST", text:"Vol. I soundtrack — the records that captured the season"},
+  {sec:"RADAR",    text:"Yannabaiibee — Canada next musical artist to watch"},
+  {sec:"PHOTOS",   text:"In Frame — Toronto carnival season in pictures"},
+  {sec:"LETTER",   text:"Letter from the Editor — why Vol. I, why Toronto, why now"},
 ];
 
 var SECS = [
@@ -252,12 +256,28 @@ function buildCover(){
 
   var right=h('div',{style:{background:'#0D0D0D',display:'flex',flexDirection:'column',justifyContent:'center',padding:'0 clamp(20px,4vw,48px)'}});
   var nav=h('div',{className:'fade',style:{display:'flex',justifyContent:'space-between',padding:'18px 0',borderBottom:'.5px solid rgba(255,255,255,.07)',marginBottom:'28px',flexWrap:'wrap',gap:'8px'}});
-  ['MUSIC','FASHION','CULTURE','TRAVEL'].forEach(function(n){nav.appendChild(h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.4)'}},n));});
   var ib=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.4)'}},'ISSUES \u203a');ib.onclick=function(){go('toc');};nav.appendChild(ib);
   var ab=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.4)'}},'ABOUT');ab.onclick=function(){go('about');};nav.appendChild(ab);
   var lb2=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.4)'}},'LETTER');lb2.onclick=function(){go('letter');};nav.appendChild(lb2);
   var mast=h('div',{className:'fade s1',style:{textAlign:'center',marginBottom:'6px'}},h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(36px,5vw,64px)',fontWeight:900,letterSpacing:'14px',lineHeight:1,color:'#F4F0E6'}},'AFTERNOISE'),h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'6px',color:'rgba(212,168,83,.65)',marginTop:'7px',textTransform:'uppercase'}},'Vol. I \u00b7 Origins \u00b7 2026'));
-  var r1=h('div',{className:'fade s2',style:{height:'1px',background:'rgba(212,168,83,.2)',margin:'20px 0'}});
+  // Section tabs under masthead
+  var tabs=h('div',{className:'fade s2',style:{display:'flex',justifyContent:'center',gap:'0',marginTop:'14px',marginBottom:'0',borderTop:'.5px solid rgba(255,255,255,.08)',borderBottom:'.5px solid rgba(255,255,255,.08)'}});
+  [
+    {label:'MUSIC',   action:function(){go('toc');}},
+    {label:'FASHION', action:function(){go('article',3);}},
+    {label:'CULTURE', action:function(){go('article',2);}},
+    {label:'TRAVEL',  action:function(){go('article',5);}},
+    {label:'RADAR',   action:function(){go('radar');}},
+    {label:'PHOTOS',  action:function(){go('essay');}},
+  ].forEach(function(tab){
+    var t=h('button',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'3px',textTransform:'uppercase',background:'none',border:'none',borderRight:'.5px solid rgba(255,255,255,.08)',color:'rgba(244,240,230,.35)',padding:'9px 14px',cursor:'pointer',transition:'color .15s,background .15s'}});
+    t.textContent=tab.label;
+    t.onmouseenter=function(){t.style.color='#D4A853';t.style.background='rgba(255,255,255,.04)';};
+    t.onmouseleave=function(){t.style.color='rgba(244,240,230,.35)';t.style.background='none';};
+    t.onclick=tab.action;
+    tabs.appendChild(t);
+  });
+  var r1=h('div',{className:'fade s2',style:{height:'1px',background:'rgba(212,168,83,.2)',margin:'16px 0 20px'}});
   var clBox=h('div',{className:'fade s3',style:{marginBottom:'20px'}});
   clBox.appendChild(h('div',{style:{display:'flex',alignItems:'center',gap:'12px',marginBottom:'14px'}},h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'5px',color:'rgba(244,240,230,.25)',textTransform:'uppercase'}},'In This Issue'),h('div',{style:{flex:1,height:'.5px',background:'rgba(255,255,255,.08)'}})));
   LINES.forEach(function(cl){
@@ -307,7 +327,7 @@ function buildCover(){
   ft.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'2px',color:'rgba(244,240,230,.15)',textTransform:'uppercase'}},'\u00a9 Afternoise 2026'));
   var fmid=h('span',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'11px',color:'rgba(244,240,230,.18)'}});fmid.textContent="Culture Doesn't Wait";ft.appendChild(fmid);
   ft.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'2px',color:'rgba(244,240,230,.15)',textTransform:'uppercase'}},'afternoisemag.com'));
-  [nav,mast,r1,clBox,r2,lead,r3,pf2,ft].forEach(function(el){right.appendChild(el);});
+  [nav,mast,tabs,r1,clBox,r2,lead,r3,pf2,ft].forEach(function(el){right.appendChild(el);});
   wrap.appendChild(left);wrap.appendChild(right);
   return wrap;
 }
@@ -318,9 +338,13 @@ function buildTOC(){
   var nav=h('div',{className:'fade',style:{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 44px',borderBottom:'2.5px solid #111',background:'#F4F0E6',position:'sticky',top:0,zIndex:20,flexWrap:'wrap',gap:'8px'}});
   var bb=h('button',{className:'nbtn',style:{color:'#111'}},'\u2190 Cover');bb.onclick=function(){go('cover');};nav.appendChild(bb);
   nav.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(18px,3.5vw,38px)',fontWeight:900,letterSpacing:'10px',color:'#111'}},'AFTERNOISE'));
-  var tr=h('div',{style:{display:'flex',alignItems:'center',gap:'20px'}});
-  tr.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'#888',textTransform:'uppercase'}},'Vol. I \u2014 Origins \u00b7 2026'));
+  var tr=h('div',{style:{display:'flex',alignItems:'center',gap:'14px',flexWrap:'wrap'}});
+  tr.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'#888',textTransform:'uppercase'}},'Vol. I \u2014 2026'));
   var ab2=h('button',{className:'nbtn',style:{color:'#888'}},'About');ab2.onclick=function(){go('about');};tr.appendChild(ab2);
+  var lb3=h('button',{className:'nbtn',style:{color:'#888'}},'Letter');lb3.onclick=function(){go('letter');};tr.appendChild(lb3);
+  var plb=h('button',{className:'nbtn',style:{color:'#888'}},'Playlist');plb.onclick=function(){go('playlist');};tr.appendChild(plb);
+  var rab=h('button',{className:'nbtn',style:{color:'#888'}},'Radar');rab.onclick=function(){go('radar');};tr.appendChild(rab);
+  var peb=h('button',{className:'nbtn',style:{color:'#888'}},'Photos');peb.onclick=function(){go('essay');};tr.appendChild(peb);
   nav.appendChild(tr);
   var inner=h('div',{style:{maxWidth:'1200px',margin:'0 auto',padding:'28px 44px 60px'}});
   inner.appendChild(h('div',{className:'fade s1',style:{display:'flex',alignItems:'center',gap:'16px',marginBottom:'24px'}},h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'5px',color:'#999',textTransform:'uppercase'}},'Inside Vol. I'),h('div',{style:{flex:1,height:'.5px',background:'#ccc'}}),h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'#bbb',textTransform:'uppercase'}},SECS.length+' Stories \u00b7 Toronto, ON')));
