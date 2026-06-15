@@ -255,6 +255,7 @@ function buildCover(){
   ['MUSIC','FASHION','CULTURE','TRAVEL'].forEach(function(n){nav.appendChild(h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.4)'}},n));});
   var ib=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.4)'}},'ISSUES \u203a');ib.onclick=function(){go('toc');};nav.appendChild(ib);
   var ab=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.4)'}},'ABOUT');ab.onclick=function(){go('about');};nav.appendChild(ab);
+  var lb2=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.4)'}},'LETTER');lb2.onclick=function(){go('letter');};nav.appendChild(lb2);
   var mast=h('div',{className:'fade s1',style:{textAlign:'center',marginBottom:'6px'}},h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(36px,5vw,64px)',fontWeight:900,letterSpacing:'14px',lineHeight:1,color:'#F4F0E6'}},'AFTERNOISE'),h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'6px',color:'rgba(212,168,83,.65)',marginTop:'7px',textTransform:'uppercase'}},'Vol. I \u00b7 Origins \u00b7 2026'));
   var r1=h('div',{className:'fade s2',style:{height:'1px',background:'rgba(212,168,83,.2)',margin:'20px 0'}});
   var clBox=h('div',{className:'fade s3',style:{marginBottom:'20px'}});
@@ -481,6 +482,269 @@ function buildAbout(){
   wrap.appendChild(body);return wrap;
 }
 
+// ─── SHARED PAGE SHELL ────────────────────────────────────────────────────────
+function pageShell(opts){
+  // opts: {bg, borderColor, backPage, backLabel, rightBtn, rightLabel}
+  var wrap=h('div',{style:{background:opts.bg||'#F4F0E6',minHeight:'calc(100vh - 28px)'}});
+  var nav=h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 44px',borderBottom:'1.5px solid '+(opts.borderColor||'#111'),background:opts.bg||'#F4F0E6',position:'sticky',top:0,zIndex:20,flexWrap:'wrap',gap:'8px'}});
+  var bb=h('button',{className:'nbtn',style:{color:opts.dark?'rgba(244,240,230,.5)':'#888'}},'\u2190 '+(opts.backLabel||'Back'));
+  bb.onclick=function(){go(opts.backPage||'toc');};nav.appendChild(bb);
+  nav.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'18px',fontWeight:900,letterSpacing:'8px',color:opts.dark?'#F4F0E6':'#111'}},'AFTERNOISE'));
+  if(opts.rightLabel){var rb=h('button',{className:'nbtn',style:{color:opts.dark?'rgba(244,240,230,.4)':'#888'}},opts.rightLabel);rb.onclick=function(){go(opts.rightPage||'toc');};nav.appendChild(rb);}
+  else nav.appendChild(h('div',{style:{width:'80px'}}));
+  wrap.appendChild(nav);
+  return wrap;
+}
+
+// ─── LETTER FROM THE EDITOR ───────────────────────────────────────────────────
+function buildLetter(){
+  var wrap=pageShell({backPage:'toc',backLabel:'All Stories',rightLabel:'Read Vol. I',rightPage:'toc'});
+  var inner=h('div',{style:{maxWidth:'720px',margin:'0 auto',padding:'60px 44px 100px'}});
+  inner.appendChild(h('div',{className:'fade',style:{marginBottom:'40px'}},
+    h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'6px',color:'#bbb',textTransform:'uppercase',marginBottom:'12px'}},'Vol. I — Origins'),
+    h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(28px,4vw,48px)',fontWeight:900,lineHeight:1.05,color:'#111',marginBottom:'4px'}},'Letter from'),
+    h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'clamp(28px,4vw,48px)',fontWeight:400,lineHeight:1.05,color:'#111'}},'the Editor')
+  ));
+  inner.appendChild(h('div',{style:{height:'2px',background:'#111',marginBottom:'44px'}}));
+  function para(t,cls){var d=h('div',{className:cls||'fade s1',style:{fontFamily:"var(--lb)",fontSize:'16px',lineHeight:2,color:'#1a1a1a',marginBottom:'26px'}});d.textContent=t;return d;}
+  // Drop cap opener
+  var opener=h('div',{className:'fade',style:{marginBottom:'26px'}});
+  var dc=h('div',{});
+  var drop=h('span',{style:{float:'left',fontFamily:"var(--pf)",fontSize:'80px',fontWeight:900,lineHeight:.76,marginRight:'12px',marginTop:'10px',color:'#111'}},'\u2018');
+  var rest=h('span',{style:{fontFamily:"var(--lb)",fontSize:'16px',lineHeight:2,color:'#1a1a1a'}});
+  rest.textContent='[PLACEHOLDER: Opening line of your letter — the sentence that pulls the reader in. Could be a memory, an observation, a moment from Toronto. Your words go here.]';
+  dc.appendChild(drop);dc.appendChild(rest);opener.appendChild(dc);inner.appendChild(opener);
+  inner.appendChild(para('[PLACEHOLDER: Paragraph 2 — why you started Afternoise. The gap you saw in the culture, what was missing, what you wanted to build. Rough notes are fine, send them and I will shape it into copy.]','fade s2'));
+  inner.appendChild(para('[PLACEHOLDER: Paragraph 3 — why Toronto for Vol. I. The Caribbean diaspora, the carnival scene, the artists you met. What makes this city the right place to start.]','fade s3'));
+  inner.appendChild(para('[PLACEHOLDER: Paragraph 4 — the artists inside this issue and what they represent. Why DT, 4D, the DJs, Costume Creators. What they have in common and what that says about the culture you are documenting.]','fade s4'));
+  inner.appendChild(para('[PLACEHOLDER: Closing paragraph — what Vol. I means to you and what comes next. Where Afternoise goes from here. Leave the reader with something to hold onto.]','fade s5'));
+  // Pull quote
+  var pq=h('div',{className:'fade s5',style:{borderLeft:'3px solid #111',paddingLeft:'24px',margin:'36px 0'}});
+  var pqt=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'20px',lineHeight:1.5,color:'#111',marginBottom:'8px'}});
+  pqt.textContent='"[REPLACE: The best line from your letter — the one that captures what Afternoise is about in a single sentence.]"';
+  pq.appendChild(pqt);inner.appendChild(pq);
+  // Sign off
+  var so=h('div',{className:'fade s6',style:{marginTop:'44px',paddingTop:'32px',borderTop:'.5px solid #ddd'}});
+  so.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'22px',color:'#111',marginBottom:'4px'}},'[Your Name]'));
+  so.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'10px',letterSpacing:'3px',color:'#aaa',textTransform:'uppercase',marginBottom:'4px'}},'Founder & Creative Director, Afternoise'));
+  so.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'10px',letterSpacing:'2px',color:'#bbb',textTransform:'uppercase'}},'Toronto, ON \u00b7 Aug 2026'));
+  inner.appendChild(so);
+  // CTA
+  var cta=h('div',{className:'fade s7',style:{marginTop:'48px',textAlign:'center'}});
+  var rb=h('button',{className:'btn-g',style:{fontSize:'10px',letterSpacing:'3px'}},'Read Vol. I \u2192');rb.onclick=function(){go('toc');};cta.appendChild(rb);
+  inner.appendChild(cta);
+  wrap.appendChild(inner);return wrap;
+}
+
+// ─── PLAYLIST ─────────────────────────────────────────────────────────────────
+var TRACKS = [
+  {num:"01",title:"[Song Title]",artist:"[Artist Name]",note:"[One line on why this track belongs on the Vol. I playlist]"},
+  {num:"02",title:"[Song Title]",artist:"[Artist Name]",note:"[One line on why this track belongs on the Vol. I playlist]"},
+  {num:"03",title:"[Song Title]",artist:"[Artist Name]",note:"[One line on why this track belongs on the Vol. I playlist]"},
+  {num:"04",title:"[Song Title]",artist:"[Artist Name]",note:"[One line on why this track belongs on the Vol. I playlist]"},
+  {num:"05",title:"[Song Title]",artist:"[Artist Name]",note:"[One line on why this track belongs on the Vol. I playlist]"},
+  {num:"06",title:"[Song Title]",artist:"[Artist Name]",note:"[One line on why this track belongs on the Vol. I playlist]"},
+  {num:"07",title:"[Song Title]",artist:"[Artist Name]",note:"[One line on why this track belongs on the Vol. I playlist]"},
+  {num:"08",title:"[Song Title]",artist:"[Artist Name]",note:"[One line on why this track belongs on the Vol. I playlist]"},
+  {num:"09",title:"[Song Title]",artist:"[Artist Name]",note:"[One line on why this track belongs on the Vol. I playlist]"},
+  {num:"10",title:"[Song Title]",artist:"[Artist Name]",note:"[One line on why this track belongs on the Vol. I playlist]"},
+];
+
+function buildPlaylist(){
+  var wrap=pageShell({backPage:'toc',backLabel:'All Stories',rightLabel:'Listen Live',rightPage:'toc'});
+  var inner=h('div',{style:{maxWidth:'800px',margin:'0 auto',padding:'60px 44px 100px'}});
+  // Header
+  var hdr=h('div',{className:'fade',style:{marginBottom:'36px'}});
+  hdr.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'6px',color:'#bbb',textTransform:'uppercase',marginBottom:'12px'}},'Vol. I — Origins'));
+  hdr.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(28px,4vw,52px)',fontWeight:900,lineHeight:1,color:'#111',marginBottom:'8px'}},'The Playlist'));
+  var sub=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'16px',color:'#888',maxWidth:'480px',lineHeight:1.6}});
+  sub.textContent='The soundtrack to Vol. I. The records that captured the Toronto sound, the carnival energy, and the culture this issue documents.';
+  hdr.appendChild(sub);inner.appendChild(hdr);
+  inner.appendChild(h('div',{style:{height:'2px',background:'#111',marginBottom:'8px'}}));
+  // Column headers
+  inner.appendChild(h('div',{style:{display:'flex',gap:'16px',padding:'10px 0',borderBottom:'.5px solid #ddd',marginBottom:'4px'}},
+    h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'3px',color:'#bbb',textTransform:'uppercase',width:'32px',flexShrink:0}},'#'),
+    h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'3px',color:'#bbb',textTransform:'uppercase',flex:1}},'Track'),
+    h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'3px',color:'#bbb',textTransform:'uppercase',flex:1,display:'none'}}) // spacer
+  ));
+  // Tracks
+  TRACKS.forEach(function(t,i){
+    var row=h('div',{className:'fade s'+(Math.min(i+1,8)),style:{display:'flex',gap:'16px',padding:'16px 0',borderBottom:'.5px solid #eee',alignItems:'flex-start',cursor:'default'}});
+    row.onmouseenter=function(){row.style.background='rgba(0,0,0,.02)';};
+    row.onmouseleave=function(){row.style.background='transparent';};
+    row.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'11px',letterSpacing:'1px',color:'#ccc',width:'32px',flexShrink:0,paddingTop:'3px'}},t.num));
+    var info=h('div',{style:{flex:1}});
+    var title=h('div',{style:{fontFamily:"var(--pf)",fontSize:'18px',fontWeight:700,color:'#111',lineHeight:1.2,marginBottom:'3px'}});title.textContent=t.title;info.appendChild(title);
+    var artist=h('div',{style:{fontFamily:"var(--lb)",fontSize:'12px',color:'#888',marginBottom:'6px'}});artist.textContent=t.artist;info.appendChild(artist);
+    var note=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'11px',color:'#aaa',lineHeight:1.5}});note.textContent=t.note;info.appendChild(note);
+    row.appendChild(info);
+    inner.appendChild(row);
+  });
+  // Spotify CTA
+  var spot=h('div',{className:'fade s8',style:{marginTop:'40px',padding:'24px 28px',background:'#f5f2eb',display:'flex',alignItems:'center',gap:'20px',flexWrap:'wrap'}});
+  spot.appendChild(h('div',{style:{flex:1}},
+    h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'#bbb',textTransform:'uppercase',marginBottom:'6px'}},'Stream the Playlist'),
+    h('div',{style:{fontFamily:"var(--pf)",fontSize:'16px',fontWeight:700,color:'#111'}})
+  ));
+  var spEl=spot.querySelector('div:last-child div:last-child');spEl.textContent='Find the Vol. I playlist on Spotify — link in bio @afternoisemagazine';
+  inner.appendChild(spot);
+  // Radio note
+  var rn=h('div',{className:'fade s8',style:{marginTop:'16px',padding:'16px 20px',border:'.5px solid rgba(212,168,83,.3)',display:'flex',alignItems:'center',gap:'14px'}});
+  rn.appendChild(h('div',{style:{width:'8px',height:'8px',borderRadius:'50%',background:'#D4A853',flexShrink:0,animation:'pulse 1.8s ease-in-out infinite'}}));
+  var rnt=h('div',{style:{fontFamily:"var(--lb)",fontSize:'12px',color:'#888',fontStyle:'italic'}});rnt.textContent='Also streaming on Afternoise Radio — live at afternoisemag.com';rn.appendChild(rnt);
+  inner.appendChild(rn);
+  wrap.appendChild(inner);return wrap;
+}
+
+// ─── NEW ARTIST RADAR ─────────────────────────────────────────────────────────
+var RADAR_QA = [
+  {q:"How would you describe your sound to someone who has never heard you before?", a:"[REPLACE: Yannabaiibee answer]"},
+  {q:"What is the one record — yours or someone else's — that changed how you approach music?", a:"[REPLACE: Yannabaiibee answer]"},
+  {q:"Growing up in Canada, how does that shape what you make?", a:"[REPLACE: Yannabaiibee answer]"},
+  {q:"What are you working on right now that people should know about?", a:"[REPLACE: Yannabaiibee answer]"},
+  {q:"What does it mean to you to be featured in Afternoise Vol. I?", a:"[REPLACE: Yannabaiibee answer]"},
+];
+
+function buildRadar(){
+  var wrap=pageShell({backPage:'toc',backLabel:'All Stories',rightLabel:'Vol. I',rightPage:'toc'});
+  var inner=h('div',{style:{maxWidth:'800px',margin:'0 auto',padding:'60px 44px 100px'}});
+  // Header
+  var hdr=h('div',{className:'fade',style:{marginBottom:'40px'}});
+  hdr.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'6px',color:'#bbb',textTransform:'uppercase',marginBottom:'12px'}},'Vol. I — New Artist Radar'));
+  hdr.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(28px,4vw,52px)',fontWeight:900,lineHeight:1,color:'#111',marginBottom:'8px'}},'Watch This Space'));
+  var sub2=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'16px',color:'#888',maxWidth:'520px',lineHeight:1.6}});
+  sub2.textContent='One artist building something real before the world catches up. Vol. I Radar: Yannabaiibee.';
+  hdr.appendChild(sub2);inner.appendChild(hdr);
+  inner.appendChild(h('div',{style:{height:'2px',background:'#111',marginBottom:'44px'}}));
+  // Artist card
+  var card=h('div',{className:'fade s1',style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'44px',marginBottom:'48px',alignItems:'start'}});
+  // Photo
+  var photo=h('div',{className:'ph-img',style:{height:'420px',position:'relative'}});
+  inner.appendChild(h('div',{style:{display:'flex',gap:'0',marginBottom:'48px'}}));
+  // Left — photo
+  var leftCol=h('div',{className:'fade s1'});
+  var ph=h('div',{className:'ph-img',style:{height:'420px',marginBottom:'16px',position:'relative'}});
+  ph.style.background='linear-gradient(135deg,#1a1a1a 0%,#2a2a2a 100%)';
+  var phNote=h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'#ccc',textTransform:'uppercase',textAlign:'center',marginTop:'8px'}});phNote.textContent='[REPLACE: Photo of Yannabaiibee]';
+  leftCol.appendChild(ph);leftCol.appendChild(phNote);
+  // Handles
+  var handles=h('div',{style:{marginTop:'16px'}});
+  var igH=h('a',{href:'https://www.instagram.com/yannaabaiibee/',target:'_blank',rel:'noopener',style:{display:'flex',alignItems:'center',gap:'8px',textDecoration:'none',marginBottom:'8px',transition:'opacity .2s'}});
+  igH.onmouseenter=function(){igH.style.opacity='.6';};igH.onmouseleave=function(){igH.style.opacity='1';};
+  var igIc=h('div',{});igIc.innerHTML='<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:15px;height:15px"><rect x="2" y="2" width="20" height="20" rx="6" stroke="#111" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="#111" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="#111"/></svg>';
+  igH.appendChild(igIc);igH.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'11px',color:'#333'}},'@yannaabaiibee'));
+  var tkH=h('div',{style:{display:'flex',alignItems:'center',gap:'8px'}});
+  var tkIc=h('div',{style:{width:'15px',height:'15px',display:'flex',alignItems:'center',justifyContent:'center'}});tkIc.innerHTML='<svg viewBox="0 0 24 24" fill="#111" xmlns="http://www.w3.org/2000/svg" style="width:15px;height:15px"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>';
+  tkH.appendChild(tkIc);tkH.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'11px',color:'#333'}},'1YannaaBaiibee'));
+  handles.appendChild(igH);handles.appendChild(tkH);leftCol.appendChild(handles);
+  // Right — bio + Q&A
+  var rightCol=h('div',{className:'fade s2'});
+  rightCol.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'4px',color:'#D4A853',textTransform:'uppercase',marginBottom:'8px'}},'Radar \u2014 Vol. I'));
+  rightCol.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(28px,3.5vw,44px)',fontWeight:900,lineHeight:1,color:'#111',marginBottom:'4px'}},'Yannabaiibee'));
+  rightCol.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'11px',letterSpacing:'2px',color:'#aaa',textTransform:'uppercase',marginBottom:'20px'}},'Canada \u00b7 Musical Artist'));
+  var bio=h('div',{style:{fontFamily:"var(--lb)",fontSize:'14px',lineHeight:1.8,color:'#444',marginBottom:'28px',borderLeft:'3px solid #D4A853',paddingLeft:'16px'}});
+  bio.textContent='[REPLACE: 2-3 sentence intro on Yannabaiibee — what she does, what makes her worth watching right now, why she is on the Vol. I radar. Send Craig the answer to question 3 and I will write this.]';
+  rightCol.appendChild(bio);
+  // Q&A
+  rightCol.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'4px',color:'#111',textTransform:'uppercase',marginBottom:'16px',paddingBottom:'8px',borderBottom:'1.5px solid #111'}},'Rapid Q&A'));
+  RADAR_QA.forEach(function(qa,i){
+    var item=h('div',{style:{marginBottom:'22px',paddingBottom:'22px',borderBottom:i<RADAR_QA.length-1?'.5px solid #eee':'none'}});
+    var q=h('div',{style:{fontFamily:"var(--lb)",fontSize:'11px',fontWeight:700,color:'#111',marginBottom:'6px',lineHeight:1.5}});q.textContent='Q: '+qa.q;item.appendChild(q);
+    var a=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'14px',color:'#555',lineHeight:1.7}});a.textContent=qa.a;item.appendChild(a);
+    rightCol.appendChild(item);
+  });
+  var twoCol=h('div',{style:{display:'grid',gridTemplateColumns:'1fr 1.4fr',gap:'40px',alignItems:'start'}});
+  twoCol.appendChild(leftCol);twoCol.appendChild(rightCol);
+  inner.appendChild(twoCol);
+  // Footer CTA
+  var cta=h('div',{className:'fade s8',style:{marginTop:'48px',paddingTop:'28px',borderTop:'.5px solid #ddd',textAlign:'center'}});
+  var rb=h('button',{className:'btn-g',style:{fontSize:'10px',letterSpacing:'3px'}},'Back to Vol. I \u2192');rb.onclick=function(){go('toc');};cta.appendChild(rb);
+  inner.appendChild(cta);
+  wrap.appendChild(inner);return wrap;
+}
+
+// ─── PHOTO ESSAY ──────────────────────────────────────────────────────────────
+var ESSAY_SLOTS = [
+  {slot:'cover',   caption:'[REPLACE: Caption — location, moment, context]', size:'full'},
+  {slot:'dt1',     caption:'[REPLACE: Caption for this image]',               size:'half'},
+  {slot:'costume1',caption:'[REPLACE: Caption for this image]',               size:'half'},
+  {slot:'dj1',     caption:'[REPLACE: Caption for this image]',               size:'third'},
+  {slot:'dt2',     caption:'[REPLACE: Caption for this image]',               size:'third'},
+  {slot:'costume2',caption:'[REPLACE: Caption for this image]',               size:'third'},
+  {slot:'dj2',     caption:'[REPLACE: Caption for this image]',               size:'half'},
+  {slot:'dt3',     caption:'[REPLACE: Caption for this image]',               size:'half'},
+  {slot:'costume3',caption:'[REPLACE: Caption for this image]',               size:'full'},
+];
+
+function buildEssay(){
+  var wrap=pageShell({bg:'#0D0D0D',borderColor:'rgba(255,255,255,.08)',dark:true,backPage:'toc',backLabel:'All Stories',rightLabel:'Vol. I',rightPage:'toc'});
+  var inner=h('div',{style:{maxWidth:'1100px',margin:'0 auto',padding:'48px 32px 100px'}});
+  // Header
+  var hdr=h('div',{className:'fade',style:{marginBottom:'40px',textAlign:'center'}});
+  hdr.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'6px',color:'rgba(212,168,83,.65)',textTransform:'uppercase',marginBottom:'12px'}},'Vol. I — Origins \u00b7 Toronto'));
+  hdr.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(28px,4vw,52px)',fontWeight:900,lineHeight:1,color:'#F4F0E6',marginBottom:'8px'}},'In Frame'));
+  var sub3=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'16px',color:'rgba(244,240,230,.45)',maxWidth:'480px',lineHeight:1.6,margin:'0 auto'}});
+  sub3.textContent='Toronto, Ontario. Caribbean Carnival season. The moments between the moments.';
+  hdr.appendChild(sub3);inner.appendChild(hdr);
+  inner.appendChild(h('div',{style:{height:'1px',background:'rgba(212,168,83,.2)',marginBottom:'32px'}}));
+  // Full width hero
+  var hero=h('div',{className:'reveal',style:{marginBottom:'4px',position:'relative'}});
+  var hi=pImg('cover',{width:'100%',height:'560px',objectFit:'cover',objectPosition:'center 20%',display:'block',filter:'brightness(.85)'});
+  hero.appendChild(hi);
+  var hcap=h('div',{style:{padding:'10px 0',display:'flex',justifyContent:'space-between',alignItems:'center'}});
+  var hcapL=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'11px',color:'rgba(244,240,230,.45)'}});hcapL.textContent=ESSAY_SLOTS[0].caption;hcap.appendChild(hcapL);
+  hcap.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'rgba(212,168,83,.4)',textTransform:'uppercase'}},'01 / '+(ESSAY_SLOTS.length)));
+  hero.appendChild(hcap);inner.appendChild(hero);
+  // Two col row
+  var row2=h('div',{className:'reveal',style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'4px',marginBottom:'4px'}});
+  [ESSAY_SLOTS[1],ESSAY_SLOTS[2]].forEach(function(es,i){
+    var cell=h('div',{});
+    var ci2=pImg(es.slot,{width:'100%',height:'400px',objectFit:'cover',display:'block',filter:'brightness(.88)'});
+    cell.appendChild(ci2);
+    var cap2=h('div',{style:{padding:'8px 0'}});
+    var capT=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'10px',color:'rgba(244,240,230,.4)'}});capT.textContent=es.caption;cap2.appendChild(capT);
+    cell.appendChild(cap2);row2.appendChild(cell);
+  });
+  inner.appendChild(row2);
+  // Three col row
+  var row3=h('div',{className:'reveal',style:{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:'4px',marginBottom:'4px'}});
+  [ESSAY_SLOTS[3],ESSAY_SLOTS[4],ESSAY_SLOTS[5]].forEach(function(es){
+    var cell=h('div',{});
+    var ci3=pImg(es.slot,{width:'100%',height:'300px',objectFit:'cover',display:'block',filter:'brightness(.88)'});
+    cell.appendChild(ci3);
+    var cap3=h('div',{style:{padding:'8px 0'}});
+    var capT3=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'10px',color:'rgba(244,240,230,.4)'}});capT3.textContent=es.caption;cap3.appendChild(capT3);
+    cell.appendChild(cap3);row3.appendChild(cell);
+  });
+  inner.appendChild(row3);
+  // Two col again
+  var row2b=h('div',{className:'reveal',style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'4px',marginBottom:'4px'}});
+  [ESSAY_SLOTS[6],ESSAY_SLOTS[7]].forEach(function(es){
+    var cell=h('div',{});
+    var ci4=pImg(es.slot,{width:'100%',height:'380px',objectFit:'cover',display:'block',filter:'brightness(.88)'});
+    cell.appendChild(ci4);
+    var cap4=h('div',{style:{padding:'8px 0'}});
+    var capT4=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'10px',color:'rgba(244,240,230,.4)'}});capT4.textContent=es.caption;cap4.appendChild(capT4);
+    cell.appendChild(cap4);row2b.appendChild(cell);
+  });
+  inner.appendChild(row2b);
+  // Final full
+  var fin=h('div',{className:'reveal',style:{marginBottom:'4px'}});
+  var fi=pImg('costume3',{width:'100%',height:'500px',objectFit:'cover',objectPosition:'center',display:'block',filter:'brightness(.88)'});
+  fin.appendChild(fi);
+  var fcap=h('div',{style:{padding:'10px 0',display:'flex',justifyContent:'space-between'}});
+  var fcapT=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'11px',color:'rgba(244,240,230,.45)'}});fcapT.textContent=ESSAY_SLOTS[8].caption;fcap.appendChild(fcapT);
+  fcap.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'rgba(212,168,83,.4)',textTransform:'uppercase'}},ESSAY_SLOTS.length+' / '+ESSAY_SLOTS.length));
+  fin.appendChild(fcap);inner.appendChild(fin);
+  // Footer
+  var ft=h('div',{className:'fade',style:{marginTop:'48px',textAlign:'center',paddingTop:'28px',borderTop:'.5px solid rgba(255,255,255,.08)'}});
+  ft.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'4px',color:'rgba(212,168,83,.5)',textTransform:'uppercase',marginBottom:'16px'}},'All photography — Toronto, ON \u00b7 2026'));
+  var rb2=h('button',{className:'btn-g',style:{fontSize:'10px',letterSpacing:'3px'}},'Back to Vol. I \u2192');rb2.onclick=function(){go('toc');};ft.appendChild(rb2);
+  inner.appendChild(ft);
+  wrap.appendChild(inner);return wrap;
+}
+
+
 // ─── RENDER ───────────────────────────────────────────────────────────────────
 function render(){
   cancelAnimationFrame(TRaf);window.onscroll=null;
@@ -491,6 +755,10 @@ function render(){
   if(ST.page==='toc')pw.appendChild(buildTOC());
   if(ST.page==='article')pw.appendChild(buildArt(ST.idx));
   if(ST.page==='about')pw.appendChild(buildAbout());
+  if(ST.page==='letter')pw.appendChild(buildLetter());
+  if(ST.page==='playlist')pw.appendChild(buildPlaylist());
+  if(ST.page==='radar')pw.appendChild(buildRadar());
+  if(ST.page==='essay')pw.appendChild(buildEssay());
   root.appendChild(pw);
   setTimeout(function(){
     pw.style.transition='opacity .45s ease,transform .45s ease';pw.style.opacity='1';pw.style.transform='translateY(0)';
