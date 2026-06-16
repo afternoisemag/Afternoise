@@ -293,14 +293,23 @@ function buildCover(){
     tabs.appendChild(t);
   });
   var r1=h('div',{className:'fade s2',style:{height:'1px',background:'rgba(212,168,83,.2)',margin:'16px 0 20px'}});
-  var clBox=h('div',{className:'fade s3',style:{marginBottom:'20px'}});
-  clBox.appendChild(h('div',{style:{display:'flex',alignItems:'center',gap:'12px',marginBottom:'14px'}},h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'5px',color:'rgba(244,240,230,.25)',textTransform:'uppercase'}},'In This Issue'),h('div',{style:{flex:1,height:'.5px',background:'rgba(255,255,255,.08)'}})));
+  var clBox=h('div',{className:'fade s3',style:{marginBottom:'16px'}});
+  // slim label
+  clBox.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'5px',color:'rgba(244,240,230,.2)',textTransform:'uppercase',marginBottom:'10px'}},'In This Issue'));
+  // 2-column pill grid
+  var clGrid=h('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'3px'}});
+  var clRoute={'FASHION':function(){go('article',3);},'CULTURE':function(){go('article',2);},'TRAVEL':function(){go('article',5);},'EXCLUSIVE':function(){go('article',4);},'MUSIC':function(){go('toc');}};
   LINES.forEach(function(cl){
-    var row=h('div',{className:'cl-row'});row.onclick=function(){go('toc');};
-    row.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',textTransform:'uppercase',color:cl.sec==='EXCLUSIVE'?'#D4A853':'rgba(244,240,230,.28)',minWidth:'72px',flexShrink:0}},cl.sec));
-    var t=h('span',{className:'cl-t',style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'13.5px',color:'rgba(244,240,230,.58)',lineHeight:1.3,transition:'color .2s'}});t.textContent=cl.text;row.appendChild(t);
-    clBox.appendChild(row);
+    var pill=h('div',{style:{display:'flex',alignItems:'center',gap:'8px',padding:'6px 10px',background:'rgba(255,255,255,.03)',cursor:'pointer',transition:'background .15s'}});
+    pill.onmouseenter=function(){pill.style.background='rgba(255,255,255,.07)';};
+    pill.onmouseleave=function(){pill.style.background='rgba(255,255,255,.03)';};
+    pill.onclick=clRoute[cl.sec]||function(){go('toc');};
+    pill.appendChild(h('div',{style:{width:'3px',height:'3px',borderRadius:'50%',background:cl.sec==='EXCLUSIVE'?'#D4A853':'rgba(244,240,230,.2)',flexShrink:0}}));
+    var t=h('span',{style:{fontFamily:"var(--lb)",fontSize:'10px',color:'rgba(244,240,230,.45)',lineHeight:1.3,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}});
+    t.textContent=cl.text;pill.appendChild(t);
+    clGrid.appendChild(pill);
   });
+  clBox.appendChild(clGrid);
   var r2=h('div',{className:'fade s4',style:{height:'.5px',background:'rgba(255,255,255,.07)',marginBottom:'22px'}});
   var lead=h('div',{className:'fade s4',style:{marginBottom:'22px'}});
   lead.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'4px',color:'rgba(244,240,230,.25)',textTransform:'uppercase',marginBottom:'8px'}},'Lead Story'));
