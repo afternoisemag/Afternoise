@@ -73,7 +73,17 @@
       .toc-bot{grid-template-columns:1fr 1fr;}
       .sec-idx{grid-template-columns:1fr 1fr;}
       .more-grid{grid-template-columns:1fr;}
-      #toTop{bottom:16px;right:16px;}
+      #toTop{bottom:80px;right:16px;}
+      /* Cover photo — limit height on mobile so masthead is visible without scrolling */
+      .cover-grid > div:first-child{min-height:220px !important;max-height:260px;}
+      /* Cover right panel padding */
+      .cover-grid > div:last-child{padding:0 20px !important;}
+      /* Nav items — tighter on mobile */
+      .cover-grid > div:last-child .fade{flex-wrap:wrap;gap:6px;}
+      /* Names — smaller on mobile */
+      .cover-grid > div:first-child .fade.s2 div div:first-child{font-size:14px !important;letter-spacing:1px !important;}
+      /* Listen Live — move above bottom so it doesn't cover content */
+      .radio-trigger{bottom:72px !important;}
     }
 
     /* RADIO PLAYER */
@@ -264,8 +274,8 @@ function buildCover(){
   left.appendChild(h('div',{style:{position:'absolute',bottom:0,left:0,right:0,height:'40%',background:'linear-gradient(to top,rgba(13,13,13,.97) 0%,transparent 100%)'}}));
   var nb=h('div',{className:'fade s2',style:{position:'absolute',bottom:'32px',left:'36px',right:'36px'}});
   var names=h('div',{style:{display:'flex',alignItems:'flex-end',justifyContent:'space-between'}});
-  names.appendChild(h('div',{},h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(16px,2vw,26px)',fontWeight:900,color:'#F4F0E6',letterSpacing:'3px',lineHeight:1}},'4D'),h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'rgba(212,168,83,.75)',textTransform:'uppercase',marginTop:'5px'}},'BTP \u00b7 Engineer \u00b7 Producer')));
-  names.appendChild(h('div',{style:{textAlign:'right'}},h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(16px,2vw,26px)',fontWeight:900,color:'#F4F0E6',letterSpacing:'3px',lineHeight:1}},'DT THE ARTIST'),h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'rgba(212,168,83,.75)',textTransform:'uppercase',marginTop:'5px'}},'BTP \u00b7 Toronto, ON')));
+  names.appendChild(h('div',{},h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(12px,3.5vw,26px)',fontWeight:900,color:'#F4F0E6',letterSpacing:'2px',lineHeight:1}},'4D'),h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'2px',color:'rgba(212,168,83,.75)',textTransform:'uppercase',marginTop:'5px'}},'BTP \u00b7 Engineer \u00b7 Producer')));
+  names.appendChild(h('div',{style:{textAlign:'right'}},h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(12px,3.5vw,26px)',fontWeight:900,color:'#F4F0E6',letterSpacing:'2px',lineHeight:1}},'DT THE ARTIST'),h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'2px',color:'rgba(212,168,83,.75)',textTransform:'uppercase',marginTop:'5px'}},'BTP \u00b7 Toronto, ON')));
   nb.appendChild(names);left.appendChild(nb);
   left.appendChild(h('div',{style:{position:'absolute',top:'50%',left:'16px',transform:'translateY(-50%)',display:'flex',flexDirection:'column',alignItems:'center',gap:'6px'}},h('div',{style:{width:'.5px',height:'36px',background:'rgba(244,240,230,.15)'}}),h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'3px',color:'rgba(244,240,230,.2)',textTransform:'uppercase',writingMode:'vertical-rl'}},'Vol. I \u2014 Origins \u00b7 2026'),h('div',{style:{width:'.5px',height:'36px',background:'rgba(244,240,230,.15)'}})));
 
