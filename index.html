@@ -275,8 +275,6 @@ function buildCover(){
   var ab=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.38)',letterSpacing:'4px'}},'ABOUT');ab.onclick=function(){go('about');};navLeft.appendChild(ab);
   var lb2=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.38)',letterSpacing:'4px'}},'LETTER');lb2.onclick=function(){go('letter');};navLeft.appendChild(lb2);
   nav.appendChild(navLeft);
-  var eb=h('button',{className:'btn-g',style:{fontSize:'9px',letterSpacing:'4px',padding:'9px 22px'}},'ENTER MAGAZINE');eb.onclick=function(){go('toc');};
-  nav.appendChild(eb);
 
   // ── 2. MASTHEAD ─────────────────────────────────────
   var mastWrap=h('div',{className:'fade s1',style:{textAlign:'center',padding:'20px 44px 0'}});
@@ -290,11 +288,14 @@ function buildCover(){
     var t=h('button',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'4px',textTransform:'uppercase',background:'none',border:'none',borderRight:i<3?'.5px solid rgba(255,255,255,.08)':'none',color:'rgba(244,240,230,.3)',padding:'9px 0',cursor:'pointer',transition:'color .15s,background .15s',textAlign:'center'}});
     t.textContent=tab.label;t.onmouseenter=function(){t.style.color='#D4A853';t.style.background='rgba(255,255,255,.03)';};t.onmouseleave=function(){t.style.color='rgba(244,240,230,.3)';t.style.background='none';};t.onclick=tab.action;topRow.appendChild(t);
   });
-  var botRow=h('div',{style:{display:'grid',gridTemplateColumns:'repeat(2,1fr)',borderBottom:'.5px solid rgba(255,255,255,.08)',maxWidth:'50%',margin:'0 auto',width:'100%'}});
-  [{label:'RADAR',action:function(){go('radar');}},{label:'PHOTOS',action:function(){go('essay');}}].forEach(function(tab,i){
-    var t=h('button',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'4px',textTransform:'uppercase',background:'none',border:'none',borderRight:i<1?'.5px solid rgba(255,255,255,.08)':'none',color:'rgba(244,240,230,.3)',padding:'9px 0',cursor:'pointer',transition:'color .15s,background .15s',textAlign:'center'}});
-    t.textContent=tab.label;t.onmouseenter=function(){t.style.color='#D4A853';t.style.background='rgba(255,255,255,.03)';};t.onmouseleave=function(){t.style.color='rgba(244,240,230,.3)';t.style.background='none';};t.onclick=tab.action;botRow.appendChild(t);
-  });
+  var botRow=h('div',{style:{display:'grid',gridTemplateColumns:'1fr auto 1fr',borderBottom:'.5px solid rgba(255,255,255,.08)',maxWidth:'70%',margin:'0 auto',width:'100%'}});
+  var radarTab=h('button',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'4px',textTransform:'uppercase',background:'none',border:'none',borderRight:'.5px solid rgba(255,255,255,.08)',color:'rgba(244,240,230,.3)',padding:'9px 0',cursor:'pointer',transition:'color .15s,background .15s',textAlign:'center'}});
+  radarTab.textContent='RADAR';radarTab.onmouseenter=function(){radarTab.style.color='#D4A853';radarTab.style.background='rgba(255,255,255,.03)';};radarTab.onmouseleave=function(){radarTab.style.color='rgba(244,240,230,.3)';radarTab.style.background='none';};radarTab.onclick=function(){go('radar');};
+  var enterTab=h('button',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'4px',textTransform:'uppercase',background:'#D4A853',border:'none',borderRight:'.5px solid rgba(255,255,255,.08)',color:'#111',padding:'9px 22px',cursor:'pointer',transition:'background .15s',whiteSpace:'nowrap',fontWeight:'bold'}});
+  enterTab.textContent='ENTER MAGAZINE';enterTab.onmouseenter=function(){enterTab.style.background='#F4F0E6';};enterTab.onmouseleave=function(){enterTab.style.background='#D4A853';};enterTab.onclick=function(){go('toc');};
+  var photosTab=h('button',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'4px',textTransform:'uppercase',background:'none',border:'none',color:'rgba(244,240,230,.3)',padding:'9px 0',cursor:'pointer',transition:'color .15s,background .15s',textAlign:'center'}});
+  photosTab.textContent='PHOTOS';photosTab.onmouseenter=function(){photosTab.style.color='#D4A853';photosTab.style.background='rgba(255,255,255,.03)';};photosTab.onmouseleave=function(){photosTab.style.color='rgba(244,240,230,.3)';photosTab.style.background='none';};photosTab.onclick=function(){go('essay');};
+  botRow.appendChild(radarTab);botRow.appendChild(enterTab);botRow.appendChild(photosTab);
   tabsWrap.appendChild(topRow);tabsWrap.appendChild(botRow);
 
   // ── 4. PHOTO PANEL ──────────────────────────────────
