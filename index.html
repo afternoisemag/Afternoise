@@ -266,51 +266,86 @@ function ticker(){
 
 // ─── COVER ────────────────────────────────────────────────────────────────────
 function buildCover(){
-  var wrap=h('div',{className:'cover-grid'});
-  var left=h('div',{style:{position:'relative',overflow:'hidden',borderRight:'.5px solid rgba(255,255,255,.1)',minHeight:'500px'}});
-  var ci=pImg('cover',{position:'absolute',inset:0,filter:'brightness(.72)'});
-  left.appendChild(ci);
-  left.appendChild(h('div',{style:{position:'absolute',inset:0,background:'linear-gradient(to right,rgba(13,13,13,.15) 0%,transparent 25%,transparent 70%,rgba(13,13,13,.55) 100%)'}}));
-  left.appendChild(h('div',{style:{position:'absolute',bottom:0,left:0,right:0,height:'40%',background:'linear-gradient(to top,rgba(13,13,13,.97) 0%,transparent 100%)'}}));
-  var nb=h('div',{className:'fade s2',style:{position:'absolute',bottom:'32px',left:'36px',right:'36px'}});
-  var names=h('div',{style:{display:'flex',alignItems:'flex-end',justifyContent:'space-between'}});
-  names.appendChild(h('div',{},h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(12px,3.5vw,26px)',fontWeight:900,color:'#F4F0E6',letterSpacing:'2px',lineHeight:1}},'4D'),h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'2px',color:'rgba(212,168,83,.75)',textTransform:'uppercase',marginTop:'5px'}},'BTP \u00b7 Engineer \u00b7 Producer')));
-  names.appendChild(h('div',{style:{textAlign:'right'}},h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(12px,3.5vw,26px)',fontWeight:900,color:'#F4F0E6',letterSpacing:'2px',lineHeight:1}},'DT THE ARTIST'),h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'2px',color:'rgba(212,168,83,.75)',textTransform:'uppercase',marginTop:'5px'}},'BTP \u00b7 Toronto, ON')));
-  nb.appendChild(names);left.appendChild(nb);
-  left.appendChild(h('div',{style:{position:'absolute',top:'50%',left:'16px',transform:'translateY(-50%)',display:'flex',flexDirection:'column',alignItems:'center',gap:'6px'}},h('div',{style:{width:'.5px',height:'36px',background:'rgba(244,240,230,.15)'}}),h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'3px',color:'rgba(244,240,230,.2)',textTransform:'uppercase',writingMode:'vertical-rl'}},'Vol. I \u2014 Origins \u00b7 2026'),h('div',{style:{width:'.5px',height:'36px',background:'rgba(244,240,230,.15)'}})));
+  // Full-width single column layout
+  var wrap=h('div',{style:{background:'#0D0D0D',minHeight:'100vh',display:'flex',flexDirection:'column'}});
 
-  var right=h('div',{style:{background:'#0D0D0D',display:'flex',flexDirection:'column',justifyContent:'center',padding:'0 clamp(20px,4vw,48px)'}});
-  var nav=h('div',{className:'fade',style:{display:'flex',justifyContent:'space-between',padding:'18px 0',borderBottom:'.5px solid rgba(255,255,255,.07)',marginBottom:'28px',flexWrap:'wrap',gap:'8px'}});
-  var ib=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.4)'}},'ISSUES \u203a');ib.onclick=function(){go('archive');};nav.appendChild(ib);
-  var ab=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.4)'}},'ABOUT');ab.onclick=function(){go('about');};nav.appendChild(ab);
-  var lb2=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.4)'}},'LETTER');lb2.onclick=function(){go('letter');};nav.appendChild(lb2);
-  var mast=h('div',{className:'fade s1',style:{textAlign:'center',marginBottom:'6px'}},h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(36px,5vw,64px)',fontWeight:900,letterSpacing:'14px',lineHeight:1,color:'#F4F0E6'}},'AFTERNOISE'),h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'6px',color:'rgba(212,168,83,.65)',marginTop:'7px',textTransform:'uppercase'}},'Vol. I \u00b7 Origins \u00b7 2026'));
-  // Section tabs under masthead
-  var tabs=h('div',{className:'fade s2',style:{display:'flex',justifyContent:'center',gap:'0',marginTop:'14px',marginBottom:'0',borderTop:'.5px solid rgba(255,255,255,.08)',borderBottom:'.5px solid rgba(255,255,255,.08)'}});
-  [
+  // ── 1. NAV ──────────────────────────────────────────
+  var nav=h('div',{className:'fade',style:{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'20px 44px',borderBottom:'.5px solid rgba(255,255,255,.07)'}});
+  var ib=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.38)',letterSpacing:'4px'}},'ISSUES \u203a');ib.onclick=function(){go('archive');};nav.appendChild(ib);
+  var ab=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.38)',letterSpacing:'4px'}},'ABOUT');ab.onclick=function(){go('about');};nav.appendChild(ab);
+  var lb2=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.38)',letterSpacing:'4px'}},'LETTER');lb2.onclick=function(){go('letter');};nav.appendChild(lb2);
+
+  // ── 2. MASTHEAD ─────────────────────────────────────
+  var mastWrap=h('div',{className:'fade s1',style:{textAlign:'center',padding:'32px 44px 0'}});
+  mastWrap.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(48px,8vw,96px)',fontWeight:900,letterSpacing:'clamp(6px,1.5vw,18px)',lineHeight:1,color:'#F4F0E6'}},'AFTERNOISE'));
+  mastWrap.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'7px',color:'rgba(212,168,83,.65)',marginTop:'10px',textTransform:'uppercase'}},'VOL. I \u00b7 ORIGINS \u00b7 2026'));
+
+  // ── 3. SECTION TABS (2 rows) ─────────────────────────
+  var tabsWrap=h('div',{className:'fade s2',style:{padding:'0 44px',marginTop:'20px'}});
+  // Top row - 4 tabs
+  var topRow=h('div',{style:{display:'grid',gridTemplateColumns:'repeat(4,1fr)',borderTop:'.5px solid rgba(255,255,255,.08)',borderBottom:'.5px solid rgba(255,255,255,.08)'}});
+  var topTabs=[
     {label:'MUSIC',   action:function(){go('toc');}},
     {label:'FASHION', action:function(){go('article',3);}},
     {label:'CULTURE', action:function(){go('article',2);}},
     {label:'TRAVEL',  action:function(){go('article',5);}},
-    {label:'RADAR',   action:function(){go('radar');}},
-    {label:'PHOTOS',  action:function(){go('essay');}},
-  ].forEach(function(tab){
-    var t=h('button',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'3px',textTransform:'uppercase',background:'none',border:'none',borderRight:'.5px solid rgba(255,255,255,.08)',color:'rgba(244,240,230,.35)',padding:'9px 14px',cursor:'pointer',transition:'color .15s,background .15s'}});
+  ];
+  topTabs.forEach(function(tab,i){
+    var t=h('button',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'4px',textTransform:'uppercase',background:'none',border:'none',borderRight:i<3?'.5px solid rgba(255,255,255,.08)':'none',color:'rgba(244,240,230,.3)',padding:'11px 0',cursor:'pointer',transition:'color .15s,background .15s',textAlign:'center'}});
     t.textContent=tab.label;
-    t.onmouseenter=function(){t.style.color='#D4A853';t.style.background='rgba(255,255,255,.04)';};
-    t.onmouseleave=function(){t.style.color='rgba(244,240,230,.35)';t.style.background='none';};
-    t.onclick=tab.action;
-    tabs.appendChild(t);
+    t.onmouseenter=function(){t.style.color='#D4A853';t.style.background='rgba(255,255,255,.03)';};
+    t.onmouseleave=function(){t.style.color='rgba(244,240,230,.3)';t.style.background='none';};
+    t.onclick=tab.action;topRow.appendChild(t);
   });
-  var r1=h('div',{className:'fade s2',style:{height:'1px',background:'rgba(212,168,83,.2)',margin:'16px 0 20px'}});
-  var clBox=h('div',{className:'fade s3',style:{marginBottom:'16px'}});
-  // slim label
-  clBox.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'5px',color:'rgba(244,240,230,.2)',textTransform:'uppercase',marginBottom:'10px'}},'In This Issue'));
-  // 2-column pill grid
+  // Bottom row - 2 tabs centered
+  var botRow=h('div',{style:{display:'grid',gridTemplateColumns:'repeat(2,1fr)',borderBottom:'.5px solid rgba(255,255,255,.08)',maxWidth:'50%',margin:'0 auto',width:'100%'}});
+  var botTabs=[
+    {label:'RADAR',  action:function(){go('radar');}},
+    {label:'PHOTOS', action:function(){go('essay');}},
+  ];
+  botTabs.forEach(function(tab,i){
+    var t=h('button',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'4px',textTransform:'uppercase',background:'none',border:'none',borderRight:i<1?'.5px solid rgba(255,255,255,.08)':'none',color:'rgba(244,240,230,.3)',padding:'11px 0',cursor:'pointer',transition:'color .15s,background .15s',textAlign:'center'}});
+    t.textContent=tab.label;
+    t.onmouseenter=function(){t.style.color='#D4A853';t.style.background='rgba(255,255,255,.03)';};
+    t.onmouseleave=function(){t.style.color='rgba(244,240,230,.3)';t.style.background='none';};
+    t.onclick=tab.action;botRow.appendChild(t);
+  });
+  tabsWrap.appendChild(topRow);
+  tabsWrap.appendChild(botRow);
+
+  // ── 4. PHOTO PANEL ──────────────────────────────────
+  var photoWrap=h('div',{className:'fade s2',style:{position:'relative',margin:'0',flex:'1',minHeight:'360px'}});
+  var ci=pImg('cover',{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'cover',objectPosition:'center 20%',display:'block',filter:'brightness(.72)'});
+  photoWrap.appendChild(ci);
+  // Gradients
+  photoWrap.appendChild(h('div',{style:{position:'absolute',inset:0,background:'linear-gradient(to top,rgba(13,13,13,.95) 0%,transparent 50%)'}}));
+  // Spine
+  photoWrap.appendChild(h('div',{style:{position:'absolute',top:'50%',left:'20px',transform:'translateY(-50%)',display:'flex',flexDirection:'column',alignItems:'center',gap:'8px'}},
+    h('div',{style:{width:'.5px',height:'40px',background:'rgba(244,240,230,.12)'}}),
+    h('div',{style:{fontFamily:"var(--lb)",fontSize:'7px',letterSpacing:'3px',color:'rgba(244,240,230,.18)',textTransform:'uppercase',writingMode:'vertical-rl'}},'Vol. I \u2014 Origins \u00b7 2026'),
+    h('div',{style:{width:'.5px',height:'40px',background:'rgba(244,240,230,.12)'}})
+  ));
+  // Artist names bottom
+  var nameBox=h('div',{style:{position:'absolute',bottom:'24px',left:'44px',right:'44px',display:'flex',justifyContent:'space-between',alignItems:'flex-end'}});
+  nameBox.appendChild(h('div',{},
+    h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(16px,3vw,28px)',fontWeight:900,color:'#F4F0E6',letterSpacing:'2px',lineHeight:1}},'4D'),
+    h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'2px',color:'rgba(212,168,83,.75)',textTransform:'uppercase',marginTop:'6px'}},'BTP \u00b7 ENGINEER \u00b7 PRODUCER')
+  ));
+  nameBox.appendChild(h('div',{style:{textAlign:'right'}},
+    h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(16px,3vw,28px)',fontWeight:900,color:'#F4F0E6',letterSpacing:'2px',lineHeight:1}},'DT THE ARTIST'),
+    h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'2px',color:'rgba(212,168,83,.75)',textTransform:'uppercase',marginTop:'6px'}},'BTP \u00b7 TORONTO, ON')
+  ));
+  photoWrap.appendChild(nameBox);
+
+  // ── 5. IN THIS ISSUE ────────────────────────────────
+  var issueWrap=h('div',{className:'fade s3',style:{padding:'20px 44px 0'}});
+  // Gold rule
+  issueWrap.appendChild(h('div',{style:{height:'1px',background:'rgba(212,168,83,.25)',marginBottom:'18px'}}));
+  issueWrap.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'5px',color:'rgba(244,240,230,.2)',textTransform:'uppercase',marginBottom:'12px'}},'IN THIS ISSUE'));
   var clGrid=h('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'3px'}});
   var clRoute={'FASHION':function(){go('article',3);},'CULTURE':function(){go('article',2);},'TRAVEL':function(){go('article',5);},'EXCLUSIVE':function(){go('article',4);},'MUSIC':function(){go('toc');}};
   LINES.forEach(function(cl){
-    var pill=h('div',{style:{display:'flex',alignItems:'center',gap:'8px',padding:'6px 10px',background:'rgba(255,255,255,.03)',cursor:'pointer',transition:'background .15s'}});
+    var pill=h('div',{style:{display:'flex',alignItems:'center',gap:'8px',padding:'7px 12px',background:'rgba(255,255,255,.03)',cursor:'pointer',transition:'background .15s'}});
     pill.onmouseenter=function(){pill.style.background='rgba(255,255,255,.07)';};
     pill.onmouseleave=function(){pill.style.background='rgba(255,255,255,.03)';};
     pill.onclick=clRoute[cl.sec]||function(){go('toc');};
@@ -319,50 +354,34 @@ function buildCover(){
     t.textContent=cl.text;pill.appendChild(t);
     clGrid.appendChild(pill);
   });
-  clBox.appendChild(clGrid);
-  var r2=h('div',{className:'fade s4',style:{height:'.5px',background:'rgba(255,255,255,.07)',marginBottom:'22px'}});
-  var lead=h('div',{className:'fade s4',style:{marginBottom:'22px'}});
-  lead.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'4px',color:'rgba(244,240,230,.25)',textTransform:'uppercase',marginBottom:'8px'}},'Lead Story'));
-  lead.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(18px,2.4vw,28px)',fontWeight:900,lineHeight:1.1,color:'#F4F0E6',marginBottom:'6px'}},'DT the Artist & 4D'));
-  var ls=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'13px',color:'rgba(244,240,230,.42)',lineHeight:1.6,marginBottom:'18px',maxWidth:'340px'}});ls.textContent='Two artists. One movement. The rap-soca fusion Toronto did not know it was waiting for.';lead.appendChild(ls);
-  var eb=h('button',{className:'btn-g'},'Enter Magazine');eb.onclick=function(){go('toc');};lead.appendChild(eb);
-  var r3=h('div',{className:'fade s5',style:{height:'.5px',background:'rgba(255,255,255,.07)',marginBottom:'20px'}});
-  var pf2=h('div',{className:'fade s5',style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'24px',marginBottom:'20px'}},
-    h('div',{},h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'4px',color:'rgba(244,240,230,.25)',textTransform:'uppercase',marginBottom:'7px'}},'Limited Print Edition'),h('div',{style:{fontFamily:"var(--pf)",fontSize:'26px',fontWeight:900,color:'#F4F0E6',letterSpacing:'5px',lineHeight:1,marginBottom:'5px'}},'VOL. I'),h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'12px',color:'rgba(244,240,230,.35)',lineHeight:1.6}},"Collector's edition. Ships worldwide.")),
-    (function(){
-  var fw=h('div',{style:{borderLeft:'.5px solid rgba(255,255,255,.07)',paddingLeft:'24px'}});
-  fw.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'4px',color:'rgba(244,240,230,.25)',textTransform:'uppercase',marginBottom:'10px'}},'Follow'));
-  // Instagram
-  var ig=h('a',{href:'https://instagram.com/afternoisemagazine',target:'_blank',rel:'noopener',style:{display:'flex',alignItems:'center',gap:'9px',marginBottom:'8px',textDecoration:'none',transition:'opacity .2s'}});
-  ig.onmouseenter=function(){ig.style.opacity='.7';};ig.onmouseleave=function(){ig.style.opacity='1';};
-  var igIcon=h('div',{style:{width:'20px',height:'20px',flexShrink:0}});
-  igIcon.innerHTML='<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:20px;height:20px"><rect x="2" y="2" width="20" height="20" rx="6" stroke="#F4F0E6" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="#F4F0E6" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="#F4F0E6"/></svg>';
-  ig.appendChild(igIcon);
-  var igTxt=h('div',{});
-  igTxt.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'13px',fontWeight:700,color:'#F4F0E6',letterSpacing:'1px'}},'afternoisemagazine'));
-  igTxt.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',color:'rgba(244,240,230,.3)',letterSpacing:'1px'}},'Instagram'));
-  ig.appendChild(igTxt);
-  fw.appendChild(ig);
-  // X / Twitter
-  var tw=h('a',{href:'https://twitter.com/afternoisemag',target:'_blank',rel:'noopener',style:{display:'flex',alignItems:'center',gap:'9px',textDecoration:'none',transition:'opacity .2s'}});
-  tw.onmouseenter=function(){tw.style.opacity='.7';};tw.onmouseleave=function(){tw.style.opacity='1';};
-  var twIcon=h('div',{style:{width:'20px',height:'20px',flexShrink:0}});
-  twIcon.innerHTML='<svg viewBox="0 0 24 24" fill="#F4F0E6" xmlns="http://www.w3.org/2000/svg" style="width:20px;height:20px"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L2.25 2.25h6.988l4.26 5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
-  tw.appendChild(twIcon);
-  var twTxt=h('div',{});
-  twTxt.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'13px',fontWeight:700,color:'#F4F0E6',letterSpacing:'1px'}},'@afternoisemag'));
-  twTxt.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',color:'rgba(244,240,230,.3)',letterSpacing:'1px'}},'X / Twitter'));
-  tw.appendChild(twTxt);
-  fw.appendChild(tw);
-  return fw;
-})()
-  );
-  var ft=h('div',{className:'fade s6',style:{paddingTop:'14px',paddingBottom:'20px',borderTop:'.5px solid rgba(255,255,255,.07)',display:'flex',justifyContent:'space-between',flexWrap:'wrap',gap:'8px'}});
-  ft.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'2px',color:'rgba(244,240,230,.15)',textTransform:'uppercase'}},'\u00a9 Afternoise 2026'));
-  var fmid=h('span',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'11px',color:'rgba(244,240,230,.18)'}});fmid.textContent="Culture Doesn't Wait";ft.appendChild(fmid);
-  ft.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'2px',color:'rgba(244,240,230,.15)',textTransform:'uppercase'}},'afternoisemag.com'));
-  [nav,mast,tabs,r1,clBox,r2,lead,r3,pf2,ft].forEach(function(el){right.appendChild(el);});
-  wrap.appendChild(left);wrap.appendChild(right);
+  issueWrap.appendChild(clGrid);
+
+  // ── 6. ENTER MAGAZINE BUTTON ────────────────────────
+  var btnWrap=h('div',{className:'fade s4',style:{padding:'16px 44px'}});
+  var eb=h('button',{className:'btn-g',style:{width:'100%',padding:'16px',fontSize:'11px',letterSpacing:'5px'}},'ENTER MAGAZINE');
+  eb.onclick=function(){go('toc');};
+  btnWrap.appendChild(eb);
+
+  // ── 7. SMALL FOLLOW SECTION ─────────────────────────
+  var followWrap=h('div',{className:'fade s5',style:{padding:'14px 44px',display:'flex',alignItems:'center',gap:'24px',borderTop:'.5px solid rgba(255,255,255,.06)'}});
+  followWrap.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'3px',color:'rgba(244,240,230,.2)',textTransform:'uppercase',flexShrink:0}},'Follow'));
+  var igA=h('a',{href:'https://instagram.com/afternoisemagazine',target:'_blank',rel:'noopener',style:{display:'flex',alignItems:'center',gap:'7px',textDecoration:'none',transition:'opacity .2s'}});
+  igA.onmouseenter=function(){igA.style.opacity='.6';};igA.onmouseleave=function(){igA.style.opacity='1';};
+  var igIc=h('div',{});igIc.innerHTML='<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:14px;height:14px"><rect x="2" y="2" width="20" height="20" rx="6" stroke="rgba(244,240,230,0.5)" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="rgba(244,240,230,0.5)" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="rgba(244,240,230,0.5)"/></svg>';
+  igA.appendChild(igIc);igA.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',color:'rgba(244,240,230,.4)',letterSpacing:'1px'}},'afternoisemagazine'));
+  var twA=h('a',{href:'https://twitter.com/afternoisemag',target:'_blank',rel:'noopener',style:{display:'flex',alignItems:'center',gap:'7px',textDecoration:'none',transition:'opacity .2s'}});
+  twA.onmouseenter=function(){twA.style.opacity='.6';};twA.onmouseleave=function(){twA.style.opacity='1';};
+  var twIc=h('div',{});twIc.innerHTML='<svg viewBox="0 0 24 24" fill="rgba(244,240,230,0.5)" xmlns="http://www.w3.org/2000/svg" style="width:14px;height:14px"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L2.25 2.25h6.988l4.26 5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
+  twA.appendChild(twIc);twA.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',color:'rgba(244,240,230,.4)',letterSpacing:'1px'}},'@afternoisemag'));
+  followWrap.appendChild(igA);followWrap.appendChild(twA);
+
+  // ── 8. FOOTER ───────────────────────────────────────
+  var ft=h('div',{className:'fade s6',style:{padding:'12px 44px',borderTop:'.5px solid rgba(255,255,255,.06)',display:'flex',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap',gap:'8px'}});
+  ft.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'2px',color:'rgba(244,240,230,.12)',textTransform:'uppercase'}},'\u00a9 Afternoise 2026'));
+  var fmid=h('span',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'10px',color:'rgba(244,240,230,.14)'}});fmid.textContent="Culture Doesn't Wait";ft.appendChild(fmid);
+  ft.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'2px',color:'rgba(244,240,230,.12)',textTransform:'uppercase'}},'afternoisemag.com'));
+
+  [nav,mastWrap,tabsWrap,photoWrap,issueWrap,btnWrap,followWrap,ft].forEach(function(el){wrap.appendChild(el);});
   return wrap;
 }
 
@@ -469,6 +488,19 @@ function buildTOC(){
   sbn.onmouseenter=function(){sbn.style.background='#F4F0E6';};sbn.onmouseleave=function(){sbn.style.background='#D4A853';};sub.appendChild(sbn);
   sub.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',color:'rgba(244,240,230,.3)',marginTop:'14px',fontStyle:'italic'}},'No spam. Just the magazine. Unsubscribe anytime.'));
   inner.appendChild(sub);
+
+  // Print edition
+  var printNote=h('div',{className:'fade s6',style:{margin:'0 0 24px',padding:'20px 24px',background:'#111',display:'flex',alignItems:'center',justifyContent:'space-between',flexWrap:'wrap',gap:'16px'}});
+  var pnLeft=h('div',{});
+  pnLeft.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'4px',color:'rgba(212,168,83,.6)',textTransform:'uppercase',marginBottom:'6px'}},'Limited Print Edition'));
+  pnLeft.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'22px',fontWeight:900,color:'#F4F0E6',letterSpacing:'4px',lineHeight:1,marginBottom:'4px'}},'VOL. I'));
+  var pnT=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'11px',color:'rgba(244,240,230,.35)',lineHeight:1.5}});pnT.textContent="Collector's edition. Ships worldwide.";pnLeft.appendChild(pnT);
+  printNote.appendChild(pnLeft);
+  var pnBtn=h('a',{href:'https://docs.google.com/forms/d/e/1FAIpQLSfxJSrzkS67_vu9WFARVyRTcT6wtNcMDrkG7h1nKoqLt5Y63Q/viewform',target:'_blank',rel:'noopener',style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',textTransform:'uppercase',background:'#D4A853',color:'#111',padding:'12px 22px',textDecoration:'none',fontWeight:'bold',transition:'background .2s',flexShrink:0,display:'inline-block'}},'Notify Me \u2192');
+  pnBtn.onmouseenter=function(){pnBtn.style.background='#F4F0E6';};pnBtn.onmouseleave=function(){pnBtn.style.background='#D4A853';};
+  printNote.appendChild(pnBtn);
+  inner.appendChild(printNote);
+
   inner.appendChild(h('div',{className:'fade s6',style:{borderTop:'.5px solid #ccc',paddingTop:'14px',display:'flex',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap',gap:'8px'}},h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'#bbb',textTransform:'uppercase'}},'\u00a9 Afternoise 2026'),h('span',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'13px',color:'#aaa'}},"Culture Doesn't Wait"),h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'#bbb',textTransform:'uppercase'}},'afternoisemag.com')));
   wrap.appendChild(nav);wrap.appendChild(inner);return wrap;
 }
