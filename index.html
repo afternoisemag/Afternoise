@@ -352,7 +352,7 @@ function buildTOC(){
   mastBtn.textContent='AFTERNOISE';
   mastBtn.onmouseenter=function(){mastBtn.style.opacity='.6';};
   mastBtn.onmouseleave=function(){mastBtn.style.opacity='1';};
-  mastBtn.onclick=function(){go('cover');};
+  mastBtn.onclick=function(){go('toc');};
   nav.appendChild(mastBtn);
   var tr=h('div',{style:{display:'flex',alignItems:'center',gap:'14px',flexWrap:'wrap',justifyContent:'flex-end'}});
   var issBtn=h('button',{className:'nbtn',style:{color:'#888'}},'Issues');issBtn.onclick=function(){go('archive');};tr.appendChild(issBtn);
@@ -487,7 +487,7 @@ function buildArt(si){
   artMastBtn.textContent='AFTERNOISE';
   artMastBtn.onmouseenter=function(){artMastBtn.style.opacity='.6';};
   artMastBtn.onmouseleave=function(){artMastBtn.style.opacity='1';};
-  artMastBtn.onclick=function(){go('cover');};
+  artMastBtn.onclick=function(){go('toc');};
   nr.appendChild(artMastBtn);
   nr.appendChild(h('div',{style:{display:'flex',alignItems:'center',gap:'18px',justifySelf:'end'}},h('div',{style:{background:s.c,padding:'3px 10px'}},h('span',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'3px',textTransform:'uppercase',color:'#F4F0E6'}},s.sec)),h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'2px',color:'#999',textTransform:'uppercase'}},s.rt)));
   sn.appendChild(nr);
@@ -549,7 +549,7 @@ function buildAbout(){
   aboutMastBtn.textContent='AFTERNOISE';
   aboutMastBtn.onmouseenter=function(){aboutMastBtn.style.opacity='.6';};
   aboutMastBtn.onmouseleave=function(){aboutMastBtn.style.opacity='1';};
-  aboutMastBtn.onclick=function(){go('cover');};
+  aboutMastBtn.onclick=function(){go('toc');};
   nav.appendChild(aboutMastBtn);
   var rb=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.4)'}},'Read Vol. I');rb.onclick=function(){go('toc');};nav.appendChild(rb);
   wrap.appendChild(nav);
@@ -889,7 +889,7 @@ function buildArchive(){
   aboutMastBtn.textContent='AFTERNOISE';
   aboutMastBtn.onmouseenter=function(){aboutMastBtn.style.opacity='.6';};
   aboutMastBtn.onmouseleave=function(){aboutMastBtn.style.opacity='1';};
-  aboutMastBtn.onclick=function(){go('cover');};
+  aboutMastBtn.onclick=function(){go('toc');};
   nav.appendChild(aboutMastBtn);
   var rb=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.4)'}},'Read Vol. I');rb.onclick=function(){go('toc');};nav.appendChild(rb);
   wrap.appendChild(nav);
