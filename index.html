@@ -1023,7 +1023,6 @@ function render(){
   if(ST.page==='cover'){
     pw.appendChild(buildCover());
   } else {
-    pw.appendChild(ticker());
     if(ST.page==='toc')pw.appendChild(buildTOC());
     if(ST.page==='article')pw.appendChild(buildArt(ST.idx));
     if(ST.page==='about')pw.appendChild(buildAbout());
