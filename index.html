@@ -667,13 +667,13 @@ function buildAbout(){
   hero.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(32px,5vw,62px)',fontWeight:900,lineHeight:1.05,color:'#F4F0E6',letterSpacing:'2px'}},'ORIGINS'));
   wrap.appendChild(hero);
   var body=h('div',{style:{maxWidth:'760px',margin:'0 auto',padding:'56px 44px 100px'}});
-  function txt(t,st){var d=h('div',{style:Object.assign({fontFamily:"var(--lb)",fontSize:'16px',lineHeight:1.9,color:'#1a1a1a',marginBottom:'22px'},st||{})});d.textContent=t;return d;}
+  function txt(t,st){var d=h('div',{style:Object.assign({fontFamily:"var(--lb)",fontSize:'16px',lineHeight:1.9,color:'#F4F0E6',marginBottom:'22px'},st||{})});d.textContent=t;return d;}
   function lbl(t){return h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'5px',color:'rgba(212,168,83,.65)',textTransform:'uppercase',marginBottom:'16px'}},t);}
   // Opening
   var opener=h('div',{className:'fade s1',style:{marginBottom:'48px'}});
   var dc=h('div',{style:{marginBottom:'22px'}});
   var drop=h('span',{style:{float:'left',fontFamily:"var(--pf)",fontSize:'74px',fontWeight:900,lineHeight:.76,marginRight:'10px',marginTop:'8px',color:'#D4A853'}},'T');
-  var rest=h('span',{style:{fontFamily:"var(--lb)",fontSize:'16px',lineHeight:1.9,color:'#1a1a1a'}});
+  var rest=h('span',{style:{fontFamily:"var(--lb)",fontSize:'16px',lineHeight:1.9,color:'#F4F0E6'}});
   rest.textContent='here are artists in this culture who never get the cover. Not because the work is not there — the music is real, the craft is serious, the shows are packed. But because the rooms where coverage gets decided were never built with them in mind. Afternoise exists because I got tired of waiting for those rooms to open up.';
   dc.appendChild(drop);dc.appendChild(rest);opener.appendChild(dc);
   opener.appendChild(txt('I have been in this world long enough to know the difference between an artist who is building something real and one who just has the right connections. The artists in this first volume — DT the Artist, 4D, DJ Black Ent, DJ 3 Live, the Costume Creators — these are people doing the work. They are in the studio, on the stage, at carnival, in the community. They just do not have a publication that treats them the way they deserve to be treated.'));
@@ -723,7 +723,7 @@ function buildLetter(){
   // Drop cap opener
   var opener=h('div',{className:'fade',style:{marginBottom:'26px'}});
   var dc=h('div',{});
-  var drop=h('span',{style:{float:'left',fontFamily:"var(--pf)",fontSize:'80px',fontWeight:900,lineHeight:.76,marginRight:'12px',marginTop:'10px',color:'#111'}},'\u2018');
+  var drop=h('span',{style:{float:'left',fontFamily:"var(--pf)",fontSize:'80px',fontWeight:900,lineHeight:.76,marginRight:'12px',marginTop:'10px',color:'#F4F0E6'}},'\u2018');
   var rest=h('span',{style:{fontFamily:"var(--lb)",fontSize:'16px',lineHeight:2,color:'#F4F0E6'}});
   rest.textContent='here is a moment — most of us have had it — where everything around you is loud, uncertain, and moving too fast. The world shifts, people change, circumstances change, and somehow in the middle of all of it, music is just there. Steady. Unchanged. Waiting.';
   dc.appendChild(drop);dc.appendChild(rest);opener.appendChild(dc);inner.appendChild(opener);
@@ -768,43 +768,43 @@ function buildPlaylist(){
   var inner=h('div',{style:{maxWidth:'800px',margin:'0 auto',padding:'60px 44px 100px'}});
   // Header
   var hdr=h('div',{className:'fade',style:{marginBottom:'36px'}});
-  hdr.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'6px',color:'#bbb',textTransform:'uppercase',marginBottom:'12px'}},'Vol. I — Origins'));
-  hdr.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(28px,4vw,52px)',fontWeight:900,lineHeight:1,color:'#111',marginBottom:'8px'}},'The Playlist'));
-  var sub=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'16px',color:'#888',maxWidth:'480px',lineHeight:1.6}});
+  hdr.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'6px',color:'rgba(244,240,230,.35)',textTransform:'uppercase',marginBottom:'12px'}},'Vol. I — Origins'));
+  hdr.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(28px,4vw,52px)',fontWeight:900,lineHeight:1,color:'#F4F0E6',marginBottom:'8px'}},'The Playlist'));
+  var sub=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'16px',color:'rgba(244,240,230,.5)',maxWidth:'480px',lineHeight:1.6}});
   sub.textContent='The soundtrack to Vol. I. The records that captured the Toronto sound, the carnival energy, and the culture this issue documents.';
   hdr.appendChild(sub);inner.appendChild(hdr);
   inner.appendChild(h('div',{style:{height:'2px',background:'#111',marginBottom:'8px'}}));
   // Column headers
   inner.appendChild(h('div',{style:{display:'flex',gap:'16px',padding:'10px 0',borderBottom:'.5px solid #ddd',marginBottom:'4px'}},
-    h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'3px',color:'#bbb',textTransform:'uppercase',width:'32px',flexShrink:0}},'#'),
-    h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'3px',color:'#bbb',textTransform:'uppercase',flex:1}},'Track'),
-    h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'3px',color:'#bbb',textTransform:'uppercase',flex:1,display:'none'}}) // spacer
+    h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'3px',color:'rgba(244,240,230,.35)',textTransform:'uppercase',width:'32px',flexShrink:0}},'#'),
+    h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'3px',color:'rgba(244,240,230,.35)',textTransform:'uppercase',flex:1}},'Track'),
+    h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'3px',color:'rgba(244,240,230,.35)',textTransform:'uppercase',flex:1,display:'none'}}) // spacer
   ));
   // Tracks
   TRACKS.forEach(function(t,i){
     var row=h('div',{className:'fade s'+(Math.min(i+1,8)),style:{display:'flex',gap:'16px',padding:'16px 0',borderBottom:'.5px solid #eee',alignItems:'flex-start',cursor:'default'}});
     row.onmouseenter=function(){row.style.background='rgba(0,0,0,.02)';};
     row.onmouseleave=function(){row.style.background='transparent';};
-    row.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'11px',letterSpacing:'1px',color:'#ccc',width:'32px',flexShrink:0,paddingTop:'3px'}},t.num));
+    row.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'11px',letterSpacing:'1px',color:'rgba(244,240,230,.3)',width:'32px',flexShrink:0,paddingTop:'3px'}},t.num));
     var info=h('div',{style:{flex:1}});
-    var title=h('div',{style:{fontFamily:"var(--pf)",fontSize:'18px',fontWeight:700,color:'#111',lineHeight:1.2,marginBottom:'3px'}});title.textContent=t.title;info.appendChild(title);
-    var artist=h('div',{style:{fontFamily:"var(--lb)",fontSize:'12px',color:'#888',marginBottom:'6px'}});artist.textContent=t.artist;info.appendChild(artist);
-    var note=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'11px',color:'#aaa',lineHeight:1.5}});note.textContent=t.note;info.appendChild(note);
+    var title=h('div',{style:{fontFamily:"var(--pf)",fontSize:'18px',fontWeight:700,color:'#F4F0E6',lineHeight:1.2,marginBottom:'3px'}});title.textContent=t.title;info.appendChild(title);
+    var artist=h('div',{style:{fontFamily:"var(--lb)",fontSize:'12px',color:'rgba(244,240,230,.5)',marginBottom:'6px'}});artist.textContent=t.artist;info.appendChild(artist);
+    var note=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'11px',color:'rgba(244,240,230,.45)',lineHeight:1.5}});note.textContent=t.note;info.appendChild(note);
     row.appendChild(info);
     inner.appendChild(row);
   });
   // Spotify CTA
   var spot=h('div',{className:'fade s8',style:{marginTop:'40px',padding:'24px 28px',background:'#f5f2eb',display:'flex',alignItems:'center',gap:'20px',flexWrap:'wrap'}});
   spot.appendChild(h('div',{style:{flex:1}},
-    h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'#bbb',textTransform:'uppercase',marginBottom:'6px'}},'Stream the Playlist'),
-    h('div',{style:{fontFamily:"var(--pf)",fontSize:'16px',fontWeight:700,color:'#111'}})
+    h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'rgba(244,240,230,.35)',textTransform:'uppercase',marginBottom:'6px'}},'Stream the Playlist'),
+    h('div',{style:{fontFamily:"var(--pf)",fontSize:'16px',fontWeight:700,color:'#F4F0E6'}})
   ));
   var spEl=spot.querySelector('div:last-child div:last-child');spEl.textContent='Find the Vol. I playlist on Spotify — link in bio @afternoisemagazine';
   inner.appendChild(spot);
   // Radio note
   var rn=h('div',{className:'fade s8',style:{marginTop:'16px',padding:'16px 20px',border:'.5px solid rgba(212,168,83,.3)',display:'flex',alignItems:'center',gap:'14px'}});
   rn.appendChild(h('div',{style:{width:'8px',height:'8px',borderRadius:'50%',background:'#D4A853',flexShrink:0,animation:'pulse 1.8s ease-in-out infinite'}}));
-  var rnt=h('div',{style:{fontFamily:"var(--lb)",fontSize:'12px',color:'#888',fontStyle:'italic'}});rnt.textContent='Also streaming on Afternoise Radio — live at afternoisemag.com';rn.appendChild(rnt);
+  var rnt=h('div',{style:{fontFamily:"var(--lb)",fontSize:'12px',color:'rgba(244,240,230,.5)',fontStyle:'italic'}});rnt.textContent='Also streaming on Afternoise Radio — live at afternoisemag.com';rn.appendChild(rnt);
   inner.appendChild(rn);
   wrap.appendChild(inner);return wrap;
 }
@@ -823,9 +823,9 @@ function buildRadar(){
   var inner=h('div',{style:{maxWidth:'800px',margin:'0 auto',padding:'60px 44px 100px'}});
   // Header
   var hdr=h('div',{className:'fade',style:{marginBottom:'40px'}});
-  hdr.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'6px',color:'#bbb',textTransform:'uppercase',marginBottom:'12px'}},'Vol. I — New Artist Radar'));
-  hdr.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(28px,4vw,52px)',fontWeight:900,lineHeight:1,color:'#111',marginBottom:'8px'}},'Watch This Space'));
-  var sub2=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'16px',color:'#888',maxWidth:'520px',lineHeight:1.6}});
+  hdr.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'6px',color:'rgba(244,240,230,.35)',textTransform:'uppercase',marginBottom:'12px'}},'Vol. I — New Artist Radar'));
+  hdr.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(28px,4vw,52px)',fontWeight:900,lineHeight:1,color:'#F4F0E6',marginBottom:'8px'}},'Watch This Space'));
+  var sub2=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'16px',color:'rgba(244,240,230,.5)',maxWidth:'520px',lineHeight:1.6}});
   sub2.textContent='One artist building something real before the world catches up. Vol. I Radar: Yannaabaiibee.';
   hdr.appendChild(sub2);inner.appendChild(hdr);
   inner.appendChild(h('div',{style:{height:'2px',background:'#D4A853',marginBottom:'44px'}}));
@@ -838,32 +838,32 @@ function buildRadar(){
   var leftCol=h('div',{className:'fade s1'});
   var ph=h('div',{className:'ph-img',style:{height:'420px',marginBottom:'16px',position:'relative'}});
   ph.style.background='linear-gradient(135deg,#1a1a1a 0%,#2a2a2a 100%)';
-  var phNote=h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'#ccc',textTransform:'uppercase',textAlign:'center',marginTop:'8px'}});phNote.textContent='[REPLACE: Photo of Yannaabaiibee]';
+  var phNote=h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'rgba(244,240,230,.3)',textTransform:'uppercase',textAlign:'center',marginTop:'8px'}});phNote.textContent='[REPLACE: Photo of Yannaabaiibee]';
   leftCol.appendChild(ph);leftCol.appendChild(phNote);
   // Handles
   var handles=h('div',{style:{marginTop:'16px'}});
   var igH=h('a',{href:'https://www.instagram.com/yannaabaiibee/',target:'_blank',rel:'noopener',style:{display:'flex',alignItems:'center',gap:'8px',textDecoration:'none',marginBottom:'8px',transition:'opacity .2s'}});
   igH.onmouseenter=function(){igH.style.opacity='.6';};igH.onmouseleave=function(){igH.style.opacity='1';};
   var igIc=h('div',{});igIc.innerHTML='<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:15px;height:15px"><rect x="2" y="2" width="20" height="20" rx="6" stroke="#111" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="#111" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="#111"/></svg>';
-  igH.appendChild(igIc);igH.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'11px',color:'#333'}},'@yannaabaiibee'));
+  igH.appendChild(igIc);igH.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'11px',color:'rgba(244,240,230,.7)'}},'@yannaabaiibee'));
   var tkH=h('div',{style:{display:'flex',alignItems:'center',gap:'8px'}});
   var tkIc=h('div',{style:{width:'15px',height:'15px',display:'flex',alignItems:'center',justifyContent:'center'}});tkIc.innerHTML='<svg viewBox="0 0 24 24" fill="#111" xmlns="http://www.w3.org/2000/svg" style="width:15px;height:15px"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>';
-  tkH.appendChild(tkIc);tkH.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'11px',color:'#333'}},'1YannaaBaiibee'));
+  tkH.appendChild(tkIc);tkH.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'11px',color:'rgba(244,240,230,.7)'}},'1YannaaBaiibee'));
   handles.appendChild(igH);handles.appendChild(tkH);leftCol.appendChild(handles);
   // Right — bio + Q&A
   var rightCol=h('div',{className:'fade s2'});
   rightCol.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'4px',color:'#D4A853',textTransform:'uppercase',marginBottom:'8px'}},'Radar \u2014 Vol. I'));
-  rightCol.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(28px,3.5vw,44px)',fontWeight:900,lineHeight:1,color:'#111',marginBottom:'4px'}},'Yannaabaiibee'));
-  rightCol.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'11px',letterSpacing:'2px',color:'#aaa',textTransform:'uppercase',marginBottom:'20px'}},'Canada \u00b7 Musical Artist'));
-  var bio=h('div',{style:{fontFamily:"var(--lb)",fontSize:'14px',lineHeight:1.8,color:'#444',marginBottom:'28px',borderLeft:'3px solid #D4A853',paddingLeft:'16px'}});
+  rightCol.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(28px,3.5vw,44px)',fontWeight:900,lineHeight:1,color:'#F4F0E6',marginBottom:'4px'}},'Yannaabaiibee'));
+  rightCol.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'11px',letterSpacing:'2px',color:'rgba(244,240,230,.45)',textTransform:'uppercase',marginBottom:'20px'}},'Canada \u00b7 Musical Artist'));
+  var bio=h('div',{style:{fontFamily:"var(--lb)",fontSize:'14px',lineHeight:1.8,color:'rgba(244,240,230,.65)',marginBottom:'28px',borderLeft:'3px solid #D4A853',paddingLeft:'16px'}});
   bio.textContent='[REPLACE: 2-3 sentence intro on Yannaabaiibee — what she does, what makes her worth watching right now, why she is on the Vol. I radar. Send Craig the answer to question 3 and I will write this.]';
   rightCol.appendChild(bio);
   // Q&A
-  rightCol.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'4px',color:'#111',textTransform:'uppercase',marginBottom:'16px',paddingBottom:'8px',borderBottom:'1.5px solid #111'}},'Rapid Q&A'));
+  rightCol.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'4px',color:'#F4F0E6',textTransform:'uppercase',marginBottom:'16px',paddingBottom:'8px',borderBottom:'1.5px solid #111'}},'Rapid Q&A'));
   RADAR_QA.forEach(function(qa,i){
     var item=h('div',{style:{marginBottom:'22px',paddingBottom:'22px',borderBottom:i<RADAR_QA.length-1?'.5px solid #eee':'none'}});
-    var q=h('div',{style:{fontFamily:"var(--lb)",fontSize:'11px',fontWeight:700,color:'#111',marginBottom:'6px',lineHeight:1.5}});q.textContent='Q: '+qa.q;item.appendChild(q);
-    var a=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'14px',color:'#111',lineHeight:1.7}});a.textContent=qa.a;item.appendChild(a);
+    var q=h('div',{style:{fontFamily:"var(--lb)",fontSize:'11px',fontWeight:700,color:'#F4F0E6',marginBottom:'6px',lineHeight:1.5}});q.textContent='Q: '+qa.q;item.appendChild(q);
+    var a=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'14px',color:'#F4F0E6',lineHeight:1.7}});a.textContent=qa.a;item.appendChild(a);
     rightCol.appendChild(item);
   });
   var twoCol=h('div',{style:{display:'grid',gridTemplateColumns:'1fr 1.4fr',gap:'40px',alignItems:'start'}});twoCol.className='radar-grid';
