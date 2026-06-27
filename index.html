@@ -447,6 +447,7 @@ function buildTOC(){
   var ab2=h('button',{className:'nbtn',style:{color:'#888'}},'About');ab2.onclick=function(){go('about');};tr.appendChild(ab2);
   var lb3=h('button',{className:'nbtn',style:{color:'#888'}},'Letter');lb3.onclick=function(){go('letter');};tr.appendChild(lb3);
   var plb=h('button',{className:'nbtn',style:{color:'#888'}},'Playlist');plb.onclick=function(){go('playlist');};tr.appendChild(plb);
+  var stb=h('button',{className:'nbtn',style:{color:'#888'}},'Spin The Block');stb.onclick=function(){go('spintheblock');};tr.appendChild(stb);
   tr.className='toc-nav-right';nav.appendChild(tr);
   var inner=h('div',{className:'toc-inner',style:{maxWidth:'1200px',margin:'0 auto',padding:'28px 44px 60px'}});
   inner.appendChild(h('div',{className:'fade s1',style:{display:'flex',alignItems:'center',gap:'16px',marginBottom:'24px'}},h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'5px',color:'#999',textTransform:'uppercase'}},'Inside Vol. I'),h('div',{style:{flex:1,height:'.5px',background:'#ccc'}}),h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'#bbb',textTransform:'uppercase'}},SECS.length+' Stories \u00b7 Toronto, ON')));
@@ -1102,6 +1103,168 @@ function buildArchive(){
 }
 
 
+// ─── SPIN THE BLOCK ───────────────────────────────────────────────────────────
+var STB_EPISODES = [
+  {
+    num:"01",
+    title:"Vol. I Celebration",
+    guests:["DT the Artist","4D","Yannaabaiibee"],
+    date:"Coming Soon",
+    status:"coming",
+    desc:"The debut episode of Spin The Block celebrates the release of Afternoise Vol. I — Origins. DT the Artist, 4D, and Yannaabaiibee join host DJ 3 Live for the first edition of the weekly show.",
+    platforms:[]
+  }
+];
+
+var STB_PLATFORMS = [
+  {name:"Live365",    url:"https://streaming.live365.com/a82938", icon:"📻"},
+  {name:"Spotify",    url:"#", icon:"🎵"},
+  {name:"Apple Podcasts", url:"#", icon:"🎙"},
+  {name:"SoundCloud", url:"#", icon:"☁️"},
+];
+
+function buildSpinTheBlock(){
+  var wrap=h('div',{style:{background:'#080B14',minHeight:'calc(100vh - 28px)'}});
+
+  // Nav
+  var nav=h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 44px',borderBottom:'.5px solid rgba(212,168,83,.15)',position:'sticky',top:0,zIndex:20,background:'#080B14',flexWrap:'wrap',gap:'8px'}});
+  var bb=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.4)'}},'\u2190 Magazine');bb.onclick=function(){go('toc');};nav.appendChild(bb);
+  var navMast=h('button',{style:{fontFamily:"var(--pf)",fontSize:'16px',fontWeight:900,letterSpacing:'6px',color:'#F4F0E6',background:'none',border:'none',cursor:'pointer',transition:'opacity .15s',flex:1,textAlign:'center'}});
+  navMast.textContent='AFTERNOISE';navMast.onmouseenter=function(){navMast.style.opacity='.6';};navMast.onmouseleave=function(){navMast.style.opacity='1';};navMast.onclick=function(){go('toc');};nav.appendChild(navMast);
+  var rb=h('button',{className:'nbtn',style:{color:'rgba(212,168,83,.6)'}},'Radio');rb.onclick=function(){var el=document.getElementById('radio-player');if(el)el.classList.add('show');};nav.appendChild(rb);
+  wrap.appendChild(nav);
+
+  var inner=h('div',{style:{maxWidth:'1000px',margin:'0 auto',padding:'48px 44px 100px'}});
+
+  // Show header
+  var hdr=h('div',{className:'fade',style:{marginBottom:'48px',textAlign:'center'}});
+
+  // Live indicator
+  var liveRow=h('div',{style:{display:'flex',alignItems:'center',justifyContent:'center',gap:'10px',marginBottom:'20px'}});
+  var dot=h('div',{style:{width:'8px',height:'8px',borderRadius:'50%',background:'#D4A853',animation:'pulse 1.8s ease-in-out infinite'}});
+  liveRow.appendChild(dot);
+  liveRow.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'4px',color:'rgba(212,168,83,.7)',textTransform:'uppercase'}},'Afternoise Radio  \u00b7  Weekly Show'));
+  hdr.appendChild(liveRow);
+
+  // Show name
+  hdr.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(36px,6vw,72px)',fontWeight:900,letterSpacing:'4px',color:'#F4F0E6',lineHeight:1,marginBottom:'8px'}},'SPIN THE BLOCK'));
+
+  // Subtitle
+  var sub=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'clamp(14px,2vw,18px)',color:'rgba(244,240,230,.45)',marginBottom:'28px'}});
+  sub.textContent='DJ mix. Live interviews. The artists behind the magazine — on air.';
+  hdr.appendChild(sub);
+
+  // Gold rule
+  hdr.appendChild(h('div',{style:{height:'1px',background:'linear-gradient(to right,transparent,rgba(212,168,83,.5),transparent)',margin:'0 auto',maxWidth:'400px'}}));
+  inner.appendChild(hdr);
+
+  // Platform links
+  var platforms=h('div',{className:'fade s1',style:{display:'flex',justifyContent:'center',gap:'12px',marginBottom:'48px',flexWrap:'wrap'}});
+  platforms.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'rgba(244,240,230,.3)',textTransform:'uppercase',display:'flex',alignItems:'center',marginRight:'8px'}},'Stream On'));
+  STB_PLATFORMS.forEach(function(p){
+    var btn=h('a',{href:p.url,target:'_blank',rel:'noopener',style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'2px',textTransform:'uppercase',border:'.5px solid rgba(212,168,83,.3)',color:'rgba(212,168,83,.7)',padding:'8px 16px',textDecoration:'none',transition:'all .2s',display:'inline-block'}});
+    btn.textContent=p.name;
+    btn.onmouseenter=function(){btn.style.borderColor='#D4A853';btn.style.color='#D4A853';btn.style.background='rgba(212,168,83,.08)';};
+    btn.onmouseleave=function(){btn.style.borderColor='rgba(212,168,83,.3)';btn.style.color='rgba(212,168,83,.7)';btn.style.background='none';};
+    platforms.appendChild(btn);
+  });
+  inner.appendChild(platforms);
+
+  // Episodes header
+  var epHdr=h('div',{className:'fade s2',style:{display:'flex',alignItems:'center',gap:'16px',marginBottom:'24px'}});
+  epHdr.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'5px',color:'rgba(244,240,230,.3)',textTransform:'uppercase'}},'Episodes'));
+  epHdr.appendChild(h('div',{style:{flex:1,height:'.5px',background:'rgba(255,255,255,.08)'}}));
+  epHdr.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'rgba(244,240,230,.2)',textTransform:'uppercase'}},'Season 1  \u00b7  2026'));
+  inner.appendChild(epHdr);
+
+  // Episode cards
+  STB_EPISODES.forEach(function(ep,i){
+    var card=h('div',{className:'fade s'+(i+3),style:{border:'.5px solid rgba(212,168,83,.2)',marginBottom:'16px',transition:'border-color .2s,background .2s',cursor:ep.status==='coming'?'default':'pointer'}});
+    card.onmouseenter=function(){if(ep.status!=='coming'){card.style.borderColor='rgba(212,168,83,.5)';card.style.background='rgba(212,168,83,.04)';}};
+    card.onmouseleave=function(){card.style.borderColor='rgba(212,168,83,.2)';card.style.background='none';};
+
+    var cardInner=h('div',{style:{padding:'24px 28px',display:'grid',gridTemplateColumns:'auto 1fr auto',gap:'24px',alignItems:'center'}});
+
+    // Episode number
+    var epNum=h('div',{style:{textAlign:'center',flexShrink:0}});
+    epNum.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'32px',fontWeight:900,color:'rgba(212,168,83,.4)',lineHeight:1}},'EP'));
+    epNum.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'40px',fontWeight:900,color:'#D4A853',lineHeight:1}},''+ep.num));
+    cardInner.appendChild(epNum);
+
+    // Episode info
+    var epInfo=h('div',{});
+    var epTop=h('div',{style:{display:'flex',alignItems:'center',gap:'12px',marginBottom:'8px',flexWrap:'wrap'}});
+    if(ep.status==='coming'){
+      var cs=h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'3px',textTransform:'uppercase',background:'rgba(212,168,83,.15)',color:'#D4A853',padding:'3px 10px',border:'.5px solid rgba(212,168,83,.3)'}});cs.textContent='Coming Soon';epTop.appendChild(cs);
+    } else {
+      var ls2=h('div',{style:{display:'flex',alignItems:'center',gap:'6px'}});ls2.appendChild(h('div',{style:{width:'6px',height:'6px',borderRadius:'50%',background:'#D4A853',animation:'pulse 1.8s ease-in-out infinite'}}));ls2.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'3px',color:'#D4A853',textTransform:'uppercase'}},'Available Now'));epTop.appendChild(ls2);
+    }
+    epTop.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',color:'rgba(244,240,230,.3)',letterSpacing:'1px'}},'Weekly Show  \u00b7  '+ep.date));
+    epInfo.appendChild(epTop);
+
+    var epTitle=h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(18px,2.5vw,26px)',fontWeight:900,color:'#F4F0E6',marginBottom:'8px',lineHeight:1.1}});epTitle.textContent=ep.title;epInfo.appendChild(epTitle);
+
+    // Guest tags
+    var guestRow=h('div',{style:{display:'flex',gap:'8px',flexWrap:'wrap',marginBottom:'10px'}});
+    ep.guests.forEach(function(g){
+      var gt=h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'2px',color:'rgba(244,240,230,.5)',border:'.5px solid rgba(244,240,230,.15)',padding:'3px 10px',textTransform:'uppercase'}});gt.textContent=g;guestRow.appendChild(gt);
+    });
+    epInfo.appendChild(guestRow);
+
+    var epDesc=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'11px',color:'rgba(244,240,230,.4)',lineHeight:1.6}});epDesc.textContent=ep.desc;epInfo.appendChild(epDesc);
+    cardInner.appendChild(epInfo);
+
+    // Play button / coming soon
+    var epAction=h('div',{style:{flexShrink:0,textAlign:'center'}});
+    if(ep.status==='coming'){
+      var notify=h('button',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',textTransform:'uppercase',background:'transparent',border:'.5px solid rgba(212,168,83,.35)',color:'rgba(212,168,83,.6)',padding:'12px 20px',cursor:'pointer',transition:'all .2s'}});
+      notify.textContent='Notify Me';
+      notify.onmouseenter=function(){notify.style.borderColor='#D4A853';notify.style.color='#D4A853';};
+      notify.onmouseleave=function(){notify.style.borderColor='rgba(212,168,83,.35)';notify.style.color='rgba(212,168,83,.6)';};
+      notify.onclick=function(){window.open('https://docs.google.com/forms/d/e/1FAIpQLSfxJSrzkS67_vu9WFARVyRTcT6wtNcMDrkG7h1nKoqLt5Y63Q/viewform','_blank');};
+      epAction.appendChild(notify);
+    } else {
+      var play=h('button',{style:{width:'52px',height:'52px',borderRadius:'50%',background:'#D4A853',border:'none',cursor:'pointer',fontSize:'20px',color:'#111',display:'flex',alignItems:'center',justifyContent:'center',transition:'background .2s,transform .2s'}});
+      play.innerHTML='&#9654;';
+      play.onmouseenter=function(){play.style.background='#F4F0E6';play.style.transform='scale(1.05)';};
+      play.onmouseleave=function(){play.style.background='#D4A853';play.style.transform='none';};
+      epAction.appendChild(play);
+    }
+    cardInner.appendChild(epAction);
+    card.appendChild(cardInner);
+    inner.appendChild(card);
+  });
+
+  // More episodes coming
+  var more=h('div',{className:'fade s4',style:{textAlign:'center',padding:'32px',border:'.5px dashed rgba(255,255,255,.08)',marginBottom:'48px'}});
+  more.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'4px',color:'rgba(244,240,230,.2)',textTransform:'uppercase',marginBottom:'8px'}},'More Episodes'));
+  var moreT=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'14px',color:'rgba(244,240,230,.3)'}});moreT.textContent='New episodes drop weekly. Subscribe to be notified.';more.appendChild(moreT);
+  inner.appendChild(more);
+
+  // Submit CTA
+  var cta=h('div',{className:'fade s5',style:{background:'rgba(212,168,83,.06)',border:'.5px solid rgba(212,168,83,.2)',padding:'32px 36px',display:'flex',alignItems:'center',justifyContent:'space-between',gap:'24px',flexWrap:'wrap',marginBottom:'48px'}});
+  var ctaLeft=h('div',{});
+  ctaLeft.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'4px',color:'rgba(212,168,83,.6)',textTransform:'uppercase',marginBottom:'8px'}},'Want To Be On The Show?'));
+  var ctaT=h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(16px,2.5vw,22px)',fontWeight:900,color:'#F4F0E6',marginBottom:'6px'}});ctaT.textContent='Apply to be featured on Spin The Block';ctaLeft.appendChild(ctaT);
+  var ctaS=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'11px',color:'rgba(244,240,230,.4)'}});ctaS.textContent='Artists, DJs, producers — if the work is real, we want to hear it.';ctaLeft.appendChild(ctaS);
+  cta.appendChild(ctaLeft);
+  var ctaBtn=h('a',{href:'https://docs.google.com/forms/d/e/1FAIpQLSfxJSrzkS67_vu9WFARVyRTcT6wtNcMDrkG7h1nKoqLt5Y63Q/viewform',target:'_blank',rel:'noopener',style:{fontFamily:"var(--lb)",fontSize:'10px',letterSpacing:'3px',textTransform:'uppercase',background:'#D4A853',color:'#111',padding:'14px 28px',textDecoration:'none',fontWeight:'bold',transition:'background .2s',flexShrink:0,display:'inline-block'}},'Submit \u2192');
+  ctaBtn.onmouseenter=function(){ctaBtn.style.background='#F4F0E6';};ctaBtn.onmouseleave=function(){ctaBtn.style.background='#D4A853';};
+  cta.appendChild(ctaBtn);
+  inner.appendChild(cta);
+
+  // Footer
+  var ft=h('div',{style:{paddingTop:'18px',borderTop:'.5px solid rgba(255,255,255,.07)',display:'flex',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap',gap:'8px'}});
+  ft.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'2px',color:'rgba(244,240,230,.18)',textTransform:'uppercase'}},'\u00a9 Afternoise 2026'));
+  var fmid=h('span',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'10px',color:'rgba(244,240,230,.18)'}});fmid.textContent="Culture Doesn't Wait";ft.appendChild(fmid);
+  ft.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'2px',color:'rgba(244,240,230,.18)',textTransform:'uppercase'}},'afternoisemag.com'));
+  inner.appendChild(ft);
+
+  wrap.appendChild(inner);
+  return wrap;
+}
+
+
 // ─── RENDER ───────────────────────────────────────────────────────────────────
 function render(){
   cancelAnimationFrame(TRaf);window.onscroll=null;
@@ -1118,6 +1281,7 @@ function render(){
     if(ST.page==='radar')pw.appendChild(buildRadar());
     if(ST.page==='essay')pw.appendChild(buildEssay());
     if(ST.page==='archive')pw.appendChild(buildArchive());
+  if(ST.page==='spintheblock')pw.appendChild(buildSpinTheBlock());
   }
   root.appendChild(pw);
   setTimeout(function(){
