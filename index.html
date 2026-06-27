@@ -632,20 +632,20 @@ function buildLetter(){
   var dc=h('div',{});
   var drop=h('span',{style:{float:'left',fontFamily:"var(--pf)",fontSize:'80px',fontWeight:900,lineHeight:.76,marginRight:'12px',marginTop:'10px',color:'#111'}},'\u2018');
   var rest=h('span',{style:{fontFamily:"var(--lb)",fontSize:'16px',lineHeight:2,color:'#1a1a1a'}});
-  rest.textContent='[PLACEHOLDER: Opening line of your letter — the sentence that pulls the reader in. Could be a memory, an observation, a moment from Toronto. Your words go here.]';
+  rest.textContent='here is a moment — most of us have had it — where everything around you is loud, uncertain, and moving too fast. The world shifts, people change, circumstances change, and somehow in the middle of all of it, music is just there. Steady. Unchanged. Waiting.';
   dc.appendChild(drop);dc.appendChild(rest);opener.appendChild(dc);inner.appendChild(opener);
-  inner.appendChild(para('[PLACEHOLDER: Paragraph 2 — why you started Afternoise. The gap you saw in the culture, what was missing, what you wanted to build. Rough notes are fine, send them and I will shape it into copy.]','fade s2'));
-  inner.appendChild(para('[PLACEHOLDER: Paragraph 3 — why Toronto for Vol. I. The Caribbean diaspora, the carnival scene, the artists you met. What makes this city the right place to start.]','fade s3'));
-  inner.appendChild(para('[PLACEHOLDER: Paragraph 4 — the artists inside this issue and what they represent. Why DT, 4D, the DJs, Costume Creators. What they have in common and what that says about the culture you are documenting.]','fade s4'));
-  inner.appendChild(para('[PLACEHOLDER: Closing paragraph — what Vol. I means to you and what comes next. Where Afternoise goes from here. Leave the reader with something to hold onto.]','fade s5'));
+  inner.appendChild(para('I was seven years old the first time I understood that. My parents had records, cassette tapes, CDs — a whole collection that told me the world had been feeling something long before I arrived in it. Family members who lived inside the music. A culture that held people before the world ever got around to noticing them. That was my first education. Not a classroom. A record collection.','fade s2'));
+  inner.appendChild(para('What I learned growing up is that culture — real culture — does not ask for your credentials before it lets you in. It does not check your follower count or your deal status or who you know. It just holds you. It sees you. And after all the noise of the world trying to tell you who matters and who does not, culture is what is left standing. Afternoise was built for that space. The space after the noise.','fade s3'));
+  inner.appendChild(para('We live in a time where visibility is currency and attention is manufactured. Where the loudest voice in the room is often the one with the least to say. Where people who did not build anything are celebrated for borrowing what others created. Culture vultures — the ones who arrive after the work is done, take what was never theirs, and move on before the bill comes due. They are everywhere. And they take up space that belongs to someone else. This magazine is not for them.','fade s4'));
+  inner.appendChild(para('Afternoise is for the ones who were already in it before anyone was watching. The artist who is also the A&R, the manager, the connector — the one losing sleep not for themselves but to make sure the people around them get seen. The DJ who took the gig nobody else wanted and turned it into a moment nobody will forget. The producer in the studio building the sound before the artist even knows what they need. The designer working through the night on a vision that only they can see yet. Vol. I is called Origins because everything in this issue starts at the beginning. Before the recognition. Before the numbers. Before the world caught up. No matter what you do, no matter how big or small the room you are doing it in — if the work is real, this magazine will find you. We will make you feel like the cover because to us, you already are.','fade s5'));
   // Pull quote
   var pq=h('div',{className:'fade s5',style:{borderLeft:'3px solid #111',paddingLeft:'24px',margin:'36px 0'}});
   var pqt=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'20px',lineHeight:1.5,color:'#111',marginBottom:'8px'}});
-  pqt.textContent='"[REPLACE: The best line from your letter — the one that captures what Afternoise is about in a single sentence.]"';
+  pqt.textContent='"After the noise, what remains is the truth of who was really there."';
   pq.appendChild(pqt);inner.appendChild(pq);
   // Sign off
   var so=h('div',{className:'fade s6',style:{marginTop:'44px',paddingTop:'32px',borderTop:'.5px solid #ddd'}});
-  so.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'22px',color:'#111',marginBottom:'4px'}},'[Your Name]'));
+  so.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'22px',color:'#111',marginBottom:'4px'}},'Craig Allen'));
   so.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'10px',letterSpacing:'3px',color:'#aaa',textTransform:'uppercase',marginBottom:'4px'}},'Founder & Creative Director, Afternoise'));
   so.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'10px',letterSpacing:'2px',color:'#bbb',textTransform:'uppercase'}},'Toronto, ON \u00b7 Aug 2026'));
   inner.appendChild(so);
