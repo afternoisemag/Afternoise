@@ -653,14 +653,14 @@ function buildArt(si){
 function buildAbout(){
   var wrap=h('div',{style:{background:'#0D0D0D',minHeight:'calc(100vh - 28px)'}});
   var nav=h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 44px',borderBottom:'.5px solid rgba(255,255,255,.08)',position:'sticky',top:0,zIndex:20,background:'#0D0D0D'}});
-  var bb=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.4)'}},'\u2190 Back');bb.onclick=function(){go('cover');};nav.appendChild(bb);
+  var bb=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.65)'}},'\u2190 Back');bb.onclick=function(){go('cover');};nav.appendChild(bb);
   var aboutMastBtn=h('button',{style:{fontFamily:"var(--pf)",fontSize:'18px',fontWeight:900,letterSpacing:'8px',color:'#F4F0E6',background:'none',border:'none',cursor:'pointer',padding:0,transition:'opacity .15s',flex:1,textAlign:'center'}});
   aboutMastBtn.textContent='AFTERNOISE';
   aboutMastBtn.onmouseenter=function(){aboutMastBtn.style.opacity='.6';};
   aboutMastBtn.onmouseleave=function(){aboutMastBtn.style.opacity='1';};
   aboutMastBtn.onclick=function(){go('toc');};
   nav.appendChild(aboutMastBtn);
-  var rb=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.4)'}},'Read Vol. I');rb.onclick=function(){go('toc');};nav.appendChild(rb);
+  var rb=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.65)'}},'Read Vol. I');rb.onclick=function(){go('toc');};nav.appendChild(rb);
   wrap.appendChild(nav);
   var hero=h('div',{className:'fade',style:{borderBottom:'1px solid rgba(212,168,83,.2)',padding:'72px 44px 64px',maxWidth:'900px',margin:'0 auto'}});
   hero.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'6px',color:'rgba(212,168,83,.7)',textTransform:'uppercase',marginBottom:'18px'}},'The Story Behind The Magazine'));
@@ -687,7 +687,7 @@ function buildAbout(){
   var pq=h('div',{className:'fade s3',style:{borderTop:'2px solid #D4A853',borderBottom:'2px solid #D4A853',padding:'28px 0',margin:'0 0 48px',textAlign:'center'}});
   var pqt=h('p',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'22px',lineHeight:1.45,color:'#F4F0E6',marginBottom:'10px'}});pqt.textContent='"The culture does not wait. And neither do we."';pq.appendChild(pqt);pq.appendChild(h('p',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'rgba(212,168,83,.65)',textTransform:'uppercase'}},'— Afternoise, Vol. I'));body.appendChild(pq);
   var wc=h('div',{className:'fade s3',style:{marginBottom:'48px'}});wc.appendChild(lbl('What We Cover'));
-  [['FREQUENCIES','Music. The artists, producers, and engineers building sounds that do not fit the algorithm. Hip-hop, soca, afrobeats, and everything in between.'],['DRIP MAPS','Fashion and style through a cultural lens. Mas bands, independent designers, the way the diaspora dresses when it is celebrating itself.'],['SIGNAL','Culture and interviews. The conversations that give you the full picture — what the artists think, what the scene looks like from the inside.'],['PASSPORT','Travel rooted in culture. The cities where the Caribbean diaspora has built something worth documenting, told through food, nightlife, and the spots the guides miss.']].forEach(function(p){var row=h('div',{style:{display:'flex',gap:'20px',padding:'18px 0',borderBottom:'.5px solid rgba(255,255,255,.07)'}});row.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',textTransform:'uppercase',color:'#D4A853',minWidth:'110px',paddingTop:'3px',flexShrink:0}},p[0]));var desc=h('div',{style:{fontFamily:"var(--lb)",fontSize:'13px',lineHeight:1.75,color:'rgba(244,240,230,.8)'}});desc.textContent=p[1];row.appendChild(desc);wc.appendChild(row);});body.appendChild(wc);
+  [['FREQUENCIES','Music. The artists, producers, and engineers building sounds that do not fit the algorithm. Hip-hop, soca, afrobeats, and everything in between.'],['DRIP MAPS','Fashion and style through a cultural lens. Mas bands, independent designers, the way the diaspora dresses when it is celebrating itself.'],['SIGNAL','Culture and interviews. The conversations that give you the full picture — what the artists think, what the scene looks like from the inside.'],['PASSPORT','Travel rooted in culture. The cities where the Caribbean diaspora has built something worth documenting, told through food, nightlife, and the spots the guides miss.']].forEach(function(p){var row=h('div',{style:{display:'flex',gap:'20px',padding:'18px 0',borderBottom:'.5px solid rgba(255,255,255,.07)'}});row.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',textTransform:'uppercase',color:'#D4A853',minWidth:'110px',paddingTop:'3px',flexShrink:0}},p[0]));var desc=h('div',{style:{fontFamily:"var(--lb)",fontSize:'13px',lineHeight:1.75,color:'#F4F0E6'}});desc.textContent=p[1];row.appendChild(desc);wc.appendChild(row);});body.appendChild(wc);
   var radio=h('div',{className:'fade s4',style:{background:'rgba(255,255,255,.03)',border:'.5px solid rgba(212,168,83,.2)',padding:'28px 32px',marginBottom:'48px'}});radio.appendChild(lbl('Also On Air'));var rp=h('p',{style:{fontFamily:"var(--lb)",fontSize:'14px',lineHeight:1.8,color:'#F4F0E6'}});rp.textContent='Afternoise is more than a magazine. The radio platform runs alongside the print and digital editions — broadcasting independent artists, mixes, and culture 24/7. Find us on Live365. The magazine covers the story. The radio plays it.';radio.appendChild(rp);body.appendChild(radio);
   var so=h('div',{className:'fade s5',style:{marginBottom:'48px'}});so.appendChild(txt('If you are reading this, you are already the audience this was made for. The person who knows there is more out there than what is being shown. The one who supports the artist before the world catches up. Welcome to Afternoise.'));so.appendChild(h('div',{style:{marginTop:'28px'}}));so.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'20px',color:'#D4A853',marginBottom:'4px'}},'Craig'));so.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'10px',letterSpacing:'3px',color:'rgba(244,240,230,.35)',textTransform:'uppercase'}},'Founder, Afternoise'));body.appendChild(so);
   var cta=h('div',{className:'fade s6',style:{textAlign:'center',paddingTop:'32px',borderTop:'.5px solid rgba(255,255,255,.08)',marginBottom:'48px'}});cta.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'5px',color:'rgba(212,168,83,.65)',textTransform:'uppercase',marginBottom:'16px'}},'Read the Magazine'));var rb2=h('button',{className:'btn-g',style:{fontSize:'11px',letterSpacing:'4px',padding:'16px 40px'}},'Vol. I \u2014 Origins \u2192');rb2.onclick=function(){go('toc');};cta.appendChild(rb2);body.appendChild(cta);
@@ -719,12 +719,12 @@ function buildLetter(){
     h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'clamp(28px,4vw,48px)',fontWeight:400,lineHeight:1.05,color:'#F4F0E6'}},'the Editor')
   ));
   inner.appendChild(h('div',{style:{height:'2px',background:'#D4A853',marginBottom:'44px'}}));
-  function para(t,cls){var d=h('div',{className:cls||'fade s1',style:{fontFamily:"var(--lb)",fontSize:'16px',lineHeight:2,color:'rgba(244,240,230,.85)',marginBottom:'26px'}});d.textContent=t;return d;}
+  function para(t,cls){var d=h('div',{className:cls||'fade s1',style:{fontFamily:"var(--lb)",fontSize:'16px',lineHeight:2,color:'#F4F0E6',marginBottom:'26px'}});d.textContent=t;return d;}
   // Drop cap opener
   var opener=h('div',{className:'fade',style:{marginBottom:'26px'}});
   var dc=h('div',{});
   var drop=h('span',{style:{float:'left',fontFamily:"var(--pf)",fontSize:'80px',fontWeight:900,lineHeight:.76,marginRight:'12px',marginTop:'10px',color:'#111'}},'\u2018');
-  var rest=h('span',{style:{fontFamily:"var(--lb)",fontSize:'16px',lineHeight:2,color:'rgba(244,240,230,.85)'}});
+  var rest=h('span',{style:{fontFamily:"var(--lb)",fontSize:'16px',lineHeight:2,color:'#F4F0E6'}});
   rest.textContent='here is a moment — most of us have had it — where everything around you is loud, uncertain, and moving too fast. The world shifts, people change, circumstances change, and somehow in the middle of all of it, music is just there. Steady. Unchanged. Waiting.';
   dc.appendChild(drop);dc.appendChild(rest);opener.appendChild(dc);inner.appendChild(opener);
   inner.appendChild(para('I was seven years old the first time I understood that. My parents had records, cassette tapes, CDs — a whole collection that told me the world had been feeling something long before I arrived in it. Family members who lived inside the music. A culture that held people before the world ever got around to noticing them. That was my first education. Not a classroom. A record collection.','fade s2'));
@@ -739,7 +739,7 @@ function buildLetter(){
   // Sign off
   var so=h('div',{className:'fade s6',style:{marginTop:'44px',paddingTop:'32px',borderTop:'.5px solid rgba(255,255,255,.1)'}});
   so.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'22px',color:'#D4A853',marginBottom:'4px'}},'Craig Allen'));
-  so.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'10px',letterSpacing:'3px',color:'rgba(244,240,230,.4)',textTransform:'uppercase',marginBottom:'4px'}},'Founder & Creative Director, Afternoise'));
+  so.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'10px',letterSpacing:'3px',color:'rgba(244,240,230,.65)',textTransform:'uppercase',marginBottom:'4px'}},'Founder & Creative Director, Afternoise'));
   so.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'10px',letterSpacing:'2px',color:'rgba(244,240,230,.3)',textTransform:'uppercase'}},'Toronto, ON \u00b7 Aug 2026'));
   inner.appendChild(so);
   // CTA
@@ -896,7 +896,7 @@ function buildEssay(){
   var hdr=h('div',{className:'fade',style:{marginBottom:'40px',textAlign:'center'}});
   hdr.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'6px',color:'rgba(212,168,83,.65)',textTransform:'uppercase',marginBottom:'12px'}},'Vol. I — Origins \u00b7 Toronto'));
   hdr.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(28px,4vw,52px)',fontWeight:900,lineHeight:1,color:'#F4F0E6',marginBottom:'8px'}},'In Frame'));
-  var sub3=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'16px',color:'rgba(244,240,230,.45)',maxWidth:'480px',lineHeight:1.6,margin:'0 auto'}});
+  var sub3=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'16px',color:'rgba(244,240,230,.7)',maxWidth:'480px',lineHeight:1.6,margin:'0 auto'}});
   sub3.textContent='Toronto, Ontario. Caribbean Carnival season. The moments between the moments.';
   hdr.appendChild(sub3);inner.appendChild(hdr);
   inner.appendChild(h('div',{style:{height:'1px',background:'rgba(212,168,83,.2)',marginBottom:'32px'}}));
@@ -905,7 +905,7 @@ function buildEssay(){
   var hi=pImg('cover',{width:'100%',height:'560px',objectFit:'cover',objectPosition:'center 20%',display:'block',filter:'brightness(.85)'});
   hero.appendChild(hi);
   var hcap=h('div',{style:{padding:'10px 0',display:'flex',justifyContent:'space-between',alignItems:'center'}});
-  var hcapL=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'11px',color:'rgba(244,240,230,.45)'}});hcapL.textContent=ESSAY_SLOTS[0].caption;hcap.appendChild(hcapL);
+  var hcapL=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'11px',color:'rgba(244,240,230,.7)'}});hcapL.textContent=ESSAY_SLOTS[0].caption;hcap.appendChild(hcapL);
   hcap.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'rgba(212,168,83,.4)',textTransform:'uppercase'}},'01 / '+(ESSAY_SLOTS.length)));
   hero.appendChild(hcap);inner.appendChild(hero);
   // Two col row
@@ -915,7 +915,7 @@ function buildEssay(){
     var ci2=pImg(es.slot,{width:'100%',height:'400px',objectFit:'cover',display:'block',filter:'brightness(.88)'});
     cell.appendChild(ci2);
     var cap2=h('div',{style:{padding:'8px 0'}});
-    var capT=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'10px',color:'rgba(244,240,230,.4)'}});capT.textContent=es.caption;cap2.appendChild(capT);
+    var capT=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'10px',color:'rgba(244,240,230,.65)'}});capT.textContent=es.caption;cap2.appendChild(capT);
     cell.appendChild(cap2);row2.appendChild(cell);
   });
   inner.appendChild(row2);
@@ -926,7 +926,7 @@ function buildEssay(){
     var ci3=pImg(es.slot,{width:'100%',height:'300px',objectFit:'cover',display:'block',filter:'brightness(.88)'});
     cell.appendChild(ci3);
     var cap3=h('div',{style:{padding:'8px 0'}});
-    var capT3=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'10px',color:'rgba(244,240,230,.4)'}});capT3.textContent=es.caption;cap3.appendChild(capT3);
+    var capT3=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'10px',color:'rgba(244,240,230,.65)'}});capT3.textContent=es.caption;cap3.appendChild(capT3);
     cell.appendChild(cap3);row3.appendChild(cell);
   });
   inner.appendChild(row3);
@@ -937,7 +937,7 @@ function buildEssay(){
     var ci4=pImg(es.slot,{width:'100%',height:'380px',objectFit:'cover',display:'block',filter:'brightness(.88)'});
     cell.appendChild(ci4);
     var cap4=h('div',{style:{padding:'8px 0'}});
-    var capT4=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'10px',color:'rgba(244,240,230,.4)'}});capT4.textContent=es.caption;cap4.appendChild(capT4);
+    var capT4=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'10px',color:'rgba(244,240,230,.65)'}});capT4.textContent=es.caption;cap4.appendChild(capT4);
     cell.appendChild(cap4);row2b.appendChild(cell);
   });
   inner.appendChild(row2b);
@@ -946,7 +946,7 @@ function buildEssay(){
   var fi=pImg('costume3',{width:'100%',height:'500px',objectFit:'cover',objectPosition:'center',display:'block',filter:'brightness(.88)'});
   fin.appendChild(fi);
   var fcap=h('div',{style:{padding:'10px 0',display:'flex',justifyContent:'space-between'}});
-  var fcapT=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'11px',color:'rgba(244,240,230,.45)'}});fcapT.textContent=ESSAY_SLOTS[8].caption;fcap.appendChild(fcapT);
+  var fcapT=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'11px',color:'rgba(244,240,230,.7)'}});fcapT.textContent=ESSAY_SLOTS[8].caption;fcap.appendChild(fcapT);
   fcap.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'rgba(212,168,83,.4)',textTransform:'uppercase'}},ESSAY_SLOTS.length+' / '+ESSAY_SLOTS.length));
   fin.appendChild(fcap);inner.appendChild(fin);
   // Footer
