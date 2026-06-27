@@ -91,20 +91,20 @@
       .toc-inner{padding:16px 16px 40px !important;}
     }
 
-    /* RADIO PLAYER */
-    #radio-player{position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(212,168,83,.18);padding:7px 20px;display:flex;align-items:center;gap:14px;z-index:997;transform:translateY(100%);transition:transform .4s ease;}
-    #radio-player.show{transform:translateY(0);}
+    /* RADIO PLAYER — top right compact */
+    #radio-player{position:fixed;top:12px;right:16px;background:rgba(0,0,0,.75);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(212,168,83,.25);border-radius:32px;padding:7px 14px;display:flex;align-items:center;gap:10px;z-index:998;opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity .35s ease,transform .35s ease;max-width:280px;}
+    #radio-player.show{opacity:1;pointer-events:auto;transform:translateY(0);}
     .radio-dot{width:7px;height:7px;border-radius:50%;background:#D4A853;animation:pulse 1.8s ease-in-out infinite;flex-shrink:0;}
     .radio-dot.paused{animation:none;background:rgba(212,168,83,.35);}
     @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.8);}}
     .radio-info{flex:1;min-width:0;}
-    .radio-label{font-family:var(--lb);font-size:8px;letter-spacing:3px;color:rgba(212,168,83,.7);text-transform:uppercase;margin-bottom:2px;}
-    .radio-name{font-family:var(--pf);font-size:13px;font-weight:700;color:#F4F0E6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-    .radio-playbtn{width:36px;height:36px;border-radius:50%;border:1px solid rgba(212,168,83,.4);background:transparent;color:#D4A853;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;transition:background .2s,color .2s;}
+    .radio-label{font-family:var(--lb);font-size:7px;letter-spacing:3px;color:rgba(212,168,83,.7);text-transform:uppercase;margin-bottom:0;}
+    .radio-name{font-family:var(--pf);font-size:11px;font-weight:700;color:#F4F0E6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px;}
+    .radio-playbtn{width:28px;height:28px;border-radius:50%;border:1px solid rgba(212,168,83,.4);background:transparent;color:#D4A853;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;transition:background .2s,color .2s;}
     .radio-playbtn:hover{background:#D4A853;color:#111;}
     .radio-closebtn{font-family:var(--lb);font-size:9px;color:rgba(244,240,230,.3);background:none;border:none;cursor:pointer;padding:4px 8px;flex-shrink:0;transition:color .2s;}
     .radio-closebtn:hover{color:rgba(244,240,230,.7);}
-    .radio-trigger{position:fixed;bottom:24px;left:24px;background:#111;border:1px solid rgba(212,168,83,.35);padding:8px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;z-index:996;transition:border-color .2s;}
+    .radio-trigger{position:fixed;bottom:80px;left:20px;background:rgba(0,0,0,.7);backdrop-filter:blur(10px);border:1px solid rgba(212,168,83,.35);border-radius:20px;padding:7px 14px;display:flex;align-items:center;gap:8px;cursor:pointer;z-index:996;transition:border-color .2s;}
     .radio-trigger:hover{border-color:#D4A853;}
     .radio-trigger-dot{width:6px;height:6px;border-radius:50%;background:#D4A853;animation:pulse 1.8s ease-in-out infinite;}
     .radio-trigger-txt{font-family:var(--lb);font-size:9px;letter-spacing:3px;color:rgba(244,240,230,.6);text-transform:uppercase;}
@@ -156,11 +156,11 @@
 <div id="radio-player">
   <div class="radio-dot" id="radioDot"></div>
   <div class="radio-info">
-    <div class="radio-label">Live Now</div>
-    <div class="radio-name">Afternoise Radio</div>
+    <div class="radio-label">LIVE</div>
+    <div class="radio-name" id="radio-song-name">Afternoise Radio</div>
   </div>
   <button class="radio-playbtn" id="radioPlayBtn">&#9654;</button>
-  <button class="radio-closebtn" id="radioCloseBtn">&#10005;</button>
+  <button class="radio-closebtn" id="radioCloseBtn" style="font-size:10px;padding:2px 6px;">&#10005;</button>
 </div>
 <div class="radio-trigger" id="radioTrigger">
   <div class="radio-trigger-dot"></div>
@@ -557,30 +557,8 @@ function buildTOC(){
   fw.appendChild(igA);fw.appendChild(twA);
   inner.appendChild(fw);
 
-  // Email capture
-  var sub=h('div',{className:'fade s5',style:{marginTop:'44px',marginBottom:'40px',padding:'40px 36px',background:'#0D0D0D',position:'relative',overflow:'hidden'}});
-  sub.appendChild(h('div',{style:{position:'absolute',top:0,left:0,width:'100%',height:'3px',background:'linear-gradient(to right,#8B1A0A,#D4A853,#0A3D2E)'}}));
-  sub.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'5px',color:'rgba(212,168,83,.75)',textTransform:'uppercase',marginBottom:'12px'}},'Stay In The Loop'));
-  sub.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(22px,3vw,32px)',fontWeight:900,color:'#F4F0E6',lineHeight:1.1,marginBottom:'8px',maxWidth:'480px'}},'Get Vol. II + print drop alerts'));
-  var sp=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'14px',color:'rgba(244,240,230,.5)',marginBottom:'22px',maxWidth:'440px',lineHeight:1.5}});sp.textContent='Be first to know when the next issue drops and when the limited print edition is available.';sub.appendChild(sp);
-  var sbn=h('a',{href:'https://docs.google.com/forms/d/e/1FAIpQLSfxJSrzkS67_vu9WFARVyRTcT6wtNcMDrkG7h1nKoqLt5Y63Q/viewform',target:'_blank',rel:'noopener',style:{display:'inline-block',fontFamily:"var(--lb)",fontSize:'11px',letterSpacing:'3px',textTransform:'uppercase',background:'#D4A853',color:'#111',padding:'15px 34px',cursor:'pointer',fontWeight:'bold',textDecoration:'none',transition:'background .2s'}},'Join The List \u2192');
-  sbn.onmouseenter=function(){sbn.style.background='#F4F0E6';};sbn.onmouseleave=function(){sbn.style.background='#D4A853';};sub.appendChild(sbn);
-  sub.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',color:'rgba(244,240,230,.3)',marginTop:'14px',fontStyle:'italic'}},'No spam. Just the magazine. Unsubscribe anytime.'));
-  inner.appendChild(sub);
 
-  // Print edition
-  var printNote=h('div',{className:'fade s6',style:{margin:'0 0 24px',padding:'20px 24px',background:'#111',display:'flex',alignItems:'center',justifyContent:'space-between',flexWrap:'wrap',gap:'16px'}});
-  var pnLeft=h('div',{});
-  pnLeft.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'4px',color:'rgba(212,168,83,.6)',textTransform:'uppercase',marginBottom:'6px'}},'Limited Print Edition'));
-  pnLeft.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'22px',fontWeight:900,color:'#F4F0E6',letterSpacing:'4px',lineHeight:1,marginBottom:'4px'}},'VOL. I'));
-  var pnT=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'11px',color:'rgba(244,240,230,.35)',lineHeight:1.5}});pnT.textContent="Collector's edition. Ships worldwide.";pnLeft.appendChild(pnT);
-  printNote.appendChild(pnLeft);
-  var pnBtn=h('a',{href:'https://docs.google.com/forms/d/e/1FAIpQLSfxJSrzkS67_vu9WFARVyRTcT6wtNcMDrkG7h1nKoqLt5Y63Q/viewform',target:'_blank',rel:'noopener',style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',textTransform:'uppercase',background:'#D4A853',color:'#111',padding:'12px 22px',textDecoration:'none',fontWeight:'bold',transition:'background .2s',flexShrink:0,display:'inline-block'}},'Notify Me \u2192');
-  pnBtn.onmouseenter=function(){pnBtn.style.background='#F4F0E6';};pnBtn.onmouseleave=function(){pnBtn.style.background='#D4A853';};
-  printNote.appendChild(pnBtn);
-  inner.appendChild(printNote);
-
-  inner.appendChild(h('div',{className:'fade s6',style:{borderTop:'.5px solid #ccc',paddingTop:'14px',display:'flex',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap',gap:'8px'}},h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'#bbb',textTransform:'uppercase'}},'\u00a9 Afternoise 2026'),h('span',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'13px',color:'#aaa'}},"Culture Doesn't Wait"),h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'#bbb',textTransform:'uppercase'}},'afternoisemag.com')));
+    inner.appendChild(h('div',{className:'fade s6',style:{borderTop:'.5px solid #ccc',paddingTop:'14px',display:'flex',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap',gap:'8px'}},h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'#bbb',textTransform:'uppercase'}},'\u00a9 Afternoise 2026'),h('span',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'13px',color:'#aaa'}},"Culture Doesn't Wait"),h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'#bbb',textTransform:'uppercase'}},'afternoisemag.com')));
   wrap.appendChild(nav);wrap.appendChild(inner);return wrap;
 }
 
@@ -1129,6 +1107,27 @@ function buildArchive(){
   pr.appendChild(pBtn);print.appendChild(pr);
   inner.appendChild(print);
 
+  // Email capture
+  var archSub=h('div',{className:'fade s3',style:{marginBottom:'24px',padding:'32px 28px',background:'rgba(255,255,255,.03)',border:'.5px solid rgba(212,168,83,.2)',position:'relative',overflow:'hidden'}});
+  archSub.appendChild(h('div',{style:{position:'absolute',top:0,left:0,width:'100%',height:'2px',background:'linear-gradient(to right,#8B1A0A,#D4A853,#0A3D2E)'}}));
+  archSub.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'4px',color:'rgba(212,168,83,.65)',textTransform:'uppercase',marginBottom:'10px'}},'Stay In The Loop'));
+  archSub.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(18px,2.5vw,26px)',fontWeight:900,color:'#F4F0E6',lineHeight:1.1,marginBottom:'8px'}},'Get Vol. II + print drop alerts'));
+  var archSubP=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'13px',color:'rgba(244,240,230,.45)',marginBottom:'18px',lineHeight:1.5}});archSubP.textContent='Be first to know when the next issue drops and when the limited print edition is available.';archSub.appendChild(archSubP);
+  var archSubBtn=h('a',{href:'https://docs.google.com/forms/d/e/1FAIpQLSfxJSrzkS67_vu9WFARVyRTcT6wtNcMDrkG7h1nKoqLt5Y63Q/viewform',target:'_blank',rel:'noopener',style:{display:'inline-block',fontFamily:"var(--lb)",fontSize:'10px',letterSpacing:'3px',textTransform:'uppercase',background:'#D4A853',color:'#111',padding:'12px 28px',textDecoration:'none',fontWeight:'bold',transition:'background .2s'}},'Join The List →');
+  archSubBtn.onmouseenter=function(){archSubBtn.style.background='#F4F0E6';};archSubBtn.onmouseleave=function(){archSubBtn.style.background='#D4A853';};archSub.appendChild(archSubBtn);
+  inner.appendChild(archSub);
+  // Print edition
+  var archPrint=h('div',{className:'fade s3',style:{marginBottom:'24px',padding:'20px 28px',background:'rgba(255,255,255,.03)',border:'.5px solid rgba(212,168,83,.15)',display:'flex',alignItems:'center',justifyContent:'space-between',flexWrap:'wrap',gap:'16px'}});
+  var apLeft=h('div',{});
+  apLeft.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'4px',color:'rgba(212,168,83,.55)',textTransform:'uppercase',marginBottom:'6px'}},'Limited Print Edition'));
+  apLeft.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'22px',fontWeight:900,color:'#F4F0E6',letterSpacing:'4px',lineHeight:1,marginBottom:'4px'}},'VOL. I'));
+  var apT=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'11px',color:'rgba(244,240,230,.3)',lineHeight:1.5}});apT.textContent="Collector's edition. Ships worldwide.";apLeft.appendChild(apT);
+  archPrint.appendChild(apLeft);
+  var apBtn=h('a',{href:'https://docs.google.com/forms/d/e/1FAIpQLSfxJSrzkS67_vu9WFARVyRTcT6wtNcMDrkG7h1nKoqLt5Y63Q/viewform',target:'_blank',rel:'noopener',style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',textTransform:'uppercase',background:'transparent',color:'rgba(212,168,83,.7)',border:'.5px solid rgba(212,168,83,.35)',padding:'10px 20px',textDecoration:'none',transition:'all .2s',flexShrink:0,display:'inline-block'}},'Notify Me →');
+  apBtn.onmouseenter=function(){apBtn.style.borderColor='#D4A853';apBtn.style.color='#D4A853';};apBtn.onmouseleave=function(){apBtn.style.borderColor='rgba(212,168,83,.35)';apBtn.style.color='rgba(212,168,83,.7)';};
+  archPrint.appendChild(apBtn);
+  inner.appendChild(archPrint);
+
   // Footer
   var ft=h('div',{style:{marginTop:'48px',paddingTop:'18px',borderTop:'.5px solid rgba(255,255,255,.07)',display:'flex',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap',gap:'8px'}});
   ft.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'2px',color:'rgba(244,240,230,.18)',textTransform:'uppercase'}},'\u00a9 Afternoise 2026'));
@@ -1348,6 +1347,27 @@ function render(){
 // ─── RADIO PLAYER ─────────────────────────────────────────────────────────────
 (function(){
   var audio = document.getElementById('radioAudio');
+  var songNameEl = document.getElementById('radio-song-name');
+
+  // Fetch now playing from Live365
+  function fetchNowPlaying(){
+    fetch('https://api.live365.com/station/a82938')
+      .then(function(r){return r.json();})
+      .then(function(d){
+        if(songNameEl && d && d.song){
+          var artist = d.song.artist_name || '';
+          var title = d.song.title || '';
+          if(artist && title) songNameEl.textContent = artist + ' — ' + title;
+          else if(title) songNameEl.textContent = title;
+          else songNameEl.textContent = 'Afternoise Radio';
+        }
+      })
+      .catch(function(){
+        if(songNameEl) songNameEl.textContent = 'Afternoise Radio';
+      });
+  }
+
+  var nowPlayingInterval;
   var player = document.getElementById('radio-player');
   var trigger = document.getElementById('radioTrigger');
   var playBtn = document.getElementById('radioPlayBtn');
@@ -1363,6 +1383,8 @@ function render(){
       playing=true;
       playBtn.innerHTML='&#9646;&#9646;';
       dot.classList.remove('paused');
+      fetchNowPlaying();
+      nowPlayingInterval = setInterval(fetchNowPlaying, 30000);
     }).catch(function(){
       playing=false;
       playBtn.innerHTML='&#9654;';
@@ -1376,6 +1398,8 @@ function render(){
     playing=false;
     playBtn.innerHTML='&#9654;';
     dot.classList.add('paused');
+    clearInterval(nowPlayingInterval);
+    if(songNameEl) songNameEl.textContent='Afternoise Radio';
   }
 
   trigger.addEventListener('click', function(){
