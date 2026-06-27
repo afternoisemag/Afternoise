@@ -71,27 +71,24 @@
       .cover-grid{grid-template-columns:1fr;}
       .toc-mid{grid-template-columns:1fr;}
       .toc-bot{grid-template-columns:1fr 1fr;}
-      .sec-idx{grid-template-columns:1fr 1fr;}
       .more-grid{grid-template-columns:1fr;}
       #toTop{bottom:80px;right:16px;}
       .radio-trigger{bottom:72px !important;left:16px !important;}
-      #cover-photo{height:clamp(280px,45vw,360px) !important;}
-      /* TOC nav — hide vol label, shrink padding */
-      :root{--vol-display:none;}
-      /* Radar — stack vertically on mobile */
-      .radar-grid{grid-template-columns:1fr !important;gap:24px !important;}
-      /* Article body padding */
-      #art-body > div[style*="padding:'40px 44px'"]{padding:24px 16px 60px !important;}
-      /* Reduce article hero height */
-      .fade[style*="height:'540px'"]{height:320px !important;}
-      /* Inline images full width */
-      .reveal[style*="margin:'28px -60px"]{margin:20px 0 !important;}
-      /* TOC inner padding */
-      .toc-mid,.toc-bot{margin-bottom:3px;}
-      .toc-inner{padding:16px 16px 40px !important;}
-      /* TOC nav mobile — hide right links, keep back + masthead only */
+      /* Cover photo — tall on mobile */
+      #cover-photo{height:70vh !important;min-height:460px !important;}
+      /* Hide spine on mobile to avoid overlap with cover lines */
+      .cover-spine{display:none !important;}
+      /* Cover lines smaller on mobile */
+      .cover-left{left:12px !important;max-width:46% !important;}
+      .cover-right{right:12px !important;max-width:40% !important;}
+      /* Artist names tighter on mobile */
+      .cover-bot{padding:0 12px 10px !important;}
+      /* TOC nav mobile */
       .toc-nav-right{display:none !important;}
-      .toc-nav-right *{display:none !important;}
+      /* Radar stack */
+      .radar-grid{grid-template-columns:1fr !important;gap:24px !important;}
+      /* TOC inner */
+      .toc-inner{padding:16px 16px 40px !important;}
     }
 
     /* RADIO PLAYER */
@@ -334,14 +331,15 @@ function buildCover(){
   photo.appendChild(h('div',{style:{position:'absolute',inset:0,background:'linear-gradient(to bottom,rgba(13,13,13,.3) 0%,transparent 25%)'}}));
 
   // Spine text
-  photo.appendChild(h('div',{style:{position:'absolute',top:'50%',left:'14px',transform:'translateY(-50%)',display:'flex',flexDirection:'column',alignItems:'center',gap:'6px'}},
+  var spineEl=h('div',{className:'cover-spine',style:{position:'absolute',top:'50%',left:'14px',transform:'translateY(-50%)',display:'flex',flexDirection:'column',alignItems:'center',gap:'6px'}},
     h('div',{style:{width:'.5px',height:'30px',background:'rgba(244,240,230,.1)'}}),
     h('div',{style:{fontFamily:"var(--lb)",fontSize:'7px',letterSpacing:'3px',color:'rgba(244,240,230,.15)',textTransform:'uppercase',writingMode:'vertical-rl'}},'Vol. I \u2014 Origins \u00b7 2026'),
     h('div',{style:{width:'.5px',height:'30px',background:'rgba(244,240,230,.1)'}})
-  ));
+  );
+  photo.appendChild(spineEl);
 
   // LEFT cover lines — supporting stories
-  var leftLines=h('div',{style:{position:'absolute',top:'18px',left:'36px',maxWidth:'42%'}});
+  var leftLines=h('div',{className:'cover-left',style:{position:'absolute',top:'18px',left:'36px',maxWidth:'42%'}});
   leftLines.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'7px',letterSpacing:'4px',color:'rgba(212,168,83,.65)',textTransform:'uppercase',marginBottom:'10px'}},'ALSO IN THIS ISSUE'));
   leftLines.appendChild(h('div',{style:{height:'.5px',background:'rgba(212,168,83,.3)',marginBottom:'12px'}}));
   var leftStories=[
@@ -363,7 +361,7 @@ function buildCover(){
   photo.appendChild(leftLines);
 
   // RIGHT cover lines — lead stories
-  var rightLines=h('div',{style:{position:'absolute',top:'18px',right:'36px',maxWidth:'38%',textAlign:'right'}});
+  var rightLines=h('div',{className:'cover-right',style:{position:'absolute',top:'18px',right:'36px',maxWidth:'38%',textAlign:'right'}});
   rightLines.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'7px',letterSpacing:'4px',color:'rgba(212,168,83,.65)',textTransform:'uppercase',marginBottom:'10px'}},'LEAD STORIES'));
   rightLines.appendChild(h('div',{style:{height:'.5px',background:'rgba(212,168,83,.3)',marginBottom:'12px'}}));
   var rightStories=[
@@ -380,10 +378,10 @@ function buildCover(){
     rightLines.appendChild(row);
     rightLines.appendChild(h('div',{style:{height:'.5px',background:'rgba(255,255,255,.08)',marginBottom:'14px'}}));
   });
-  photo.appendChild(rightLines);
+  rightLines.className='cover-right-lines';photo.appendChild(rightLines);
 
   // Bottom of photo — artist names + follow + footer
-  var photoBot=h('div',{style:{position:'absolute',bottom:0,left:0,right:0,padding:'0 44px 14px'}});
+  var photoBot=h('div',{className:'cover-names',style:{position:'absolute',bottom:0,left:0,right:0,padding:'0 44px 14px'}});
   // Artist names
   var names=h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'flex-end',marginBottom:'16px'}});
   names.appendChild(h('div',{},
