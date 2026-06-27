@@ -380,6 +380,15 @@ function buildCover(){
   });
   rightLines.className='cover-right-lines';photo.appendChild(rightLines);
 
+  // ── COVER STATEMENT — floating center of photo ──
+  var stmtWrap=h('div',{style:{position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)',textAlign:'center',width:'clamp(180px,55%,420px)',pointerEvents:'none'}});
+  stmtWrap.appendChild(h('div',{style:{height:'1px',background:'rgba(212,168,83,.5)',marginBottom:'12px'}}));
+  var stmtTxt=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'clamp(11px,1.8vw,17px)',color:'rgba(244,240,230,.88)',lineHeight:1.5,letterSpacing:'0.5px'}});
+  stmtTxt.textContent='Real work. Real time. No permission needed.';
+  stmtWrap.appendChild(stmtTxt);
+  stmtWrap.appendChild(h('div',{style:{height:'1px',background:'rgba(212,168,83,.5)',marginTop:'12px'}}));
+  photo.appendChild(stmtWrap);
+
   // Bottom of photo — artist names + follow + footer
   var photoBot=h('div',{className:'cover-names',style:{position:'absolute',bottom:0,left:0,right:0,padding:'0 44px 14px'}});
   // Artist names
