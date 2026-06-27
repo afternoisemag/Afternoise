@@ -476,12 +476,7 @@ function buildTOC(){
   mastBtn.onclick=function(){go('toc');};
   nav.appendChild(mastBtn);
   var tr=h('div',{style:{display:'flex',alignItems:'center',gap:'10px',flexWrap:'nowrap',flexShrink:0}});
-  var issBtn=h('button',{className:'nbtn',style:{color:'#888'}},'Issues');issBtn.onclick=function(){go('archive');};tr.appendChild(issBtn);
   tr.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'#888',textTransform:'uppercase'}},'Vol. I \u2014 2026'));
-  var ab2=h('button',{className:'nbtn',style:{color:'#888'}},'About');ab2.onclick=function(){go('about');};tr.appendChild(ab2);
-  var lb3=h('button',{className:'nbtn',style:{color:'#888'}},'Letter');lb3.onclick=function(){go('letter');};tr.appendChild(lb3);
-  var plb=h('button',{className:'nbtn',style:{color:'#888'}},'Playlist');plb.onclick=function(){go('playlist');};tr.appendChild(plb);
-  var stb=h('button',{className:'nbtn',style:{color:'#888'}},'Spin The Block');stb.onclick=function(){go('spintheblock');};tr.appendChild(stb);
   tr.className='toc-nav-right';nav.appendChild(tr);
   var inner=h('div',{className:'toc-inner',style:{maxWidth:'1200px',margin:'0 auto',padding:'28px 44px 60px'}});
   inner.appendChild(h('div',{className:'fade s1',style:{display:'flex',alignItems:'center',gap:'16px',marginBottom:'24px'}},h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'5px',color:'#999',textTransform:'uppercase'}},'Inside Vol. I'),h('div',{style:{flex:1,height:'.5px',background:'#ccc'}}),h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'#bbb',textTransform:'uppercase'}},SECS.length+' Stories \u00b7 Toronto, ON')));
