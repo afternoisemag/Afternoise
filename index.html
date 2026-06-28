@@ -1,22 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Afternoise — Urban Culture Magazine. Vol. I — Origins. Toronto · Soca · Hip-Hop · Carnival · Culture."/>
-  <meta property="og:title" content="Afternoise — Urban Culture Magazine"/>
-  <meta property="og:description" content="Independent voices. Vol. I — Origins."/>
-  <meta name="theme-color" content="#0D0D0D"/>
-  <meta name="apple-mobile-web-app-capable" content="yes"/>
-  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
-  <meta name="apple-mobile-web-app-title" content="Afternoise"/>
-  <link rel="manifest" href="/manifest.json"/>
-  <link rel="apple-touch-icon" href="/icon.svg"/>
-  <title>Afternoise — Urban Culture Magazine</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
-  <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Afternoise — Urban Culture Magazine</title>
+<meta name="description" content="Afternoise — The Magazine of Urban Culture. Vol. I Origins.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+
     *{box-sizing:border-box;margin:0;padding:0;}
     html,body{min-height:100vh;background:#0D0D0D;overflow-x:hidden;}
     #root{min-height:100vh;}
@@ -118,17 +111,163 @@
     .mag-nav-btn.active{background:rgba(0,0,0,.06);}
     .mag-nav-icon{font-size:16px;line-height:1;}
     .mag-nav-label{font-family:var(--lb);font-size:7px;letter-spacing:2px;text-transform:uppercase;color:#111;line-height:1;font-weight:500;}
-  </style>
+  
+
+  /* ── OUTER SHELL STYLES ───────────────────────── */
+  .util-bar{
+    background:#111;color:#888;
+    font-family:var(--lb);font-size:10px;letter-spacing:2px;
+    padding:6px 44px;display:flex;justify-content:space-between;align-items:center;
+  }
+  .util-bar a{color:#888;text-decoration:none;transition:color .2s;}
+  .util-bar a:hover{color:#D4A853;}
+
+  .outer-masthead{
+    text-align:center;padding:24px 44px 14px;
+    border-bottom:3px solid #111;background:#F4F0E6;
+  }
+  .outer-masthead-name{
+    font-family:var(--pf);font-size:clamp(56px,10vw,120px);
+    font-weight:400;letter-spacing:clamp(1px,0.3vw,4px);
+    color:#111;line-height:1;display:block;text-decoration:none;
+    cursor:pointer;transition:opacity .2s;
+  }
+  .outer-masthead-name:hover{opacity:.8;}
+  .outer-masthead-sub{
+    font-family:var(--lb);font-size:9px;letter-spacing:6px;
+    color:#888;margin-top:8px;text-transform:uppercase;
+  }
+
+  .outer-nav{
+    background:#111;position:sticky;top:0;z-index:100;
+    border-bottom:2px solid #D4A853;
+  }
+  .outer-nav-inner{
+    max-width:100%;display:flex;align-items:stretch;
+  }
+  .outer-nav-item{
+    font-family:var(--lb);font-size:10px;letter-spacing:3px;
+    text-transform:uppercase;color:#888;padding:14px 18px;
+    text-decoration:none;cursor:pointer;background:none;border:none;
+    transition:color .15s,background .15s;white-space:nowrap;
+  }
+  .outer-nav-item:hover,.outer-nav-item.active{color:#D4A853;}
+  .outer-nav-spacer{flex:1;}
+  .outer-nav-radio{
+    display:flex;align-items:center;gap:10px;
+    padding:0 20px;border-left:1px solid #222;cursor:pointer;
+    transition:background .15s;
+  }
+  .outer-nav-radio:hover{background:rgba(255,255,255,.04);}
+  .outer-nav-radio-dot{
+    width:7px;height:7px;border-radius:50%;background:#D4A853;
+    animation:pulse 1.8s ease-in-out infinite;flex-shrink:0;
+  }
+  .outer-nav-radio-label{
+    font-family:var(--lb);font-size:9px;letter-spacing:2px;
+    color:#888;text-transform:uppercase;
+  }
+
+  .ticker-wrap{
+    background:#D4A853;overflow:hidden;padding:7px 0;
+    border-bottom:1px solid #B8900D;
+  }
+  .ticker-inner{
+    display:flex;animation:tickermove 32s linear infinite;width:max-content;
+  }
+  .ticker-inner:hover{animation-play-state:paused;}
+  .ticker-item{
+    font-family:var(--lb);font-size:10px;letter-spacing:2px;
+    color:#111;padding:0 40px;white-space:nowrap;font-weight:500;
+  }
+  @keyframes tickermove{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  /* Magazine content wrapper */
+  #root{padding-bottom:60px;background:#F4F0E6;}
+
+  /* Radio player top right */
+  #radio-player{
+    position:fixed;top:14px;right:16px;
+    background:rgba(0,0,0,.82);backdrop-filter:blur(14px);
+    border:1px solid rgba(212,168,83,.3);border-radius:28px;
+    padding:8px 16px;display:flex;align-items:center;gap:10px;
+    z-index:999;opacity:0;pointer-events:none;
+    transform:translateY(-8px);transition:opacity .35s,transform .35s;
+    max-width:260px;
+  }
+  #radio-player.show{opacity:1;pointer-events:auto;transform:translateY(0);}
+
+  @media(max-width:768px){
+    .util-bar{display:none;}
+    .outer-masthead{padding:16px 16px 10px;}
+    .outer-nav-item{padding:12px 10px;font-size:9px;}
+    #mag-nav{display:flex !important;}
+  }
+</style>
 </head>
 <body>
-<div id="splash"><div class="splash-mast">AFTERNOISE</div><div class="splash-rule"></div><div class="splash-sub">Vol. I — Origins</div></div>
-<button id="toTop">&#8593;</button>
-<div class="pwa-banner" id="pwaBanner">
-  <div style="flex:1"><div style="font-family:var(--pf);font-size:16px;font-weight:700;color:#F4F0E6;margin-bottom:3px;">Install Afternoise</div><div style="font-family:var(--lb);font-size:11px;color:rgba(244,240,230,.5);font-style:italic;">Add to your home screen — reads like an app</div></div>
-  <button class="pwa-ibtn" id="pwaIBtn">Install</button>
-  <button class="pwa-dbtn" id="pwaDBtn">&#10005;</button>
+
+<!-- UTILITY BAR -->
+<div class="util-bar">
+  <span>Vol. I &nbsp;&middot;&nbsp; Origins &nbsp;&middot;&nbsp; 2026</span>
+  <div style="display:flex;gap:20px;">
+    <a href="#" onclick="go('about');return false;">About</a>
+    <a href="#" onclick="go('letter');return false;">Letter</a>
+    <a href="https://patreon.com/afternoise" target="_blank">Patreon</a>
+    <a href="https://instagram.com/afternoisemagazine" target="_blank">Instagram</a>
+    <a href="https://twitter.com/afternoisemag" target="_blank">X / Twitter</a>
+  </div>
 </div>
-<!-- MAGAZINE BOTTOM NAV -->
+
+<!-- MASTHEAD -->
+<div class="outer-masthead">
+  <a class="outer-masthead-name" onclick="go('cover');return false;" href="#">AFTERNOISE</a>
+  <div class="outer-masthead-sub">The Magazine of Urban Culture &nbsp;&middot;&nbsp; Vol. I &nbsp;&middot;&nbsp; Origins &nbsp;&middot;&nbsp; 2026</div>
+</div>
+
+<!-- NAV BAR -->
+<nav class="outer-nav">
+  <div class="outer-nav-inner">
+    <button class="outer-nav-item" onclick="go('toc')">Stories</button>
+    <button class="outer-nav-item" onclick="go('letter')">Letter</button>
+    <button class="outer-nav-item" onclick="go('playlist')">Playlist</button>
+    <button class="outer-nav-item" onclick="go('spintheblock')">Spin The Block</button>
+    <button class="outer-nav-item" onclick="go('radar')">Radar</button>
+    <button class="outer-nav-item" onclick="go('essay')">Photos</button>
+    <button class="outer-nav-item" onclick="go('about')">About</button>
+    <button class="outer-nav-item" onclick="go('archive')">Issues</button>
+    <div class="outer-nav-spacer"></div>
+    <div class="outer-nav-radio" onclick="var rp=document.getElementById('radio-player');rp.classList.toggle('show');">
+      <div class="outer-nav-radio-dot"></div>
+      <span class="outer-nav-radio-label">Listen Live</span>
+    </div>
+  </div>
+</nav>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span class="ticker-item">Pretty Ricky defeats B2K 9&ndash;7 in Verzuz &nbsp;&middot;&nbsp;</span>
+    <span class="ticker-item">Toronto Caribbean Carnival 2026 &mdash; Grand Parade August 1st &nbsp;&middot;&nbsp;</span>
+    <span class="ticker-item">Afternoise Vol. I &mdash; Origins dropping this summer &nbsp;&middot;&nbsp;</span>
+    <span class="ticker-item">Future announces <em>The Real Me</em> &mdash; no AI &nbsp;&middot;&nbsp;</span>
+    <span class="ticker-item">Afternoise Radio streaming live 24/7 on Live365 &nbsp;&middot;&nbsp;</span>
+    <span class="ticker-item">Shakira &times; Burna Boy &mdash; FIFA World Cup 2026 official track &nbsp;&middot;&nbsp;</span>
+    <span class="ticker-item">Spin The Block &mdash; Episode 1 feat. DT the Artist, 4D &amp; Yannaabaiibee &nbsp;&middot;&nbsp;</span>
+    <span class="ticker-item">Pretty Ricky defeats B2K 9&ndash;7 in Verzuz &nbsp;&middot;&nbsp;</span>
+    <span class="ticker-item">Toronto Caribbean Carnival 2026 &mdash; Grand Parade August 1st &nbsp;&middot;&nbsp;</span>
+    <span class="ticker-item">Afternoise Vol. I &mdash; Origins dropping this summer &nbsp;&middot;&nbsp;</span>
+    <span class="ticker-item">Future announces <em>The Real Me</em> &mdash; no AI &nbsp;&middot;&nbsp;</span>
+    <span class="ticker-item">Afternoise Radio streaming live 24/7 on Live365 &nbsp;&middot;&nbsp;</span>
+    <span class="ticker-item">Shakira &times; Burna Boy &mdash; FIFA World Cup 2026 official track &nbsp;&middot;&nbsp;</span>
+    <span class="ticker-item">Spin The Block &mdash; Episode 1 feat. DT the Artist, 4D &amp; Yannaabaiibee &nbsp;&middot;&nbsp;</span>
+  </div>
+</div>
+
+<!-- MAGAZINE ROOT — full magazine renders here -->
+<div id="root"></div>
+
+<!-- BOTTOM NAV -->
 <div id="mag-nav">
   <button class="mag-nav-btn" onclick="go('toc')" id="mnav-stories">
     <span class="mag-nav-icon">&#9783;</span>
@@ -154,22 +293,27 @@
 
 <!-- RADIO PLAYER -->
 <div id="radio-player">
-  <div class="radio-dot" id="radioDot"></div>
-  <div class="radio-info">
-    <div class="radio-label">LIVE</div>
-    <div class="radio-name" id="radio-song-name">Afternoise Radio</div>
+  <div class="radio-dot" id="radio-dot" style="width:7px;height:7px;border-radius:50%;background:#D4A853;animation:pulse 1.8s ease-in-out infinite;flex-shrink:0;"></div>
+  <div style="flex:1;min-width:0;">
+    <div style="font-family:var(--lb);font-size:7px;letter-spacing:3px;color:#D4A853;text-transform:uppercase;">Live Now</div>
+    <div id="radio-song" style="font-family:var(--pf);font-size:11px;font-weight:400;color:#F4F0E6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Afternoise Radio</div>
   </div>
-  <button class="radio-playbtn" id="radioPlayBtn">&#9654;</button>
-  <button class="radio-closebtn" id="radioCloseBtn" style="font-size:10px;padding:2px 6px;">&#10005;</button>
+  <button id="radio-play-btn" onclick="togglePlay()" style="width:26px;height:26px;border-radius:50%;border:1px solid rgba(212,168,83,.4);background:transparent;color:#D4A853;cursor:pointer;font-size:10px;flex-shrink:0;">&#9654;</button>
+  <button onclick="document.getElementById('radio-player').classList.remove('show')" style="background:none;border:none;color:#555;cursor:pointer;font-size:11px;flex-shrink:0;">&#10005;</button>
+  <audio id="radio-audio" src="https://streaming.live365.com/a82938" preload="none"></audio>
 </div>
-<div class="radio-trigger" id="radioTrigger">
-  <div class="radio-trigger-dot"></div>
-  <span class="radio-trigger-txt">Listen Live</span>
-</div>
-<audio id="radioAudio" src="https://streaming.live365.com/a82938" preload="none"></audio>
 
-<div id="root"></div>
+<!-- SPLASH -->
+<div id="splash" style="position:fixed;inset:0;background:#0D0D0D;z-index:9999;display:flex;align-items:center;justify-content:center;transition:opacity .6s ease;">
+  <div style="text-align:center;">
+    <div style="font-family:var(--pf);font-size:clamp(36px,6vw,72px);font-weight:400;letter-spacing:4px;color:#F4F0E6;">AFTERNOISE</div>
+    <div style="height:1px;background:rgba(212,168,83,.4);margin:12px auto;width:200px;"></div>
+    <div style="font-family:var(--lb);font-size:8px;letter-spacing:4px;color:rgba(212,168,83,.6);text-transform:uppercase;">Loading</div>
+  </div>
+</div>
+
 <script>
+
 // ─── PHOTO SLOTS ──────────────────────────────────────────────────────────────
 // Replace null with your image URL when ready.
 // Example: cover: "https://res.cloudinary.com/yourname/image/upload/cover.jpg"
@@ -1422,6 +1566,50 @@ function render(){
 
 
 render();
+
+
+// Hide splash on load
+window.addEventListener('load', function(){
+  setTimeout(function(){
+    var s = document.getElementById('splash');
+    if(s){ s.style.opacity='0'; setTimeout(function(){ s.style.display='none'; }, 600); }
+  }, 800);
+});
+
+// Radio toggle
+var _playing = false;
+var _rpInterval;
+function togglePlay(){
+  var audio = document.getElementById('radio-audio');
+  var btn = document.getElementById('radio-play-btn');
+  var song = document.getElementById('radio-song');
+  if(!_playing){
+    audio.play();
+    _playing = true;
+    btn.innerHTML = '&#9646;&#9646;';
+    fetchSong();
+    _rpInterval = setInterval(fetchSong, 30000);
+  } else {
+    audio.pause(); audio.currentTime=0;
+    _playing = false;
+    btn.innerHTML = '&#9654;';
+    clearInterval(_rpInterval);
+    song.textContent = 'Afternoise Radio';
+  }
+}
+function fetchSong(){
+  fetch('https://api.live365.com/station/a82938')
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if(d && d.song){
+        var t = (d.song.artist_name ? d.song.artist_name + ' — ' : '') + (d.song.title||'');
+        if(t) document.getElementById('radio-song').textContent = t;
+      }
+    }).catch(function(){});
+}
+
+// Start on TOC instead of cover
+go('toc');
 </script>
 </body>
 </html>
