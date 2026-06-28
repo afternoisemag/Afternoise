@@ -117,7 +117,7 @@
     .mag-nav-btn:hover{background:rgba(0,0,0,.04);}
     .mag-nav-btn.active{background:rgba(0,0,0,.06);}
     .mag-nav-icon{font-size:16px;line-height:1;}
-    .mag-nav-label{font-family:var(--lb);font-size:7px;letter-spacing:2px;text-transform:uppercase;color:#111;line-height:1;}
+    .mag-nav-label{font-family:var(--lb);font-size:7px;letter-spacing:2px;text-transform:uppercase;color:#111;line-height:1;font-weight:500;}
   </style>
 </head>
 <body>
@@ -321,7 +321,7 @@ function buildCover(){
   var mast=h('div',{className:'fade s1',style:{textAlign:'center',padding:'18px 44px 10px'}});
   var goldRule1=h('div',{style:{height:'2px',background:'linear-gradient(to right,transparent,#D4A853,transparent)',marginBottom:'14px'}});
   mast.appendChild(goldRule1);
-  mast.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(42px,7.5vw,88px)',fontWeight:900,letterSpacing:'clamp(4px,1.2vw,14px)',lineHeight:1,color:'#F4F0E6'}},'AFTERNOISE'));
+  mast.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(52px,9vw,108px)',fontWeight:400,letterSpacing:'clamp(1px,0.3vw,4px)',lineHeight:1,color:'#F4F0E6'}},'AFTERNOISE'));
   mast.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'6px',color:'rgba(212,168,83,.65)',marginTop:'8px',textTransform:'uppercase'}},'THE MAGAZINE OF URBAN CULTURE  \u00b7  VOL. I  \u00b7  ORIGINS  \u00b7  2026'));
   var goldRule2=h('div',{style:{height:'1px',background:'rgba(212,168,83,.3)',marginTop:'14px'}});
   mast.appendChild(goldRule2);
@@ -469,7 +469,7 @@ function buildTOC(){
   var wrap=h('div',{style:{background:'#F4F0E6',minHeight:'calc(100vh - 28px)'}});
   var nav=h('div',{className:'fade',style:{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'12px 20px',borderBottom:'2.5px solid #111',background:'#F4F0E6',position:'sticky',top:0,zIndex:20,flexWrap:'nowrap',gap:'8px'}});
   var bb=h('button',{className:'nbtn',style:{color:'#111'}},'\u2190 Cover');bb.onclick=function(){go('cover');};nav.appendChild(bb);
-  var mastBtn=h('button',{style:{fontFamily:"var(--pf)",fontSize:'clamp(18px,3.5vw,38px)',fontWeight:900,letterSpacing:'10px',color:'#111',background:'none',border:'none',cursor:'pointer',padding:0,transition:'opacity .15s',flex:1,textAlign:'center'}});
+  var mastBtn=h('button',{style:{fontFamily:"var(--pf)",fontSize:'clamp(22px,4vw,44px)',fontWeight:400,letterSpacing:'4px',color:'#111',background:'none',border:'none',cursor:'pointer',padding:0,transition:'opacity .15s',flex:1,textAlign:'center'}});
   mastBtn.textContent='AFTERNOISE';
   mastBtn.onmouseenter=function(){mastBtn.style.opacity='.6';};
   mastBtn.onmouseleave=function(){mastBtn.style.opacity='1';};
@@ -586,7 +586,7 @@ function buildArt(si){
   var sn=h('div',{style:{position:'sticky',top:0,zIndex:30,background:'#F4F0E6',borderBottom:'1.5px solid #111'}});
   var nr=h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'12px 16px',gap:'8px',flexWrap:'nowrap'}});
   var bb=h('button',{className:'nbtn',style:{color:'#111'}},'\u2190 All Stories');bb.onclick=function(){go('toc');};nr.appendChild(bb);
-  var artMastBtn=h('button',{style:{fontFamily:"var(--pf)",fontSize:'18px',fontWeight:900,letterSpacing:'8px',color:'#111',background:'none',border:'none',cursor:'pointer',padding:0,transition:'opacity .15s',flex:1,textAlign:'center'}});
+  var artMastBtn=h('button',{style:{fontFamily:"var(--pf)",fontSize:'22px',fontWeight:400,letterSpacing:'3px',color:'#111',background:'none',border:'none',cursor:'pointer',padding:0,transition:'opacity .15s',flex:1,textAlign:'center'}});
   artMastBtn.textContent='AFTERNOISE';
   artMastBtn.onmouseenter=function(){artMastBtn.style.opacity='.6';};
   artMastBtn.onmouseleave=function(){artMastBtn.style.opacity='1';};
@@ -648,7 +648,7 @@ function buildAbout(){
   var wrap=h('div',{style:{background:'#0D0D0D',minHeight:'calc(100vh - 28px)'}});
   var nav=h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 44px',borderBottom:'.5px solid rgba(255,255,255,.08)',position:'sticky',top:0,zIndex:20,background:'#0D0D0D'}});
   var bb=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.4)'}},'\u2190 Back');bb.onclick=function(){go('cover');};nav.appendChild(bb);
-  var aboutMastBtn=h('button',{style:{fontFamily:"var(--pf)",fontSize:'18px',fontWeight:900,letterSpacing:'8px',color:'#F4F0E6',background:'none',border:'none',cursor:'pointer',padding:0,transition:'opacity .15s',flex:1,textAlign:'center'}});
+  var aboutMastBtn=h('button',{style:{fontFamily:"var(--pf)",fontSize:'22px',fontWeight:400,letterSpacing:'3px',color:'#F4F0E6',background:'none',border:'none',cursor:'pointer',padding:0,transition:'opacity .15s',flex:1,textAlign:'center'}});
   aboutMastBtn.textContent='AFTERNOISE';
   aboutMastBtn.onmouseenter=function(){aboutMastBtn.style.opacity='.6';};
   aboutMastBtn.onmouseleave=function(){aboutMastBtn.style.opacity='1';};
@@ -658,7 +658,7 @@ function buildAbout(){
   wrap.appendChild(nav);
   var hero=h('div',{className:'fade',style:{borderBottom:'1px solid rgba(212,168,83,.2)',padding:'72px 44px 64px',maxWidth:'900px',margin:'0 auto'}});
   hero.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'6px',color:'rgba(212,168,83,.7)',textTransform:'uppercase',marginBottom:'18px'}},'The Story Behind The Magazine'));
-  hero.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(32px,5vw,62px)',fontWeight:900,lineHeight:1.05,color:'#F4F0E6',letterSpacing:'2px'}},'ORIGINS'));
+  hero.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(32px,5vw,62px)',fontWeight:400,lineHeight:0.95,color:'#F4F0E6',letterSpacing:'1px',letterSpacing:'2px'}},'ORIGINS'));
   wrap.appendChild(hero);
   var body=h('div',{style:{maxWidth:'760px',margin:'0 auto',padding:'56px 44px 100px'}});
   function txt(t,st){var d=h('div',{style:Object.assign({fontFamily:"var(--lb)",fontSize:'16px',lineHeight:1.9,color:'#1a1a1a',marginBottom:'22px'},st||{})});d.textContent=t;return d;}
@@ -696,7 +696,7 @@ function pageShell(opts){
   var nav=h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 44px',borderBottom:'1.5px solid '+(opts.borderColor||'#111'),background:opts.bg||'#F4F0E6',position:'sticky',top:0,zIndex:20,flexWrap:'wrap',gap:'8px'}});
   var bb=h('button',{className:'nbtn',style:{color:opts.dark?'rgba(244,240,230,.5)':'#888'}},'\u2190 '+(opts.backLabel||'Back'));
   bb.onclick=function(){go(opts.backPage||'toc');};nav.appendChild(bb);
-  nav.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'18px',fontWeight:900,letterSpacing:'8px',color:opts.dark?'#F4F0E6':'#111'}},'AFTERNOISE'));
+  nav.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'22px',fontWeight:400,letterSpacing:'3px',color:opts.dark?'#F4F0E6':'#111'}},'AFTERNOISE'));
   if(opts.rightLabel){var rb=h('button',{className:'nbtn',style:{color:opts.dark?'rgba(244,240,230,.4)':'#888'}},opts.rightLabel);rb.onclick=function(){go(opts.rightPage||'toc');};nav.appendChild(rb);}
   else nav.appendChild(h('div',{style:{width:'80px'}}));
   wrap.appendChild(nav);
@@ -709,15 +709,15 @@ function buildLetter(){
   var inner=h('div',{style:{maxWidth:'720px',margin:'0 auto',padding:'60px 44px 100px'}});
   inner.appendChild(h('div',{className:'fade',style:{marginBottom:'40px'}},
     h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'6px',color:'rgba(212,168,83,.65)',textTransform:'uppercase',marginBottom:'12px'}},'Vol. I — Origins'),
-    h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(28px,4vw,48px)',fontWeight:900,lineHeight:1.05,color:'#F4F0E6',marginBottom:'4px'}},'Letter from'),
-    h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'clamp(28px,4vw,48px)',fontWeight:400,lineHeight:1.05,color:'#F4F0E6'}},'the Editor')
+    h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(28px,4vw,48px)',fontWeight:400,lineHeight:0.95,color:'#F4F0E6',letterSpacing:'1px',marginBottom:'4px'}},'Letter from'),
+    h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'clamp(36px,5.5vw,64px)',fontWeight:400,lineHeight:0.95,color:'#F4F0E6',letterSpacing:'1px'}},'the Editor')
   ));
   inner.appendChild(h('div',{style:{height:'2px',background:'#D4A853',marginBottom:'44px'}}));
   function para(t,cls){var d=h('div',{className:cls||'fade s1',style:{fontFamily:"var(--lb)",fontSize:'16px',lineHeight:2,color:'rgba(244,240,230,.85)',marginBottom:'26px'}});d.textContent=t;return d;}
   // Drop cap opener
   var opener=h('div',{className:'fade',style:{marginBottom:'26px'}});
   var dc=h('div',{});
-  var drop=h('span',{style:{float:'left',fontFamily:"var(--pf)",fontSize:'80px',fontWeight:900,lineHeight:.76,marginRight:'12px',marginTop:'10px',color:'#111'}},'\u2018');
+  var drop=h('span',{style:{float:'left',fontFamily:"var(--pf)",fontSize:'92px',fontWeight:400,lineHeight:.82,marginRight:'12px',marginTop:'10px',color:'#111'}},'\u2018');
   var rest=h('span',{style:{fontFamily:"var(--lb)",fontSize:'16px',lineHeight:2,color:'rgba(244,240,230,.85)'}});
   rest.textContent='here is a moment — most of us have had it — where everything around you is loud, uncertain, and moving too fast. The world shifts, people change, circumstances change, and somehow in the middle of all of it, music is just there. Steady. Unchanged. Waiting.';
   dc.appendChild(drop);dc.appendChild(rest);opener.appendChild(dc);inner.appendChild(opener);
@@ -727,7 +727,7 @@ function buildLetter(){
   inner.appendChild(para('Afternoise is for the ones who were already in it before anyone was watching. The artist who is also the A&R, the manager, the connector — the one losing sleep not for themselves but to make sure the people around them get seen. The DJ who took the gig nobody else wanted and turned it into a moment nobody will forget. The producer in the studio building the sound before the artist even knows what they need. The designer working through the night on a vision that only they can see yet. Vol. I is called Origins because everything in this issue starts at the beginning. Before the recognition. Before the numbers. Before the world caught up. No matter what you do, no matter how big or small the room you are doing it in — if the work is real, this magazine will find you. We will make you feel like the cover because to us, you already are.','fade s5'));
   // Pull quote
   var pq=h('div',{className:'fade s5',style:{borderLeft:'3px solid #D4A853',paddingLeft:'24px',margin:'36px 0'}});
-  var pqt=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'20px',lineHeight:1.5,color:'#F4F0E6',marginBottom:'8px'}});
+  var pqt=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'normal',fontSize:'28px',lineHeight:1.0,color:'#F4F0E6',letterSpacing:'1px',marginBottom:'8px'}});
   pqt.textContent='"After the noise, what remains is the truth of who was really there."';
   pq.appendChild(pqt);inner.appendChild(pq);
   // Sign off
@@ -989,7 +989,7 @@ function buildArchive(){
   // Nav
   var nav=h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 44px',borderBottom:'.5px solid rgba(255,255,255,.08)',position:'sticky',top:0,zIndex:20,background:'#0D0D0D',flexWrap:'wrap',gap:'8px'}});
   var bb=h('button',{className:'nbtn',style:{color:'#888888'}},'\u2190 Cover');bb.onclick=function(){go('cover');};nav.appendChild(bb);
-  var aboutMastBtn=h('button',{style:{fontFamily:"var(--pf)",fontSize:'18px',fontWeight:900,letterSpacing:'8px',color:'#111111',background:'none',border:'none',cursor:'pointer',padding:0,transition:'opacity .15s',flex:1,textAlign:'center'}});
+  var aboutMastBtn=h('button',{style:{fontFamily:"var(--pf)",fontSize:'22px',fontWeight:400,letterSpacing:'3px',color:'#111111',background:'none',border:'none',cursor:'pointer',padding:0,transition:'opacity .15s',flex:1,textAlign:'center'}});
   aboutMastBtn.textContent='AFTERNOISE';
   aboutMastBtn.onmouseenter=function(){aboutMastBtn.style.opacity='.6';};
   aboutMastBtn.onmouseleave=function(){aboutMastBtn.style.opacity='1';};
@@ -1166,7 +1166,7 @@ function buildSpinTheBlock(){
   // Nav
   var nav=h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 44px',borderBottom:'.5px solid rgba(212,168,83,.15)',position:'sticky',top:0,zIndex:20,background:'#080B14',flexWrap:'wrap',gap:'8px'}});
   var bb=h('button',{className:'nbtn',style:{color:'#888888'}},'\u2190 Magazine');bb.onclick=function(){go('toc');};nav.appendChild(bb);
-  var navMast=h('button',{style:{fontFamily:"var(--pf)",fontSize:'16px',fontWeight:900,letterSpacing:'6px',color:'#111111',background:'none',border:'none',cursor:'pointer',transition:'opacity .15s',flex:1,textAlign:'center'}});
+  var navMast=h('button',{style:{fontFamily:"var(--pf)",fontSize:'20px',fontWeight:400,letterSpacing:'3px',color:'#111111',background:'none',border:'none',cursor:'pointer',transition:'opacity .15s',flex:1,textAlign:'center'}});
   navMast.textContent='AFTERNOISE';navMast.onmouseenter=function(){navMast.style.opacity='.6';};navMast.onmouseleave=function(){navMast.style.opacity='1';};navMast.onclick=function(){go('toc');};nav.appendChild(navMast);
   var rb=h('button',{className:'nbtn',style:{color:'rgba(212,168,83,.6)'}},'Radio');rb.onclick=function(){var el=document.getElementById('radio-player');if(el)el.classList.add('show');};nav.appendChild(rb);
   wrap.appendChild(nav);
@@ -1184,7 +1184,7 @@ function buildSpinTheBlock(){
   hdr.appendChild(liveRow);
 
   // Show name
-  hdr.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(36px,6vw,72px)',fontWeight:900,letterSpacing:'4px',color:'#111111',lineHeight:1,marginBottom:'8px'}},'SPIN THE BLOCK'));
+  hdr.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(48px,8vw,96px)',fontWeight:400,letterSpacing:'2px',color:'#111111',lineHeight:1,marginBottom:'8px'}},'SPIN THE BLOCK'));
 
   // Subtitle
   var sub=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'clamp(14px,2vw,18px)',color:'rgba(244,240,230,.45)',marginBottom:'28px'}});
