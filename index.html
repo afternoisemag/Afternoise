@@ -1205,7 +1205,7 @@ function buildArchive(){
     if(issue.status==='current'){
       var readBtn=h('button',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',textTransform:'uppercase',background:'#D4A853',color:'#F4F0E6',border:'none',padding:'10px 20px',cursor:'pointer',fontWeight:'bold',transition:'background .2s'}},'Read Now \u2192');
       readBtn.onmouseenter=function(){readBtn.style.background='#F4F0E6';};readBtn.onmouseleave=function(){readBtn.style.background='#D4A853';};
-      readBtn.onclick=function(e){e.stopPropagation();go('toc');};
+      readBtn.onclick=function(e){e.stopPropagation();window.open('afternoise-reader.html','_blank');};
       info.appendChild(readBtn);
       if(issue.stories>0){
         info.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'2px',color:'rgba(244,240,230,.35)',textTransform:'uppercase',marginLeft:'12px'}},issue.stories+' Stories'));
