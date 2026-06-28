@@ -214,15 +214,7 @@
 </head>
 <body>
 
-<!-- UTILITY BAR -->
-<div class="util-bar">
-  <span>afternoisemag.com</span>
-  <div style="display:flex;gap:20px;">
-    <a href="https://patreon.com/afternoise" target="_blank">Patreon</a>
-    <a href="https://instagram.com/afternoisemagazine" target="_blank">Instagram</a>
-    <a href="https://twitter.com/afternoisemag" target="_blank">X / Twitter</a>
-  </div>
-</div>
+<!-- utility bar removed -->
 
 <!-- MASTHEAD -->
 <div class="outer-masthead">
@@ -568,6 +560,14 @@ function buildCover(){
   // Follow
   var fw=h('div',{style:{display:'flex',alignItems:'center',gap:'16px'}});
   fw.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'7px',letterSpacing:'3px',color:'rgba(244,240,230,.2)',textTransform:'uppercase'}},'Follow'));
+  var paA=h('a',{href:'https://patreon.com/afternoise',target:'_blank',rel:'noopener',style:{display:'flex',alignItems:'center',gap:'9px',marginBottom:'8px',textDecoration:'none',transition:'opacity .2s'}});
+  paA.onmouseenter=function(){paA.style.opacity='.7';};paA.onmouseleave=function(){paA.style.opacity='1';};
+  var paIcon=h('div',{style:{width:'20px',height:'20px',flexShrink:0,background:'#FF424D',borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center'}});
+  paIcon.innerHTML='<span style="color:white;font-size:11px;font-weight:bold;">P</span>';
+  paA.appendChild(paIcon);var paTxt=h('div',{});
+  paTxt.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'13px',fontWeight:700,color:'#F4F0E6'}},'afternoise'));
+  paTxt.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',color:'rgba(244,240,230,.3)'}},'Patreon'));
+  paA.appendChild(paTxt);fw.appendChild(paA);
   var igA=h('a',{href:'https://instagram.com/afternoisemagazine',target:'_blank',rel:'noopener',style:{display:'flex',alignItems:'center',gap:'5px',textDecoration:'none',transition:'opacity .2s'}});
   igA.onmouseenter=function(){igA.style.opacity='.6';};igA.onmouseleave=function(){igA.style.opacity='1';};
   var igIc=h('div',{});igIc.innerHTML='<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:11px;height:11px"><rect x="2" y="2" width="20" height="20" rx="6" stroke="rgba(244,240,230,0.35)" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="rgba(244,240,230,0.35)" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="rgba(244,240,230,0.35)"/></svg>';
@@ -593,7 +593,7 @@ function buildCover(){
 // ─── TOC ──────────────────────────────────────────────────────────────────────
 function buildTOC(){
   var wrap=h('div',{style:{background:'#F4F0E6',minHeight:'calc(100vh - 28px)'}});
-  var nav=h('div',{className:'fade',style:{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'12px 20px',borderBottom:'2.5px solid #111',background:'#F4F0E6',position:'sticky',top:0,zIndex:20,flexWrap:'nowrap',gap:'8px'}});
+  var nav=h('div',{className:'fade',style:{display:'none'}});
   var bb=h('button',{className:'nbtn',style:{color:'#111'}},'\u2190 Stories');bb.onclick=function(){go('toc');};nav.appendChild(bb);
   var mastBtn=h('button',{style:{fontFamily:"var(--pf)",fontSize:'clamp(22px,4vw,44px)',fontWeight:400,letterSpacing:'4px',color:'#111',background:'none',border:'none',cursor:'pointer',padding:0,transition:'opacity .15s',flex:1,textAlign:'center'}});
   mastBtn.textContent='AFTERNOISE';
@@ -787,13 +787,13 @@ function buildAbout(){
   hero.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(32px,5vw,62px)',fontWeight:400,lineHeight:0.95,color:'#F4F0E6',letterSpacing:'1px',letterSpacing:'2px'}},'ORIGINS'));
   wrap.appendChild(hero);
   var body=h('div',{style:{maxWidth:'760px',margin:'0 auto',padding:'56px 44px 100px'}});
-  function txt(t,st){var d=h('div',{style:Object.assign({fontFamily:"var(--lb)",fontSize:'16px',lineHeight:1.9,color:'#1a1a1a',marginBottom:'22px'},st||{})});d.textContent=t;return d;}
+  function txt(t,st){var d=h('div',{style:Object.assign({fontFamily:"var(--lb)",fontSize:'16px',lineHeight:1.9,color:'#F4F0E6',marginBottom:'22px'},st||{})});d.textContent=t;return d;}
   function lbl(t){return h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'5px',color:'rgba(212,168,83,.65)',textTransform:'uppercase',marginBottom:'16px'}},t);}
   // Opening
   var opener=h('div',{className:'fade s1',style:{marginBottom:'48px'}});
   var dc=h('div',{style:{marginBottom:'22px'}});
   var drop=h('span',{style:{float:'left',fontFamily:"var(--pf)",fontSize:'74px',fontWeight:900,lineHeight:.76,marginRight:'10px',marginTop:'8px',color:'#D4A853'}},'T');
-  var rest=h('span',{style:{fontFamily:"var(--lb)",fontSize:'16px',lineHeight:1.9,color:'#1a1a1a'}});
+  var rest=h('span',{style:{fontFamily:"var(--lb)",fontSize:'16px',lineHeight:1.9,color:'#F4F0E6'}});
   rest.textContent='here are artists in this culture who never get the cover. Not because the work is not there — the music is real, the craft is serious, the shows are packed. But because the rooms where coverage gets decided were never built with them in mind. Afternoise exists because I got tired of waiting for those rooms to open up.';
   dc.appendChild(drop);dc.appendChild(rest);opener.appendChild(dc);
   opener.appendChild(txt('I have been in this world long enough to know the difference between an artist who is building something real and one who just has the right connections. The artists in this first volume — DT the Artist, 4D, DJ Black Ent, DJ 3 Live, the Costume Creators — these are people doing the work. They are in the studio, on the stage, at carnival, in the community. They just do not have a publication that treats them the way they deserve to be treated.'));
@@ -1017,7 +1017,7 @@ function buildEssay(){
   var hdr=h('div',{className:'fade',style:{marginBottom:'40px',textAlign:'center'}});
   hdr.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'6px',color:'rgba(212,168,83,.65)',textTransform:'uppercase',marginBottom:'12px'}},'Vol. I — Origins \u00b7 Toronto'));
   hdr.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(28px,4vw,52px)',fontWeight:900,lineHeight:1,color:'#111111',marginBottom:'8px'}},'In Frame'));
-  var sub3=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'16px',color:'rgba(244,240,230,.45)',maxWidth:'480px',lineHeight:1.6,margin:'0 auto'}});
+  var sub3=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'16px',color:'#F4F0E6',maxWidth:'480px',lineHeight:1.6,margin:'0 auto'}});
   sub3.textContent='Toronto, Ontario. Caribbean Carnival season. The moments between the moments.';
   hdr.appendChild(sub3);inner.appendChild(hdr);
   inner.appendChild(h('div',{style:{height:'1px',background:'rgba(212,168,83,.2)',marginBottom:'32px'}}));
@@ -1026,7 +1026,7 @@ function buildEssay(){
   var hi=pImg('cover',{width:'100%',height:'560px',objectFit:'cover',objectPosition:'center 20%',display:'block',filter:'brightness(.85)'});
   hero.appendChild(hi);
   var hcap=h('div',{style:{padding:'10px 0',display:'flex',justifyContent:'space-between',alignItems:'center'}});
-  var hcapL=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'11px',color:'rgba(244,240,230,.45)'}});hcapL.textContent=ESSAY_SLOTS[0].caption;hcap.appendChild(hcapL);
+  var hcapL=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'11px',color:'#F4F0E6'}});hcapL.textContent=ESSAY_SLOTS[0].caption;hcap.appendChild(hcapL);
   hcap.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'rgba(212,168,83,.4)',textTransform:'uppercase'}},'01 / '+(ESSAY_SLOTS.length)));
   hero.appendChild(hcap);inner.appendChild(hero);
   // Two col row
@@ -1067,7 +1067,7 @@ function buildEssay(){
   var fi=pImg('costume3',{width:'100%',height:'500px',objectFit:'cover',objectPosition:'center',display:'block',filter:'brightness(.88)'});
   fin.appendChild(fi);
   var fcap=h('div',{style:{padding:'10px 0',display:'flex',justifyContent:'space-between'}});
-  var fcapT=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'11px',color:'rgba(244,240,230,.45)'}});fcapT.textContent=ESSAY_SLOTS[8].caption;fcap.appendChild(fcapT);
+  var fcapT=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'11px',color:'#F4F0E6'}});fcapT.textContent=ESSAY_SLOTS[8].caption;fcap.appendChild(fcapT);
   fcap.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'rgba(212,168,83,.4)',textTransform:'uppercase'}},ESSAY_SLOTS.length+' / '+ESSAY_SLOTS.length));
   fin.appendChild(fcap);inner.appendChild(fin);
   // Footer
@@ -1313,7 +1313,7 @@ function buildSpinTheBlock(){
   hdr.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(48px,8vw,96px)',fontWeight:400,letterSpacing:'2px',color:'#111111',lineHeight:1,marginBottom:'8px'}},'SPIN THE BLOCK'));
 
   // Subtitle
-  var sub=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'clamp(14px,2vw,18px)',color:'rgba(244,240,230,.45)',marginBottom:'28px'}});
+  var sub=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'clamp(14px,2vw,18px)',color:'#F4F0E6',marginBottom:'28px'}});
   sub.textContent='DJ mix. Live interviews. The artists behind the magazine — on air.';
   hdr.appendChild(sub);
 
@@ -1337,7 +1337,7 @@ function buildSpinTheBlock(){
   var epHdr=h('div',{className:'fade s2',style:{display:'flex',alignItems:'center',gap:'16px',marginBottom:'24px'}});
   epHdr.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'5px',color:'#999999',textTransform:'uppercase'}},'Episodes'));
   epHdr.appendChild(h('div',{style:{flex:1,height:'.5px',background:'rgba(255,255,255,.08)'}}));
-  epHdr.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'rgba(244,240,230,.2)',textTransform:'uppercase'}},'Season 1  \u00b7  2026'));
+  epHdr.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'rgba(244,240,230,.55)',textTransform:'uppercase'}},'Season 1  \u00b7  2026'));
   inner.appendChild(epHdr);
 
   // Episode cards
@@ -1400,7 +1400,7 @@ function buildSpinTheBlock(){
 
   // More episodes coming
   var more=h('div',{className:'fade s4',style:{textAlign:'center',padding:'32px',border:'.5px dashed rgba(255,255,255,.08)',marginBottom:'48px'}});
-  more.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'4px',color:'rgba(244,240,230,.2)',textTransform:'uppercase',marginBottom:'8px'}},'More Episodes'));
+  more.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'4px',color:'rgba(244,240,230,.55)',textTransform:'uppercase',marginBottom:'8px'}},'More Episodes'));
   var moreT=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'14px',color:'#999999'}});moreT.textContent='New episodes drop weekly. Subscribe to be notified.';more.appendChild(moreT);
   inner.appendChild(more);
 
