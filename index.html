@@ -221,7 +221,7 @@
 
 <!-- MASTHEAD -->
 <div class="outer-masthead">
-  <a class="outer-masthead-name" onclick="go('cover');return false;" href="#">AFTERNOISE</a>
+  <a class="outer-masthead-name" onclick="go('toc');return false;" href="#">AFTERNOISE</a>
   <div class="outer-masthead-sub">The Magazine of Urban Culture &nbsp;&middot;&nbsp; Vol. I &nbsp;&middot;&nbsp; Origins &nbsp;&middot;&nbsp; 2026</div>
 </div>
 
@@ -351,7 +351,7 @@ var SECS = [
 var TICK = "AFTERNOISE  \u2726  VOL. I \u2014 ORIGINS  \u2726  TORONTO \u00b7 SOCA \u00b7 HIP-HOP \u00b7 CARNIVAL \u00b7 CULTURE  \u2726  BTP  \u2726  ";
 
 // ─── STATE ────────────────────────────────────────────────────────────────────
-var ST = {page:"cover",idx:null};
+var ST = {page:"toc",idx:null};
 var TX = 0, TRaf;
 var dProm = null;
 
@@ -419,12 +419,12 @@ window.addEventListener('popstate',function(e){
   if(e.state&&e.state.page){
     go(e.state.page,e.state.idx!=null?e.state.idx:null,true);
   } else {
-    go('cover',null,true);
+    go('toc',null,true);
   }
 });
 
 // Set initial history state so back works from first page
-window.history.replaceState({page:'cover',idx:null},'','#cover');
+window.history.replaceState({page:'toc',idx:null},'','#toc');
 
 
 function setupReveal(){
@@ -612,7 +612,7 @@ function buildCover(){
 function buildTOC(){
   var wrap=h('div',{style:{background:'#F4F0E6',minHeight:'calc(100vh - 28px)'}});
   var nav=h('div',{className:'fade',style:{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'12px 20px',borderBottom:'2.5px solid #111',background:'#F4F0E6',position:'sticky',top:0,zIndex:20,flexWrap:'nowrap',gap:'8px'}});
-  var bb=h('button',{className:'nbtn',style:{color:'#111'}},'\u2190 Cover');bb.onclick=function(){go('cover');};nav.appendChild(bb);
+  var bb=h('button',{className:'nbtn',style:{color:'#111'}},'\u2190 Stories');bb.onclick=function(){go('toc');};nav.appendChild(bb);
   var mastBtn=h('button',{style:{fontFamily:"var(--pf)",fontSize:'clamp(22px,4vw,44px)',fontWeight:400,letterSpacing:'4px',color:'#111',background:'none',border:'none',cursor:'pointer',padding:0,transition:'opacity .15s',flex:1,textAlign:'center'}});
   mastBtn.textContent='AFTERNOISE';
   mastBtn.onmouseenter=function(){mastBtn.style.opacity='.6';};
@@ -791,7 +791,7 @@ function buildArt(si){
 function buildAbout(){
   var wrap=h('div',{style:{background:'#0D0D0D',minHeight:'calc(100vh - 28px)'}});
   var nav=h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 44px',borderBottom:'.5px solid rgba(255,255,255,.08)',position:'sticky',top:0,zIndex:20,background:'#0D0D0D'}});
-  var bb=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.4)'}},'\u2190 Back');bb.onclick=function(){go('cover');};nav.appendChild(bb);
+  var bb=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.4)'}},'\u2190 Stories');bb.onclick=function(){go('toc');};nav.appendChild(bb);
   var aboutMastBtn=h('button',{style:{fontFamily:"var(--pf)",fontSize:'22px',fontWeight:400,letterSpacing:'3px',color:'#F4F0E6',background:'none',border:'none',cursor:'pointer',padding:0,transition:'opacity .15s',flex:1,textAlign:'center'}});
   aboutMastBtn.textContent='AFTERNOISE';
   aboutMastBtn.onmouseenter=function(){aboutMastBtn.style.opacity='.6';};
@@ -1132,7 +1132,7 @@ function buildArchive(){
 
   // Nav
   var nav=h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 44px',borderBottom:'.5px solid rgba(255,255,255,.08)',position:'sticky',top:0,zIndex:20,background:'#0D0D0D',flexWrap:'wrap',gap:'8px'}});
-  var bb=h('button',{className:'nbtn',style:{color:'#888888'}},'\u2190 Cover');bb.onclick=function(){go('cover');};nav.appendChild(bb);
+  var bb=h('button',{className:'nbtn',style:{color:'#888888'}},'\u2190 Stories');bb.onclick=function(){go('toc');};nav.appendChild(bb);
   var aboutMastBtn=h('button',{style:{fontFamily:"var(--pf)",fontSize:'22px',fontWeight:400,letterSpacing:'3px',color:'#111111',background:'none',border:'none',cursor:'pointer',padding:0,transition:'opacity .15s',flex:1,textAlign:'center'}});
   aboutMastBtn.textContent='AFTERNOISE';
   aboutMastBtn.onmouseenter=function(){aboutMastBtn.style.opacity='.6';};
@@ -1451,19 +1451,15 @@ function render(){
   cancelAnimationFrame(TRaf);window.onscroll=null;
   var root=document.getElementById('root');root.innerHTML='';
   var pw=h('div',{id:'page-wrap',style:{opacity:0,transform:'translateY(10px)'}});
-  if(ST.page==='cover'){
-    pw.appendChild(buildCover());
-  } else {
-    if(ST.page==='toc')pw.appendChild(buildTOC());
-    if(ST.page==='article')pw.appendChild(buildArt(ST.idx));
-    if(ST.page==='about')pw.appendChild(buildAbout());
-    if(ST.page==='letter')pw.appendChild(buildLetter());
-    if(ST.page==='playlist')pw.appendChild(buildPlaylist());
-    if(ST.page==='radar')pw.appendChild(buildRadar());
-    if(ST.page==='essay')pw.appendChild(buildEssay());
-    if(ST.page==='archive')pw.appendChild(buildArchive());
+  if(ST.page==='toc')pw.appendChild(buildTOC());
+  if(ST.page==='article')pw.appendChild(buildArt(ST.idx));
+  if(ST.page==='about')pw.appendChild(buildAbout());
+  if(ST.page==='letter')pw.appendChild(buildLetter());
+  if(ST.page==='playlist')pw.appendChild(buildPlaylist());
+  if(ST.page==='radar')pw.appendChild(buildRadar());
+  if(ST.page==='essay')pw.appendChild(buildEssay());
+  if(ST.page==='archive')pw.appendChild(buildArchive());
   if(ST.page==='spintheblock')pw.appendChild(buildSpinTheBlock());
-  }
   root.appendChild(pw);
   setTimeout(function(){
     pw.style.transition='opacity .45s ease,transform .45s ease';pw.style.opacity='1';pw.style.transform='translateY(0)';
@@ -1471,18 +1467,17 @@ function render(){
     setupReveal();
     var bt=document.getElementById('toTop');if(bt)bt.onclick=function(){window.scrollTo({top:0,behavior:'smooth'});};
   },40);
-  if(ST.page!=='cover') runTick();
+  runTick();
   // Show bottom nav on all interior pages except cover
   var magNav=document.getElementById('mag-nav');
   if(magNav){
-    if(ST.page==='cover'){magNav.classList.remove('show');}
-    else{magNav.classList.add('show');}
+    magNav.classList.add('show');
     // Set active state
     ['stories','letter','playlist','stb','more'].forEach(function(id){
       var btn=document.getElementById('mnav-'+id);
       if(btn)btn.classList.remove('active');
     });
-    var activeMap={'toc':'stories','letter':'letter','playlist':'playlist','spintheblock':'stb','archive':'more','about':'more','essay':'more','radar':'more'};
+    var activeMap={'toc':'stories','letter':'letter','playlist':'playlist','spintheblock':'stb','archive':'more','about':'more','essay':'more','radar':'more','article':'stories'};
     var activeId=activeMap[ST.page]||'stories';
     var activeBtn=document.getElementById('mnav-'+activeId);
     if(activeBtn)activeBtn.classList.add('active');
