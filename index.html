@@ -265,7 +265,7 @@
 </div>
 
 <!-- MAGAZINE ROOT — full magazine renders here -->
-<div id="root"></div>
+<div id="root" style="min-height:200px;"></div>
 
 <!-- BOTTOM NAV -->
 <div id="mag-nav">
@@ -1573,7 +1573,8 @@ window.addEventListener('load', function(){
   setTimeout(function(){
     var s = document.getElementById('splash');
     if(s){ s.style.opacity='0'; setTimeout(function(){ s.style.display='none'; }, 600); }
-  }, 800);
+    go('toc');
+  }, 900);
 });
 
 // Radio toggle
@@ -1609,7 +1610,7 @@ function fetchSong(){
 }
 
 // Start on TOC instead of cover
-go('toc');
+
 </script>
 </body>
 </html>
