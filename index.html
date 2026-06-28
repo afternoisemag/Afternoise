@@ -365,8 +365,8 @@ document.addEventListener('DOMContentLoaded',function(){
   if(iOS&&!window.navigator.standalone)setTimeout(function(){var b=document.getElementById('pwaBanner');if(b){b.querySelector('.pwa-ibtn').textContent='How to Install';b.querySelector('.pwa-ibtn').onclick=function(){alert('To install on iPhone:\n1. Tap the Share button\n2. Tap Add to Home Screen\n3. Tap Add');};b.classList.add('show');}},3000);
   if('serviceWorker'in navigator)navigator.serviceWorker.register('/sw.js').catch(function(){});
 });
-function hideSplash(){setTimeout(function(){var s=document.getElementById('splash');if(s){s.classList.add('hide');setTimeout(function(){s.style.display='none';},700);}},1600);}
-if(document.readyState==='complete')hideSplash();else window.addEventListener('load',hideSplash);
+function hideSplash(){setTimeout(function(){var s=document.getElementById('splash');if(s){s.classList.add('hide');setTimeout(function(){s.style.display='none';},700);}},900);}
+if(document.readyState==='complete'){hideSplash();go('toc');}else window.addEventListener('load',function(){hideSplash();go('toc');});
 window.addEventListener('scroll',function(){var b=document.getElementById('toTop');if(!b)return;if(window.scrollY>500)b.classList.add('show');else b.classList.remove('show');},{passive:true});
 
 // ─── HELPERS ──────────────────────────────────────────────────────────────────
@@ -1567,15 +1567,6 @@ function render(){
 
 render();
 
-
-// Hide splash on load
-window.addEventListener('load', function(){
-  setTimeout(function(){
-    var s = document.getElementById('splash');
-    if(s){ s.style.opacity='0'; setTimeout(function(){ s.style.display='none'; }, 600); }
-    go('toc');
-  }, 900);
-});
 
 // Radio toggle
 var _playing = false;
