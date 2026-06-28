@@ -143,7 +143,7 @@
     border-bottom:2px solid #D4A853;
   }
   .outer-nav-inner{
-    max-width:100%;display:flex;align-items:stretch;
+    max-width:100%;display:flex;align-items:stretch;justify-content:center;
   }
   .outer-nav-item{
     font-family:var(--lb);font-size:10px;letter-spacing:3px;
@@ -152,7 +152,7 @@
     transition:color .15s,background .15s;white-space:nowrap;
   }
   .outer-nav-item:hover,.outer-nav-item.active{color:#D4A853;}
-  .outer-nav-spacer{flex:1;}
+
   .outer-nav-radio{
     display:flex;align-items:center;gap:10px;
     padding:0 20px;border-left:1px solid #222;cursor:pointer;
@@ -183,7 +183,7 @@
   @keyframes tickermove{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
   /* Magazine content wrapper */
-  #root{padding-bottom:60px;background:#F4F0E6;}
+  #root{padding-bottom:20px;background:#F4F0E6;}
 
   /* Radio player top right */
   #radio-player{
@@ -203,16 +203,21 @@
     .outer-nav-item{padding:12px 10px;font-size:9px;}
     #mag-nav{display:flex !important;}
   }
-</style>
+  #art-nav-bar{display:none !important;}
+  /* Hide article sticky nav bar */
+  div[style*="position:sticky"][style*="top:0"][style*="zIndex:20"]{display:none !important;}
+  /* Hide bottom mag nav */
+  #mag-nav{display:none !important;}
+  /* Remove bottom padding added for mag nav */
+  #root{padding-bottom:0 !important;}
+  </style>
 </head>
 <body>
 
 <!-- UTILITY BAR -->
 <div class="util-bar">
-  <span>Vol. I &nbsp;&middot;&nbsp; Origins &nbsp;&middot;&nbsp; 2026</span>
+  <span>afternoisemag.com</span>
   <div style="display:flex;gap:20px;">
-    <a href="#" onclick="go('about');return false;">About</a>
-    <a href="#" onclick="go('letter');return false;">Letter</a>
     <a href="https://patreon.com/afternoise" target="_blank">Patreon</a>
     <a href="https://instagram.com/afternoisemagazine" target="_blank">Instagram</a>
     <a href="https://twitter.com/afternoisemag" target="_blank">X / Twitter</a>
@@ -236,7 +241,6 @@
     <button class="outer-nav-item" onclick="go('essay')">Photos</button>
     <button class="outer-nav-item" onclick="go('about')">About</button>
     <button class="outer-nav-item" onclick="go('archive')">Issues</button>
-    <div class="outer-nav-spacer"></div>
     <div class="outer-nav-radio" onclick="var rp=document.getElementById('radio-player');rp.classList.toggle('show');">
       <div class="outer-nav-radio-dot"></div>
       <span class="outer-nav-radio-label">Listen Live</span>
@@ -267,29 +271,7 @@
 <!-- MAGAZINE ROOT — full magazine renders here -->
 <div id="root" style="min-height:200px;"></div>
 
-<!-- BOTTOM NAV -->
-<div id="mag-nav">
-  <button class="mag-nav-btn" onclick="go('toc')" id="mnav-stories">
-    <span class="mag-nav-icon">&#9783;</span>
-    <span class="mag-nav-label">Stories</span>
-  </button>
-  <button class="mag-nav-btn" onclick="go('letter')" id="mnav-letter">
-    <span class="mag-nav-icon">&#9998;</span>
-    <span class="mag-nav-label">Letter</span>
-  </button>
-  <button class="mag-nav-btn" onclick="go('playlist')" id="mnav-playlist">
-    <span class="mag-nav-icon">&#9836;</span>
-    <span class="mag-nav-label">Playlist</span>
-  </button>
-  <button class="mag-nav-btn" onclick="go('spintheblock')" id="mnav-stb">
-    <span class="mag-nav-icon">&#127925;</span>
-    <span class="mag-nav-label">Spin The Block</span>
-  </button>
-  <button class="mag-nav-btn" onclick="go('archive')" id="mnav-more">
-    <span class="mag-nav-icon">&#8801;</span>
-    <span class="mag-nav-label">Issues</span>
-  </button>
-</div>
+<!-- bottom nav removed -->
 
 <!-- RADIO PLAYER -->
 <div id="radio-player">
