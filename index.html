@@ -7,7 +7,7 @@
 <meta name="description" content="Afternoise — The Magazine of Urban Culture. Vol. I Origins.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Bebas+Neue&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 
     *{box-sizing:border-box;margin:0;padding:0;}
@@ -127,8 +127,9 @@
     border-bottom:3px solid #111;background:#F4F0E6;
   }
   .outer-masthead-name{
-    font-family:var(--pf);font-size:clamp(56px,10vw,120px);
-    font-weight:400;letter-spacing:clamp(1px,0.3vw,4px);
+    font-family:'Abril Fatface',serif;
+    font-size:clamp(52px,9vw,112px);
+    font-weight:400;letter-spacing:clamp(2px,0.4vw,8px);
     color:#111;line-height:1;display:block;text-decoration:none;
     cursor:pointer;transition:opacity .2s;
   }
@@ -198,14 +199,44 @@
   #radio-player.show{opacity:1;pointer-events:auto;transform:translateY(0);}
 
   @media(max-width:768px){
-    .util-bar{display:none;}
-    .outer-masthead{padding:16px 16px 10px;}
-    .outer-nav-item{padding:12px 10px;font-size:9px;}
-    #mag-nav{display:flex !important;}
+    /* Hide utility bar */
+    .util-bar{display:none !important;}
+
+    /* Masthead — tighter on mobile */
+    .outer-masthead{padding:14px 12px 10px;}
+    .outer-masthead-name{font-size:clamp(42px,14vw,80px);letter-spacing:1px;}
+    .outer-masthead-sub{font-size:8px;letter-spacing:3px;}
+
+    /* Nav bar — scrollable on mobile, don't wrap */
+    .outer-nav{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+    .outer-nav::-webkit-scrollbar{display:none;}
+    .outer-nav-inner{justify-content:flex-start !important;min-width:max-content;}
+    .outer-nav-item{padding:12px 14px;font-size:9px;letter-spacing:2px;white-space:nowrap;}
+    .outer-nav-radio{padding:0 14px;white-space:nowrap;}
+
+    /* Ticker */
+    .ticker-item{font-size:9px;padding:0 24px;}
+
+    /* Hide ALL inner sticky nav bars */
+    div[style*="position:sticky"]{display:none !important;}
+
+    /* Magazine content padding */
+    #root{padding-bottom:0 !important;}
+
+    /* Bottom mag nav — hide it */
+    #mag-nav{display:none !important;}
+
+    /* Issue cards — full width on mobile */
+    .issue-card{min-width:calc(100vw - 48px) !important;max-width:calc(100vw - 48px) !important;}
+
+    /* TOC cards — full width */
+    .fade{animation:none !important;}
   }
   #art-nav-bar{display:none !important;}
-  /* Hide all inner page nav bars */
+  /* Hide all inner page nav bars — all sizes */
   div[style*="position:sticky"][style*="top:0"]{display:none !important;}
+  div[style*="position:sticky"][style*="zIndex"]{display:none !important;}
+  div[style*="position: sticky"]{display:none !important;}
   /* Hide bottom mag nav */
   #mag-nav{display:none !important;}
   /* Remove bottom padding added for mag nav */
@@ -616,7 +647,7 @@ function buildTOC(){
   extHdr.appendChild(h('div',{style:{flex:1,height:'.5px',background:'#ccc'}}));
   inner.appendChild(extHdr);
 
-  var extGrid=h('div',{className:'fade s6',style:{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'3px',marginBottom:'32px'}});
+  var extGrid=h('div',{className:'fade s6',style:{display:'grid',gridTemplateColumns:'repeat(3,minmax(180px,1fr))',gap:'3px',marginBottom:'32px'}});
 
   // Playlist card
   var plCard=h('div',{className:'card',style:{height:'240px',background:'#0D0D0D',cursor:'pointer'}});
@@ -1118,7 +1149,7 @@ function buildArchive(){
   var wrap=h('div',{style:{background:'#0D0D0D',minHeight:'calc(100vh - 28px)'}});
 
   // Nav
-  var nav=h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 44px',borderBottom:'.5px solid rgba(255,255,255,.08)',position:'sticky',top:0,zIndex:20,background:'#0D0D0D',flexWrap:'wrap',gap:'8px'}});
+  var nav=h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 44px',borderBottom:'.5px solid rgba(255,255,255,.08)',display:'none',position:'sticky',top:0,zIndex:20,background:'#0D0D0D',flexWrap:'wrap',gap:'8px'}});
   var bb=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.4)'}},'\u2190 Stories');bb.onclick=function(){go('toc');};nav.appendChild(bb);
   var aboutMastBtn=h('button',{style:{fontFamily:"var(--pf)",fontSize:'22px',fontWeight:400,letterSpacing:'3px',color:'#F4F0E6',background:'none',border:'none',cursor:'pointer',padding:0,transition:'opacity .15s',flex:1,textAlign:'center'}});
   aboutMastBtn.textContent='AFTERNOISE';
@@ -1142,7 +1173,7 @@ function buildArchive(){
   inner.appendChild(h('div',{style:{height:'1px',background:'rgba(212,168,83,.2)',marginBottom:'48px'}}));
 
   // Issues grid
-  var grid=h('div',{className:'fade s1',style:{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'24px',marginBottom:'60px'}});
+  var grid=h('div',{className:'fade s1',style:{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(180px,1fr))',gap:'24px',marginBottom:'60px'}});
 
   ISSUES.forEach(function(issue){
     var card=h('div',{style:{
@@ -1295,7 +1326,7 @@ function buildSpinTheBlock(){
   var wrap=h('div',{style:{background:'#080B14',minHeight:'calc(100vh - 28px)'}});
 
   // Nav
-  var nav=h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 44px',borderBottom:'.5px solid rgba(212,168,83,.15)',position:'sticky',top:0,zIndex:20,background:'#080B14',flexWrap:'wrap',gap:'8px'}});
+  var nav=h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 44px',borderBottom:'.5px solid rgba(212,168,83,.15)',display:'none',position:'sticky',top:0,zIndex:20,background:'#080B14',flexWrap:'wrap',gap:'8px'}});
   var bb=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.4)'}},'\u2190 Magazine');bb.onclick=function(){go('toc');};nav.appendChild(bb);
   var navMast=h('button',{style:{fontFamily:"var(--pf)",fontSize:'20px',fontWeight:400,letterSpacing:'3px',color:'#F4F0E6',background:'none',border:'none',cursor:'pointer',transition:'opacity .15s',flex:1,textAlign:'center'}});
   navMast.textContent='AFTERNOISE';navMast.onmouseenter=function(){navMast.style.opacity='.6';};navMast.onmouseleave=function(){navMast.style.opacity='1';};navMast.onclick=function(){go('toc');};nav.appendChild(navMast);
