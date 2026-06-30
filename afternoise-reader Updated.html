@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Afternoise Vol. I — Origins | Read</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --pf:'Bebas Neue',sans-serif;
+    --lb:'Manrope',sans-serif;
+    --ink:#111;--paper:#F4F0E6;--gold:#D4A853;--dark:#0D0D0D;
+  }
+  html,body{
+    height:100%;background:#111;
+    font-family:var(--lb);overflow:hidden;
+    user-select:none;-webkit-user-select:none;
+  }
+
+  /* ── READER SHELL ── */
+  #reader{
+    position:fixed;inset:0;display:flex;
+    flex-direction:column;background:#111;
+  }
+
+  /* ── TOP BAR ── */
+  #reader-bar{
+    height:44px;background:#0A0A0A;
+    border-bottom:1px solid #222;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 24px;flex-shrink:0;z-index:10;
+  }
+  .rb-logo{
+    font-family:var(--pf);font-size:18px;letter-spacing:3px;
+    color:#F4F0E6;cursor:pointer;
+  }
+  .rb-logo span{color:#D4A853;}
+  .rb-info{
+    font-family:var(--lb);font-size:10px;letter-spacing:2px;
+    color:#555;text-transform:uppercase;text-align:center;
+  }
+  .rb-close{
+    font-family:var(--lb);font-size:9px;letter-spacing:2px;
+    color:#555;text-transform:uppercase;background:none;border:none;
+    cursor:pointer;transition:color .2s;padding:8px;
+  }
+  .rb-close:hover{color:#D4A853;}
+
+  /* ── BOOK STAGE ── */
+  #stage{
+    flex:1;display:flex;align-items:center;justify-content:center;
+    padding:24px 60px;position:relative;overflow:hidden;
+  }
+
+  /* ── BOOK ── */
+  #book{
+    position:relative;
+    display:flex;align-items:stretch;
+    box-shadow:0 40px 120px rgba(0,0,0,.9), 0 0 0 1px rgba(255,255,255,.04);
+  }
+
+  /* ── PAGE ── */
+  .page{
+    width:var(--pw);height:var(--ph);
+    position:relative;overflow:hidden;
+    flex-shrink:0;
+  }
+  .page-left{border-right:1px solid rgba(0,0,0,.3);}
+  .page-right{border-left:1px solid rgba(0,0,0,.3);}
+
+  /* Page content */
+  .page-inner{
+    width:100%;height:100%;position:relative;
+    overflow:hidden;
+  }
+
+  /* ── SPINE SHADOW ── */
+  .spine-left{
+    position:absolute;right:0;top:0;bottom:0;width:24px;
+    background:linear-gradient(to right,transparent,rgba(0,0,0,.4));
+    pointer-events:none;z-index:2;
+  }
+  .spine-right{
+    position:absolute;left:0;top:0;bottom:0;width:24px;
+    background:linear-gradient(to left,transparent,rgba(0,0,0,.4));
+    pointer-events:none;z-index:2;
+  }
+
+  /* ── FLIP ANIMATION ── */
+  #flip-container{
+    position:absolute;top:0;bottom:0;
+    width:var(--pw);transform-origin:left center;
+    transform-style:preserve-3d;perspective:2000px;
+    pointer-events:none;z-index:20;
+  }
+  #flip-container.flip-right{
+    left:var(--pw);transform-origin:left center;
+  }
+  #flip-container.flip-left{
+    left:0;transform-origin:right center;
+  }
+  .flip-page{
+    position:absolute;inset:0;
+    backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  }
+  #flip-front{
+    background:#F4F0E6;
+  }
+  #flip-back{
+    background:#F4F0E6;
+    transform:rotateY(180deg);
+  }
+
+  /* ── NAVIGATION ── */
+  .nav-btn{
+    position:absolute;top:50%;transform:translateY(-50%);
+    width:44px;height:80px;background:rgba(0,0,0,.5);
+    border:1px solid rgba(255,255,255,.08);
+    color:rgba(255,255,255,.4);font-size:18px;
+    cursor:pointer;z-index:30;
+    display:flex;align-items:center;justify-content:center;
+    transition:all .2s;border-radius:4px;
+    backdrop-filter:blur(4px);
+  }
+  .nav-btn:hover{background:rgba(212,168,83,.2);color:#D4A853;border-color:rgba(212,168,83,.3);}
+  .nav-btn:disabled{opacity:.2;cursor:not-allowed;}
+  #btn-prev{left:8px;}
+  #btn-next{right:8px;}
+
+  /* ── THUMBNAIL STRIP ── */
+  #thumb-strip{
+    height:80px;background:#0A0A0A;border-top:1px solid #1A1A1A;
+    display:flex;align-items:center;gap:8px;
+    padding:0 24px;overflow-x:auto;flex-shrink:0;
+    scrollbar-width:thin;scrollbar-color:#222 transparent;
+  }
+  #thumb-strip::-webkit-scrollbar{height:3px;}
+  #thumb-strip::-webkit-scrollbar-track{background:transparent;}
+  #thumb-strip::-webkit-scrollbar-thumb{background:#333;}
+
+  .thumb{
+    flex-shrink:0;width:44px;height:60px;
+    border:1.5px solid #333;cursor:pointer;
+    transition:border-color .2s,transform .2s;
+    position:relative;overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .thumb:hover{border-color:#D4A853;transform:scale(1.05);}
+  .thumb.active{border-color:#D4A853;}
+  .thumb-bg{width:100%;height:100%;position:absolute;inset:0;}
+  .thumb-label{
+    position:absolute;bottom:2px;left:0;right:0;
+    font-family:var(--lb);font-size:6px;letter-spacing:1px;
+    text-align:center;color:rgba(255,255,255,.5);
+    text-transform:uppercase;z-index:1;
+  }
+
+  /* ── PAGE COUNTER ── */
+  #page-counter{
+    font-family:var(--lb);font-size:9px;letter-spacing:2px;
+    color:#444;text-align:center;padding:6px 0;
+    background:#0A0A0A;flex-shrink:0;
+  }
+
+  /* ── SWIPE HINT ── */
+  #swipe-hint{
+    position:absolute;bottom:20px;left:50%;transform:translateX(-50%);
+    font-family:var(--lb);font-size:9px;letter-spacing:2px;
+    color:#333;text-transform:uppercase;
+    animation:fadeout 3s ease forwards;pointer-events:none;
+    white-space:nowrap;
+  }
+  @keyframes fadeout{0%{opacity:1;}70%{opacity:1;}100%{opacity:0;}}
+
+  /* ── MOBILE SINGLE PAGE ── */
+  @media(max-width:768px){
+    #book{flex-direction:column;}
+    .page-left,.page-right{border:none;}
+    #stage{padding:16px;}
+  }
+
+  /* ══ PAGE CONTENT STYLES ══════════════════════════════ */
+
+  /* Cover page */
+  .p-cover{background:#0D0D0D;color:#F4F0E6;}
+  .p-cover .cover-photo{
+    position:absolute;inset:0;
+    background:linear-gradient(135deg,#1a1a1a 0%,#0d0d0d 100%);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .p-cover .cover-photo span{
+    font-family:var(--lb);font-size:9px;letter-spacing:3px;color:#2a2a2a;
+  }
+  .p-cover .cover-overlay{
+    position:absolute;inset:0;
+    background:linear-gradient(to top,rgba(0,0,0,.95) 0%,transparent 60%);
+  }
+  .p-cover .cover-content{
+    position:absolute;bottom:0;left:0;right:0;padding:24px 20px;
+  }
+  .p-cover .cover-masthead{
+    font-family:var(--pf);font-size:clamp(28px,6vw,48px);
+    letter-spacing:2px;color:#F4F0E6;line-height:1;
+    text-align:center;margin-bottom:4px;
+  }
+  .p-cover .cover-rule{height:1px;background:#D4A853;margin:8px 0;}
+  .p-cover .cover-kicker{
+    font-family:var(--lb);font-size:8px;letter-spacing:4px;
+    color:rgba(212,168,83,.7);text-align:center;text-transform:uppercase;
+    margin-bottom:16px;
+  }
+  .p-cover .cover-lines{display:flex;flex-direction:column;gap:6px;}
+  .p-cover .cover-line{
+    font-family:var(--lb);font-size:9px;letter-spacing:1px;
+    color:rgba(244,240,230,.5);padding:4px 0;
+    border-bottom:.5px solid rgba(255,255,255,.06);
+  }
+  .p-cover .cover-artists{
+    display:flex;justify-content:space-between;margin-top:12px;
+  }
+  .p-cover .cover-artist-name{
+    font-family:var(--pf);font-size:clamp(14px,3vw,20px);
+    color:#F4F0E6;letter-spacing:1px;
+  }
+  .p-cover .cover-artist-role{
+    font-family:var(--lb);font-size:7px;letter-spacing:1px;
+    color:rgba(212,168,83,.7);text-transform:uppercase;margin-top:2px;
+  }
+
+  /* Contents / TOC page */
+  .p-toc{background:#F4F0E6;color:#111;}
+  .p-toc .toc-header{
+    padding:20px 20px 12px;border-bottom:2px solid #111;
+  }
+  .p-toc .toc-label{
+    font-family:var(--lb);font-size:8px;letter-spacing:4px;
+    color:#888;text-transform:uppercase;margin-bottom:4px;
+  }
+  .p-toc .toc-title{
+    font-family:var(--pf);font-size:28px;color:#111;line-height:1;
+  }
+  .p-toc .toc-list{padding:12px 20px;}
+  .p-toc .toc-item{
+    display:flex;align-items:baseline;gap:8px;
+    padding:8px 0;border-bottom:.5px solid #ddd;
+    cursor:pointer;transition:background .15s;
+  }
+  .p-toc .toc-item:hover .toc-item-title{color:#8B1A0A;}
+  .p-toc .toc-num{
+    font-family:var(--pf);font-size:18px;color:#ddd;
+    min-width:24px;line-height:1;
+  }
+  .p-toc .toc-item-wrap{flex:1;}
+  .p-toc .toc-item-section{
+    font-family:var(--lb);font-size:7px;letter-spacing:3px;
+    color:#D4A853;text-transform:uppercase;margin-bottom:2px;
+  }
+  .p-toc .toc-item-title{
+    font-family:var(--pf);font-size:15px;color:#111;
+    line-height:1.1;transition:color .15s;
+  }
+  .p-toc .toc-item-shl{
+    font-family:var(--lb);font-style:italic;font-size:9px;
+    color:#888;margin-top:2px;
+  }
+  .p-toc .toc-pg{
+    font-family:var(--lb);font-size:8px;color:#888;
+  }
+
+  /* Letter page */
+  .p-letter{background:#0D0D0D;color:#F4F0E6;padding:24px 20px;}
+  .p-letter .letter-eyebrow{
+    font-family:var(--lb);font-size:7px;letter-spacing:4px;
+    color:rgba(212,168,83,.6);text-transform:uppercase;margin-bottom:8px;
+  }
+  .p-letter .letter-title{
+    font-family:var(--pf);font-size:28px;color:#F4F0E6;
+    line-height:1;margin-bottom:12px;
+  }
+  .p-letter .letter-rule{height:1px;background:#D4A853;margin-bottom:16px;}
+  .p-letter .letter-body{
+    font-family:var(--lb);font-size:10px;line-height:1.8;
+    color:rgba(244,240,230,.75);
+  }
+  .p-letter .letter-drop{
+    float:left;font-family:var(--pf);font-size:52px;
+    line-height:.8;margin-right:6px;margin-top:4px;color:#D4A853;
+  }
+  .p-letter .letter-sig{
+    margin-top:16px;padding-top:12px;
+    border-top:.5px solid rgba(255,255,255,.1);
+  }
+  .p-letter .letter-sig-name{
+    font-family:var(--pf);font-size:18px;color:#D4A853;
+  }
+  .p-letter .letter-sig-role{
+    font-family:var(--lb);font-size:8px;letter-spacing:2px;
+    color:rgba(244,240,230,.3);text-transform:uppercase;margin-top:2px;
+  }
+
+  /* Article spread page */
+  .p-article{background:#0D0D0D;color:#F4F0E6;position:relative;}
+  .p-article .art-photo{
+    position:absolute;inset:0;
+    background:linear-gradient(135deg,#1a1a1a,#0d0d0d);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .p-article .art-photo span{font-family:var(--lb);font-size:8px;letter-spacing:2px;color:#222;}
+  .p-article .art-overlay{
+    position:absolute;inset:0;
+    background:linear-gradient(to top,rgba(0,0,0,.98) 0%,rgba(0,0,0,.3) 50%,transparent 100%);
+  }
+  .p-article .art-content{
+    position:absolute;bottom:0;left:0;right:0;padding:20px;
+  }
+  .p-article .art-badge{
+    display:inline-block;font-family:var(--lb);font-size:7px;
+    letter-spacing:3px;text-transform:uppercase;
+    padding:3px 10px;margin-bottom:8px;
+  }
+  .p-article .art-headline{
+    font-family:var(--pf);font-size:clamp(20px,4vw,32px);
+    color:#F4F0E6;line-height:1;margin-bottom:6px;
+  }
+  .p-article .art-subhl{
+    font-family:var(--lb);font-style:italic;font-size:11px;
+    color:rgba(244,240,230,.55);line-height:1.4;margin-bottom:10px;
+  }
+  .p-article .art-byline{
+    font-family:var(--lb);font-size:8px;letter-spacing:1px;
+    color:rgba(244,240,230,.3);text-transform:uppercase;
+  }
+
+  /* Article body text page */
+  .p-body{background:#F4F0E6;color:#111;padding:28px 22px;}
+  .p-body .body-section{
+    font-family:var(--lb);font-size:7px;letter-spacing:4px;
+    color:#D4A853;text-transform:uppercase;margin-bottom:12px;
+    padding-bottom:8px;border-bottom:1px solid #111;
+  }
+  .p-body .body-text{
+    font-family:var(--lb);font-size:10px;line-height:1.85;
+    color:#333;
+  }
+  .p-body .body-drop{
+    float:left;font-family:var(--pf);font-size:48px;
+    line-height:.8;margin-right:6px;margin-top:4px;color:#111;
+  }
+  .p-body .body-pq{
+    font-family:var(--pf);font-size:15px;color:#111;
+    line-height:1.3;padding:14px 0;margin:14px 0;
+    border-top:1.5px solid #111;border-bottom:1.5px solid #111;
+  }
+  .p-body .body-pg-num{
+    position:absolute;bottom:12px;right:16px;
+    font-family:var(--lb);font-size:8px;color:#ccc;letter-spacing:2px;
+  }
+
+  /* Playlist page */
+  .p-playlist{background:#111;color:#F4F0E6;padding:24px 20px;}
+  .p-playlist .pl-title{
+    font-family:var(--pf);font-size:22px;letter-spacing:1px;
+    color:#F4F0E6;margin-bottom:4px;
+  }
+  .p-playlist .pl-sub{
+    font-family:var(--lb);font-style:italic;font-size:9px;
+    color:rgba(244,240,230,.4);margin-bottom:16px;
+  }
+  .p-playlist .pl-rule{height:1px;background:#D4A853;margin-bottom:16px;}
+  .p-playlist .pl-track{
+    display:flex;align-items:center;gap:12px;
+    padding:8px 0;border-bottom:.5px solid rgba(255,255,255,.06);
+  }
+  .p-playlist .pl-num{
+    font-family:var(--pf);font-size:16px;color:#333;
+    min-width:20px;text-align:right;
+  }
+  .p-playlist .pl-info{flex:1;}
+  .p-playlist .pl-track-name{
+    font-family:var(--lb);font-size:10px;color:#F4F0E6;font-weight:500;
+  }
+  .p-playlist .pl-artist{
+    font-family:var(--lb);font-size:8px;color:rgba(244,240,230,.4);
+    margin-top:1px;
+  }
+  .p-playlist .pl-rule-line{
+    width:24px;height:1px;background:rgba(212,168,83,.3);flex-shrink:0;
+  }
+
+  /* Back cover */
+  .p-back{
+    background:#0D0D0D;color:#F4F0E6;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:32px;
+  }
+  .p-back .back-logo{
+    font-family:var(--pf);font-size:clamp(32px,6vw,52px);
+    letter-spacing:4px;color:#F4F0E6;margin-bottom:8px;
+  }
+  .p-back .back-rule{
+    height:1px;background:#D4A853;width:80%;margin:12px auto;
+  }
+  .p-back .back-tagline{
+    font-family:var(--lb);font-style:italic;font-size:13px;
+    color:rgba(244,240,230,.4);margin-bottom:24px;
+  }
+  .p-back .back-url{
+    font-family:var(--lb);font-size:9px;letter-spacing:3px;
+    color:#D4A853;text-transform:uppercase;
+  }
+  .p-back .back-vol{
+    font-family:var(--lb);font-size:8px;letter-spacing:4px;
+    color:rgba(244,240,230,.2);text-transform:uppercase;margin-top:32px;
+  }
+</style>
+</head>
+<body>
+
+<div id="reader">
+  <!-- TOP BAR -->
+  <div id="reader-bar">
+    <div class="rb-logo" style="font-family:'Abril Fatface',serif;letter-spacing:2px;">AFTER<span>NOISE</span></div>
+    <div class="rb-info" id="rb-spread-info">Vol. I &mdash; Origins &middot; 2026</div>
+    <button class="rb-close" onclick="window.location.href='/'">&#10005; Close</button>
+  </div>
+
+  <!-- BOOK STAGE -->
+  <div id="stage">
+    <button class="nav-btn" id="btn-prev" onclick="turnPage(-1)">&#8249;</button>
+
+    <div id="book">
+      <!-- Left page -->
+      <div class="page page-left" id="page-left">
+        <div class="page-inner" id="page-left-inner"></div>
+        <div class="spine-left"></div>
+      </div>
+      <!-- Right page -->
+      <div class="page page-right" id="page-right">
+        <div class="page-inner" id="page-right-inner"></div>
+        <div class="spine-right"></div>
+      </div>
+    </div>
+
+    <button class="nav-btn" id="btn-next" onclick="turnPage(1)">&#8250;</button>
+    <div id="swipe-hint">Swipe or use arrow keys to turn pages</div>
+  </div>
+
+  <!-- PAGE COUNTER -->
+  <div id="page-counter">Page 1 of 20</div>
+
+  <!-- THUMBNAIL STRIP -->
+  <div id="thumb-strip" id="thumbs"></div>
+</div>
+
+<script>
+// ── PAGES DATA ─────────────────────────────────────────
+var PAGES = [
+  // 0 — Cover (left) + Contents (right)
+  {
+    id: 'cover',
+    left: {type:'cover'},
+    right: {type:'toc'},
+  },
+  // 1 — Letter (left) + Letter cont (right)
+  {
+    id: 'letter',
+    left: {type:'letter-a'},
+    right: {type:'letter-b'},
+  },
+  // 2 — DT the Artist spread
+  {
+    id: 'dt',
+    left: {type:'article', badge:'FREQUENCIES', badgeColor:'#8B1A0A', headline:'DT the Artist', subhl:'The New Sound Nobody Saw Coming', byline:'By Afternoise Editorial · Toronto, ON'},
+    right: {type:'body', section:'FREQUENCIES', drop:'H', body:'ow does a rapper from Toronto fuse soca with hip-hop and build something the world has not heard before? DT the Artist is not waiting for the industry to catch up. BTP is the movement, Toronto is the origin, and the music is the proof. He is an A&R, a manager, and an artist — the full picture.', pq:'The culture was already moving before anyone had a name for it.'},
+  },
+  // 3 — 4D spread
+  {
+    id: '4d',
+    left: {type:'article', badge:'FREQUENCIES', badgeColor:'#1A3A5C', headline:'4D', subhl:'Engineer. Producer. Artist.', byline:'By Afternoise Editorial · BTP · Toronto, ON'},
+    right: {type:'body', section:'FREQUENCIES', drop:'E', body:'very record you hear starts somewhere nobody sees. 4D is in that room — the engineer who shapes the sound, the producer who builds the bed, and the artist who knows what it should feel like before it exists. BTP is not just a crew. It is a standard.', pq:'I build the sound before the artist knows what they need.'},
+  },
+  // 4 — Soca & The City spread
+  {
+    id: 'soca',
+    left: {type:'article', badge:'SIGNAL', badgeColor:'#8B4A00', headline:'Soca & The City', subhl:'How Caribbean Carnival Took Root in Toronto', byline:'By Afternoise Editorial · Toronto, ON'},
+    right: {type:'body', section:'SIGNAL', drop:'T', body:'oronto Caribbean Carnival has been running for 57 years. It started in 1967 as Caribana — a community-led initiative to celebrate Canada's Centennial. What began as a parade on Yonge Street with 50,000 people has grown into one of the largest cultural festivals in North America, drawing millions and generating over half a billion dollars for the Toronto economy.', pq:'The culture does not ask for your credentials before it lets you in.'},
+  },
+  // 5 — Costume Creators spread
+  {
+    id: 'costume',
+    left: {type:'article', badge:'DRIP MAPS', badgeColor:'#4A1A6B', headline:'Costume Creators', subhl:'The Mas Band Making Art You Wear', byline:'By Afternoise Editorial · Toronto, ON'},
+    right: {type:'body', section:'DRIP MAPS', drop:'A', body:'year of work for one day on the road. The Costume Creators are not making fashion — they are making architecture. Every sequin, every wire frame, every feather is a deliberate decision made months before carnival morning. The craft behind the costume is one of the most technically complex art forms in the world.', pq:'These costumes took an entire year to build. The road is the gallery.'},
+  },
+  // 6 — DJ Black Ent & DJ 3 Live spread
+  {
+    id: 'dj',
+    left: {type:'article', badge:'SIGNAL', badgeColor:'#0A3D2E', headline:'DJ Black Ent & DJ 3 Live', subhl:'From the Club to the Carnival', byline:'By Afternoise Editorial · Fort Myers, FL · Toronto, ON'},
+    right: {type:'body', section:'SIGNAL', drop:'T', body:'hey met in Fort Myers at Tequila Bar in 2015 — a promoter booked them both and they have been brothers ever since. DJ Black Ent is from Dominica. DJ 3 Live is from South Florida. Their paths crossed in a small Florida city and led to a carnival truck in Toronto, a lost playlist, and a moment neither of them will forget.', pq:'Play it. As soon as the song dropped the masqueraders started moving.'},
+  },
+  // 7 — Toronto After Dark spread
+  {
+    id: 'toronto',
+    left: {type:'article', badge:'PASSPORT', badgeColor:'#1A1A2E', headline:'Toronto After Dark', subhl:'The Afternoise Hotspot Guide', byline:'By Afternoise Editorial · Toronto, ON'},
+    right: {type:'body', section:'PASSPORT', drop:'W', body:'hen carnival is over the city does not sleep. Toronto After Dark is the guide to what happens when the road empties and the real conversations begin. The spots, the sounds, and the people who make Toronto feel like nowhere else after midnight.', pq:'After the parade the city belongs to the ones who stayed.'},
+  },
+  // 8 — Yannaabaiibee Radar spread
+  {
+    id: 'radar',
+    left: {type:'article', badge:'NEW ARTIST RADAR', badgeColor:'#555', headline:'Yannaabaiibee', subhl:'Watch This Space', byline:'Canada · Musical Artist'},
+    right: {type:'body', section:'RADAR', drop:'O', body:'ne artist building something real before the world catches up. Yannaabaiibee is from Canada with Dominican roots — and both worlds show up in her music. She is the Vol. I Radar pick because the work is already in motion. The recognition is on the way.', pq:'The culture was always there. Now so are we.'},
+  },
+  // 9 — Playlist (left) + Back Cover (right)
+  {
+    id: 'playlist-back',
+    left: {type:'playlist'},
+    right: {type:'back'},
+  },
+];
+
+var TRACKS = [
+  {n:'01',title:'Inch By Inch',artist:'Yung Breda'},
+  {n:'02',title:'Wanna Party',artist:'Ding Dong'},
+  {n:'03',title:'Kaya',artist:'Freetown Collective'},
+  {n:'04',title:'Cyah Behave',artist:'Voice'},
+  {n:'05',title:'Stink Waist',artist:'Lyrikal, Travis World'},
+  {n:'06',title:'Still A Road Man',artist:'Bunji Garlin'},
+  {n:'07',title:'SWAY',artist:'Erphaan Alves'},
+  {n:'08',title:'Love On D Road',artist:'Braveboy'},
+  {n:'09',title:'Tay Lay Lay',artist:'Nailah Blackman x GBM Nutron'},
+  {n:'10',title:'Big Truck',artist:'Imani Ray'},
+];
+
+var TOC_ITEMS = [
+  {num:'01', section:'FREQUENCIES', title:'DT the Artist', shl:'The New Sound Nobody Saw Coming', pg:3},
+  {num:'02', section:'FREQUENCIES', title:'4D', shl:'Engineer. Producer. Artist.', pg:5},
+  {num:'03', section:'SIGNAL', title:'Soca & The City', shl:'How Caribbean Carnival Took Root', pg:7},
+  {num:'04', section:'DRIP MAPS', title:'Costume Creators', shl:'The Mas Band Making Art You Wear', pg:9},
+  {num:'05', section:'SIGNAL', title:'DJ Black Ent & DJ 3 Live', shl:'From the Club to the Carnival', pg:11},
+  {num:'06', section:'PASSPORT', title:'Toronto After Dark', shl:'The Afternoise Hotspot Guide', pg:13},
+  {num:'07', section:'RADAR', title:'Yannaabaiibee', shl:'Watch This Space', pg:15},
+  {num:'08', section:'SOUND', title:'The Playlist', shl:'Road to Toronto Carnival', pg:17},
+];
+
+// ── STATE ──────────────────────────────────────────────
+var currentSpread = 0;
+var isAnimating = false;
+
+// ── INIT ───────────────────────────────────────────────
+function init(){
+  setSizes();
+  buildThumbs();
+  renderSpread(0);
+  bindKeys();
+  bindSwipe();
+  window.addEventListener('resize', function(){setSizes(); renderSpread(currentSpread);});
+}
+
+function setSizes(){
+  var stage = document.getElementById('stage');
+  var sw = stage.clientWidth - 120;
+  var sh = stage.clientHeight - 40;
+  // Book proportions: each page is roughly A4 portrait in the available space
+  var ph = Math.min(sh, 680);
+  var pw = Math.min(sw / 2, ph * 0.68);
+  ph = Math.min(ph, pw / 0.68);
+  // On mobile single page
+  if(window.innerWidth <= 768){
+    pw = Math.min(sw, 340);
+    ph = pw / 0.68;
+  }
+  document.documentElement.style.setProperty('--pw', pw + 'px');
+  document.documentElement.style.setProperty('--ph', ph + 'px');
+  // Position flip container
+  var fc = document.getElementById('flip-container');
+  if(fc){ fc.style.height = ph + 'px'; fc.style.top = '0'; }
+}
+
+// ── BUILD THUMBNAILS ────────────────────────────────────
+function buildThumbs(){
+  var strip = document.getElementById('thumb-strip');
+  strip.innerHTML = '';
+  PAGES.forEach(function(spread, i){
+    var thumb = document.createElement('div');
+    thumb.className = 'thumb' + (i===0?' active':'');
+    thumb.dataset.index = i;
+    thumb.onclick = function(){ goToSpread(parseInt(this.dataset.index)); };
+    var bg = document.createElement('div');
+    bg.className = 'thumb-bg';
+    // Color code by type
+    var colors = {
+      'cover':'#0D0D0D','toc':'#F4F0E6','letter-a':'#0D0D0D',
+      'article':'#1A1A1A','body':'#F4F0E6','playlist':'#111',
+      'back':'#0D0D0D'
+    };
+    bg.style.background = colors[spread.left.type] || '#1A1A1A';
+    // Mini label
+    var label = document.createElement('div');
+    label.className = 'thumb-label';
+    var labels = {0:'Cover',1:'Letter',2:'DT',3:'4D',4:'Soca',5:'Costume',6:'DJs',7:'Toronto',8:'Radar',9:'Playlist'};
+    label.textContent = labels[i] || (i+1);
+    thumb.appendChild(bg);
+    thumb.appendChild(label);
+    strip.appendChild(thumb);
+  });
+}
+
+function updateThumb(idx){
+  document.querySelectorAll('.thumb').forEach(function(t,i){
+    t.classList.toggle('active', i===idx);
+  });
+  // Scroll thumb into view
+  var activeThumb = document.querySelector('.thumb.active');
+  if(activeThumb) activeThumb.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+}
+
+// ── RENDER SPREAD ───────────────────────────────────────
+function renderSpread(idx){
+  if(idx < 0 || idx >= PAGES.length) return;
+  var spread = PAGES[idx];
+  var leftEl = document.getElementById('page-left-inner');
+  var rightEl = document.getElementById('page-right-inner');
+  leftEl.innerHTML = buildPage(spread.left);
+  rightEl.innerHTML = buildPage(spread.right);
+  // Update info
+  var spreadNum = idx + 1;
+  document.getElementById('rb-spread-info').textContent = 'Vol. I — Origins · Spread ' + spreadNum + ' of ' + PAGES.length;
+  document.getElementById('page-counter').textContent = 'Spread ' + spreadNum + ' of ' + PAGES.length + ' · Afternoise Vol. I — Origins · 2026';
+  document.getElementById('btn-prev').disabled = (idx === 0);
+  document.getElementById('btn-next').disabled = (idx === PAGES.length - 1);
+  updateThumb(idx);
+}
+
+// ── BUILD PAGE HTML ─────────────────────────────────────
+function buildPage(pg){
+  switch(pg.type){
+    case 'cover':   return buildCoverPage();
+    case 'toc':     return buildTOCPage();
+    case 'letter-a': return buildLetterA();
+    case 'letter-b': return buildLetterB();
+    case 'article': return buildArticlePage(pg);
+    case 'body':    return buildBodyPage(pg);
+    case 'playlist': return buildPlaylistPage();
+    case 'back':    return buildBackPage();
+    default:        return '<div style="background:#111;width:100%;height:100%;"></div>';
+  }
+}
+
+function buildCoverPage(){
+  return '<div class="p-cover" style="width:100%;height:100%;position:relative;">'
+    + '<div class="cover-photo"><span>COVER PHOTO</span></div>'
+    + '<div class="cover-overlay"></div>'
+    + '<div class="cover-content">'
+    + '<div class="cover-masthead" style="font-family:'Abril Fatface',serif;">AFTERNOISE</div>'
+    + '<div class="cover-rule"></div>'
+    + '<div class="cover-kicker">Vol. I &nbsp;&middot;&nbsp; Origins &nbsp;&middot;&nbsp; 2026</div>'
+    + '<div style="font-family:var(--lb);font-style:italic;font-size:9px;color:rgba(244,240,230,.5);text-align:center;margin-bottom:12px;">&ldquo;Real work. Real time. No permission needed.&rdquo;</div>'
+    + '<div class="cover-lines">'
+    + ['DT the Artist','4D','Soca & The City','Costume Creators','DJ Black Ent & DJ 3 Live','Toronto After Dark'].map(function(s){
+        return '<div class="cover-line">' + s + '</div>';
+      }).join('')
+    + '</div>'
+    + '<div class="cover-artists">'
+    + '<div><div class="cover-artist-name">4D</div><div class="cover-artist-role">BTP &middot; Engineer</div></div>'
+    + '<div style="text-align:right"><div class="cover-artist-name">DT THE ARTIST</div><div class="cover-artist-role">BTP &middot; Toronto, ON</div></div>'
+    + '</div>'
+    + '</div></div>';
+}
+
+function buildTOCPage(){
+  return '<div class="p-toc" style="width:100%;height:100%;overflow:hidden;">'
+    + '<div class="toc-header">'
+    + '<div class="toc-label">Contents</div>'
+    + '<div class="toc-title">Vol. I &mdash; Origins</div>'
+    + '</div>'
+    + '<div class="toc-list">'
+    + TOC_ITEMS.map(function(item){
+        return '<div class="toc-item">'
+          + '<div class="toc-num">' + item.num + '</div>'
+          + '<div class="toc-item-wrap">'
+          + '<div class="toc-item-section">' + item.section + '</div>'
+          + '<div class="toc-item-title">' + item.title + '</div>'
+          + '<div class="toc-item-shl">' + item.shl + '</div>'
+          + '</div>'
+          + '</div>';
+      }).join('')
+    + '</div>'
+    + '<div style="padding:12px 20px;border-top:.5px solid #ddd;">'
+    + '<div style="font-family:var(--lb);font-size:7px;letter-spacing:3px;color:#D4A853;text-transform:uppercase;margin-bottom:4px;">Also In This Issue</div>'
+    + '<div style="font-family:var(--lb);font-size:9px;color:#888;">Yannaabaiibee Radar &nbsp;&middot;&nbsp; The Playlist &nbsp;&middot;&nbsp; In Frame Photos</div>'
+    + '</div>'
+    + '</div>';
+}
+
+function buildLetterA(){
+  return '<div class="p-letter" style="width:100%;height:100%;overflow:hidden;">'
+    + '<div class="letter-eyebrow">Vol. I &nbsp;&middot;&nbsp; Origins &nbsp;&middot;&nbsp; 2026</div>'
+    + '<div class="letter-title">Letter from the Editor</div>'
+    + '<div class="letter-rule"></div>'
+    + '<div class="letter-body">'
+    + '<span class="letter-drop">T</span>'
+    + 'here is a moment — most of us have had it — where everything around you is loud, uncertain, and moving too fast. The world shifts, people change, circumstances change, and somehow in the middle of all of it, music is just there. Steady. Unchanged. Waiting.'
+    + '<br><br>I was seven years old the first time I understood that. My parents had records, cassette tapes, CDs — a whole collection that told me the world had been feeling something long before I arrived in it. Family members who lived inside the music. A culture that held people before the world ever got around to noticing them. That was my first education. Not a classroom. A record collection.'
+    + '<br><br>That feeling never left.'
+    + '</div>'
+    + '<div style="margin-top:16px;padding:12px;background:rgba(212,168,83,.08);border-left:2px solid #D4A853;">'
+    + '<div style="font-family:var(--lb);font-style:italic;font-size:9px;color:rgba(244,240,230,.6);line-height:1.7;">&ldquo;After the noise, what remains is the truth of who was really there.&rdquo;</div>'
+    + '</div>'
+    + '</div>';
+}
+
+function buildLetterB(){
+  return '<div class="p-letter" style="width:100%;height:100%;overflow:hidden;">'
+    + '<div class="letter-body">'
+    + 'Afternoise was built for that space. The space after the noise.'
+    + '<br><br>We live in a time where visibility is currency and attention is manufactured. Where the loudest voice in the room is often the one with the least to say. Culture vultures — the ones who arrive after the work is done, take what was never theirs, and move on before the bill comes due. This magazine is not for them.'
+    + '<br><br>Afternoise is for the ones who were already in it before anyone was watching. The artist who is also the A&R, the manager, the connector. The DJ who took the gig nobody else wanted and turned it into a moment nobody will forget. The designer working through the night on a vision only they can see yet.'
+    + '<br><br>Vol. I is called Origins because everything in this issue starts at the beginning. Before the recognition. Before the numbers. Before the world caught up.'
+    + '<br><br><strong style="color:#D4A853;">Afternoise is the receipt.</strong>'
+    + '</div>'
+    + '<div class="letter-sig">'
+    + '<div class="letter-sig-name">Craig Allen</div>'
+    + '<div class="letter-sig-role">Founder & Editor in Chief &nbsp;&middot;&nbsp; Afternoise Magazine & Radio</div>'
+    + '</div>'
+    + '<div class="body-pg-num">02</div>'
+    + '</div>';
+}
+
+function buildArticlePage(pg){
+  return '<div class="p-article" style="width:100%;height:100%;">'
+    + '<div class="art-photo"><span>PHOTO</span></div>'
+    + '<div class="art-overlay"></div>'
+    + '<div class="art-content">'
+    + '<div class="art-badge" style="background:' + pg.badgeColor + ';color:#F4F0E6;">' + pg.badge + '</div>'
+    + '<div class="art-headline">' + pg.headline + '</div>'
+    + '<div class="art-subhl">' + pg.subhl + '</div>'
+    + '<div class="art-byline">' + pg.byline + '</div>'
+    + '</div>'
+    + '</div>';
+}
+
+function buildBodyPage(pg){
+  return '<div class="p-body" style="width:100%;height:100%;position:relative;overflow:hidden;">'
+    + '<div class="body-section">' + pg.section + '</div>'
+    + '<div class="body-text">'
+    + '<span class="body-drop">' + pg.drop + '</span>'
+    + pg.body
+    + '</div>'
+    + '<div class="body-pq">&ldquo;' + pg.pq + '&rdquo;</div>'
+    + '<div style="font-family:var(--lb);font-size:9px;color:#888;font-style:italic;margin-top:8px;">Read the full story at afternoisemag.com</div>'
+    + '</div>';
+}
+
+function buildPlaylistPage(){
+  return '<div class="p-playlist" style="width:100%;height:100%;overflow:hidden;">'
+    + '<div class="pl-title">The Playlist</div>'
+    + '<div class="pl-sub">Afternoise Origins: Road to Toronto Carnival</div>'
+    + '<div class="pl-rule"></div>'
+    + TRACKS.map(function(t){
+        return '<div class="pl-track">'
+          + '<div class="pl-num">' + t.n + '</div>'
+          + '<div class="pl-rule-line"></div>'
+          + '<div class="pl-info">'
+          + '<div class="pl-track-name">' + t.title + '</div>'
+          + '<div class="pl-artist">' + t.artist + '</div>'
+          + '</div>'
+          + '</div>';
+      }).join('')
+    + '</div>';
+}
+
+function buildBackPage(){
+  return '<div class="p-back" style="width:100%;height:100%;">'
+    + '<div class="back-logo" style="font-family:'Abril Fatface',serif;">AFTERNOISE</div>'
+    + '<div class="back-rule"></div>'
+    + '<div class="back-tagline">Culture Doesn&rsquo;t Wait.</div>'
+    + '<div class="back-url">afternoisemag.com</div>'
+    + '<div style="margin-top:24px;font-family:var(--lb);font-size:8px;letter-spacing:2px;color:rgba(244,240,230,.2);">@afternoisemagazine &nbsp;&middot;&nbsp; @afternoisemag</div>'
+    + '<div class="back-vol">Vol. I &nbsp;&middot;&nbsp; Origins &nbsp;&middot;&nbsp; 2026</div>'
+    + '</div>';
+}
+
+// ── NAVIGATION ──────────────────────────────────────────
+function turnPage(dir){
+  if(isAnimating) return;
+  var next = currentSpread + dir;
+  if(next < 0 || next >= PAGES.length) return;
+  goToSpread(next, dir);
+}
+
+function goToSpread(idx, dir){
+  if(isAnimating || idx === currentSpread) return;
+  isAnimating = true;
+  dir = dir || (idx > currentSpread ? 1 : -1);
+
+  // Simple fade transition — clean and fast
+  var book = document.getElementById('book');
+  book.style.transition = 'opacity .18s ease';
+  book.style.opacity = '0';
+
+  setTimeout(function(){
+    currentSpread = idx;
+    renderSpread(idx);
+    book.style.opacity = '1';
+    setTimeout(function(){ isAnimating = false; }, 200);
+  }, 180);
+}
+
+function bindKeys(){
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowRight' || e.key === 'ArrowDown') turnPage(1);
+    if(e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   turnPage(-1);
+  });
+}
+
+function bindSwipe(){
+  var sx = 0;
+  document.getElementById('book').addEventListener('touchstart', function(e){
+    sx = e.touches[0].clientX;
+  }, {passive:true});
+  document.getElementById('book').addEventListener('touchend', function(e){
+    var dx = e.changedTouches[0].clientX - sx;
+    if(Math.abs(dx) > 40){ turnPage(dx < 0 ? 1 : -1); }
+  }, {passive:true});
+}
+
+// ── START ───────────────────────────────────────────────
+window.addEventListener('load', init);
+</script>
+</body>
+</html>
