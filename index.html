@@ -142,6 +142,19 @@
   .outer-nav{
     background:#111;position:sticky;top:0;z-index:100;
     border-bottom:2px solid #D4A853;
+    position:sticky;
+  }
+  /* Fade right edge on mobile to hint at scrollability */
+  .outer-nav::after{
+    content:'';
+    position:absolute;right:0;top:0;bottom:0;width:48px;
+    background:linear-gradient(to right,transparent,#111);
+    pointer-events:none;
+    display:none;
+  }
+  @media(max-width:768px){
+    .outer-nav{position:sticky;}
+    .outer-nav::after{display:block;}
   }
   .outer-nav-inner{
     max-width:100%;display:flex;align-items:stretch;justify-content:center;
@@ -254,8 +267,8 @@
 </div>
 
 <!-- NAV BAR -->
-<nav class="outer-nav">
-  <div class="outer-nav-inner">
+<nav class="outer-nav" id="outer-nav">
+  <div class="outer-nav-inner" id="outer-nav-inner">
     <button class="outer-nav-item" onclick="go('toc')">Stories</button>
     <button class="outer-nav-item" onclick="go('letter')">Letter</button>
     <button class="outer-nav-item" onclick="go('playlist')">Playlist</button>
@@ -267,6 +280,10 @@
     <div class="outer-nav-radio" onclick="var rp=document.getElementById('radio-player');rp.classList.toggle('show');">
       <div class="outer-nav-radio-dot"></div>
       <span class="outer-nav-radio-label">Listen Live</span>
+    </div>
+    <!-- Mobile scroll hint -->
+    <div id="nav-scroll-hint" style="display:none;align-items:center;padding:0 10px;flex-shrink:0;">
+      <span style="font-family:var(--lb);font-size:8px;letter-spacing:1px;color:rgba(212,168,83,.5);">scroll ›</span>
     </div>
   </div>
 </nav>
@@ -1580,6 +1597,34 @@ function render(){
 
 render();
 
+
+// Show nav scroll hint on mobile
+(function(){
+  function checkMobile(){return window.innerWidth <= 768;}
+  var hint = document.getElementById('nav-scroll-hint');
+  var nav = document.getElementById('outer-nav-inner');
+  if(!hint || !nav) return;
+  if(checkMobile()){
+    hint.style.display = 'flex';
+    // Hide hint after user scrolls nav
+    nav.addEventListener('scroll', function(){
+      hint.style.opacity = '0';
+      hint.style.transition = 'opacity .4s';
+      setTimeout(function(){ hint.style.display = 'none'; }, 400);
+    }, {once:true});
+    // Also auto-hide after 4 seconds
+    setTimeout(function(){
+      if(hint.style.display !== 'none'){
+        hint.style.opacity = '0';
+        hint.style.transition = 'opacity .6s';
+        setTimeout(function(){ hint.style.display = 'none'; }, 600);
+      }
+    }, 4000);
+  }
+  window.addEventListener('resize', function(){
+    if(!checkMobile()) hint.style.display = 'none';
+  });
+})();
 
 // Radio toggle
 var _playing = false;
