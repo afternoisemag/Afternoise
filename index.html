@@ -141,7 +141,31 @@
   .outer-nav{
     background:#111;position:sticky;top:0;z-index:100;
     border-bottom:2px solid #D4A853;
+    position:relative;
   }
+  .outer-nav::after{
+    content:'scroll ›';
+    position:absolute;right:0;top:0;bottom:0;
+    width:72px;
+    background:linear-gradient(to right,transparent,#111 40%);
+    display:none;
+    align-items:center;justify-content:flex-end;
+    padding-right:10px;
+    font-family:var(--lb);font-size:8px;letter-spacing:1px;
+    color:rgba(212,168,83,.6);
+    pointer-events:none;
+    transition:opacity .4s;
+  }
+  @media(max-width:768px){
+    .outer-nav::after{display:flex;}
+    .outer-nav.scrolled::after{opacity:0;}
+  }
+  .outer-nav-fade{
+    display:none;position:absolute;right:0;top:0;bottom:0;
+    width:60px;pointer-events:none;z-index:5;
+    background:linear-gradient(to right,transparent,#111);
+  }
+  @media(max-width:768px){.outer-nav-fade{display:block;}}
   .outer-nav-inner{
     max-width:100%;display:flex;align-items:stretch;justify-content:center;
   }
@@ -274,6 +298,9 @@
     <div class="outer-nav-radio" onclick="var rp=document.getElementById('radio-player');rp.classList.toggle('show');">
       <div class="outer-nav-radio-dot"></div>
       <span class="outer-nav-radio-label">Listen Live</span>
+    </div>
+    <div id="nav-scroll-hint" style="display:none;align-items:center;padding:0 10px 0 4px;flex-shrink:0;transition:opacity .5s;">
+      <span style="font-family:var(--lb);font-size:8px;letter-spacing:1px;color:rgba(212,168,83,.6);">scroll ›</span>
     </div>
   </div>
 </nav>
@@ -1180,7 +1207,7 @@ function buildArchive(){
   inner.appendChild(h('div',{style:{height:'1px',background:'rgba(212,168,83,.2)',marginBottom:'48px'}}));
 
   // Issues grid
-  var grid=h('div',{className:'fade s1',style:{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'24px',marginBottom:'60px'}});
+  var grid=h('div',{className:'fade s1',style:{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(min(100%,200px),1fr))',gap:'24px',marginBottom:'60px'}});
 
   ISSUES.forEach(function(issue){
     var card=h('div',{style:{
@@ -1389,7 +1416,7 @@ function buildSpinTheBlock(){
     card.onmouseenter=function(){if(ep.status!=='coming'){card.style.borderColor='rgba(212,168,83,.5)';card.style.background='rgba(212,168,83,.04)';}};
     card.onmouseleave=function(){card.style.borderColor='rgba(212,168,83,.2)';card.style.background='none';};
 
-    var cardInner=h('div',{style:{padding:'24px 28px',display:'grid',gridTemplateColumns:'auto 1fr auto',gap:'24px',alignItems:'center'}});
+    var cardInner=h('div',{style:{padding:'24px 28px',display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(min(100%,200px),1fr))',gap:'24px',alignItems:'center'}});
 
     // Episode number
     var epNum=h('div',{style:{textAlign:'center',flexShrink:0}});
@@ -1587,6 +1614,72 @@ function render(){
 
 render();
 
+
+// Nav scroll fade — hide gradient when scrolled to end
+(function(){
+  var nav = document.getElementById('outer-nav-inner');
+  var fade = document.getElementById('nav-fade');
+  if(!nav || !fade) return;
+  function updateFade(){
+    var atEnd = nav.scrollLeft + nav.clientWidth >= nav.scrollWidth - 8;
+    fade.style.opacity = atEnd ? '0' : '1';
+    fade.style.transition = 'opacity .3s';
+  }
+  nav.addEventListener('scroll', updateFade, {passive:true});
+  window.addEventListener('resize', updateFade);
+  // Initial check after fonts load
+  setTimeout(updateFade, 500);
+})();
+
+// Nav scroll hint — hide after user scrolls
+(function(){
+  var nav = document.getElementById('outer-nav-inner');
+  var outerNav = document.querySelector('.outer-nav');
+  if(!nav || !outerNav) return;
+  function checkScroll(){
+    if(nav.scrollLeft > 10){
+      outerNav.classList.add('scrolled');
+    }
+  }
+  nav.addEventListener('scroll', checkScroll, {passive:true});
+  // Also hide after 3 seconds automatically on mobile
+  if(window.innerWidth <= 768){
+    setTimeout(function(){
+      outerNav.classList.add('scrolled');
+    }, 3000);
+  }
+})();
+
+// Nav scroll hint on mobile
+(function(){
+  function isMobile(){ return window.innerWidth <= 768; }
+  var hint = document.getElementById('nav-scroll-hint');
+  var nav  = document.getElementById('outer-nav-inner');
+  if(!hint || !nav) return;
+  function showHint(){
+    if(!isMobile()) return;
+    hint.style.display = 'flex';
+    hint.style.opacity = '1';
+    // Hide after user scrolls nav
+    nav.addEventListener('scroll', function hide(){
+      hint.style.opacity = '0';
+      setTimeout(function(){ hint.style.display = 'none'; }, 500);
+      nav.removeEventListener('scroll', hide);
+    }, {once:true});
+    // Auto-hide after 3.5 seconds
+    setTimeout(function(){
+      if(hint.style.display !== 'none'){
+        hint.style.opacity = '0';
+        setTimeout(function(){ hint.style.display = 'none'; }, 500);
+      }
+    }, 3500);
+  }
+  // Show after short delay so page has loaded
+  setTimeout(showHint, 800);
+  window.addEventListener('resize', function(){
+    if(!isMobile()) hint.style.display = 'none';
+  });
+})();
 
 // Radio toggle
 var _playing = false;
