@@ -4,32 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Afternoise — Urban Culture Magazine</title>
-<meta name="description" content="Afternoise — The Magazine of Urban Culture. Vol. I Origins. Music, fashion, culture, travel.">
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Afternoise — The Magazine of Urban Culture">
-  <meta property="og:description" content="Vol. I — Origins. Six stories from the Toronto Caribbean Carnival scene. Independent urban culture media.">
-  <meta property="og:image" content="https://afternoisemag.com/og-image.jpg">
-  <meta property="og:url" content="https://afternoisemag.com">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Afternoise">
-
-  <!-- Twitter / X Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@afternoisemag">
-  <meta name="twitter:creator" content="@afternoisemag">
-  <meta name="twitter:title" content="Afternoise — The Magazine of Urban Culture">
-  <meta name="twitter:description" content="Vol. I — Origins. Six stories from the Toronto Caribbean Carnival scene. Independent urban culture media.">
-  <meta name="twitter:image" content="https://afternoisemag.com/og-image.jpg">
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="alternate icon" href="favicon.ico">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <meta name="theme-color" content="#0D0D0D">
+<meta name="description" content="Afternoise — The Magazine of Urban Culture. Vol. I Origins.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Bebas+Neue&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
 <style>
 
     *{box-sizing:border-box;margin:0;padding:0;}
@@ -148,10 +126,9 @@
     text-align:center;padding:24px 44px 14px;
     border-bottom:3px solid #111;background:#F4F0E6;
   }
-  .outer-masthead-name{
-    font-family:'Abril Fatface',serif;
-    font-size:clamp(52px,9vw,112px);
-    font-weight:400;letter-spacing:clamp(2px,0.4vw,8px);
+  .outer-masthead-name{font-family:"Abril Fatface",serif !important;
+    font-family:var(--pf);font-size:clamp(56px,10vw,120px);
+    font-weight:400;letter-spacing:clamp(1px,0.3vw,4px);
     color:#111;line-height:1;display:block;text-decoration:none;
     cursor:pointer;transition:opacity .2s;
   }
@@ -164,19 +141,6 @@
   .outer-nav{
     background:#111;position:sticky;top:0;z-index:100;
     border-bottom:2px solid #D4A853;
-    position:sticky;
-  }
-  /* Fade right edge on mobile to hint at scrollability */
-  .outer-nav::after{
-    content:'';
-    position:absolute;right:0;top:0;bottom:0;width:48px;
-    background:linear-gradient(to right,transparent,#111);
-    pointer-events:none;
-    display:none;
-  }
-  @media(max-width:768px){
-    .outer-nav{position:sticky;}
-    .outer-nav::after{display:block;}
   }
   .outer-nav-inner{
     max-width:100%;display:flex;align-items:stretch;justify-content:center;
@@ -234,44 +198,14 @@
   #radio-player.show{opacity:1;pointer-events:auto;transform:translateY(0);}
 
   @media(max-width:768px){
-    /* Hide utility bar */
-    .util-bar{display:none !important;}
-
-    /* Masthead — tighter on mobile */
-    .outer-masthead{padding:14px 12px 10px;}
-    .outer-masthead-name{font-size:clamp(42px,14vw,80px);letter-spacing:1px;}
-    .outer-masthead-sub{font-size:8px;letter-spacing:3px;}
-
-    /* Nav bar — scrollable on mobile, don't wrap */
-    .outer-nav{overflow-x:auto;-webkit-overflow-scrolling:touch;}
-    .outer-nav::-webkit-scrollbar{display:none;}
-    .outer-nav-inner{justify-content:flex-start !important;min-width:max-content;}
-    .outer-nav-item{padding:12px 14px;font-size:9px;letter-spacing:2px;white-space:nowrap;}
-    .outer-nav-radio{padding:0 14px;white-space:nowrap;}
-
-    /* Ticker */
-    .ticker-item{font-size:9px;padding:0 24px;}
-
-    /* Hide ALL inner sticky nav bars */
-    div[style*="position:sticky"]{display:none !important;}
-
-    /* Magazine content padding */
-    #root{padding-bottom:0 !important;}
-
-    /* Bottom mag nav — hide it */
-    #mag-nav{display:none !important;}
-
-    /* Issue cards — full width on mobile */
-    .issue-card{min-width:calc(100vw - 48px) !important;max-width:calc(100vw - 48px) !important;}
-
-    /* TOC cards — full width */
-    .fade{animation:none !important;}
+    .util-bar{display:none;}
+    .outer-masthead{padding:16px 16px 10px;}
+    .outer-nav-item{padding:12px 10px;font-size:9px;}
+    #mag-nav{display:flex !important;}
   }
   #art-nav-bar{display:none !important;}
-  /* Hide all inner page nav bars — all sizes */
+  /* Hide all inner page nav bars */
   div[style*="position:sticky"][style*="top:0"]{display:none !important;}
-  div[style*="position:sticky"][style*="zIndex"]{display:none !important;}
-  div[style*="position: sticky"]{display:none !important;}
   /* Hide bottom mag nav */
   #mag-nav{display:none !important;}
   /* Remove bottom padding added for mag nav */
@@ -289,8 +223,8 @@
 </div>
 
 <!-- NAV BAR -->
-<nav class="outer-nav" id="outer-nav">
-  <div class="outer-nav-inner" id="outer-nav-inner">
+<nav class="outer-nav">
+  <div class="outer-nav-inner">
     <button class="outer-nav-item" onclick="go('toc')">Stories</button>
     <button class="outer-nav-item" onclick="go('letter')">Letter</button>
     <button class="outer-nav-item" onclick="go('playlist')">Playlist</button>
@@ -302,10 +236,6 @@
     <div class="outer-nav-radio" onclick="var rp=document.getElementById('radio-player');rp.classList.toggle('show');">
       <div class="outer-nav-radio-dot"></div>
       <span class="outer-nav-radio-label">Listen Live</span>
-    </div>
-    <!-- Mobile scroll hint -->
-    <div id="nav-scroll-hint" style="display:none;align-items:center;padding:0 10px;flex-shrink:0;">
-      <span style="font-family:var(--lb);font-size:8px;letter-spacing:1px;color:rgba(212,168,83,.5);">scroll ›</span>
     </div>
   </div>
 </nav>
@@ -686,7 +616,7 @@ function buildTOC(){
   extHdr.appendChild(h('div',{style:{flex:1,height:'.5px',background:'#ccc'}}));
   inner.appendChild(extHdr);
 
-  var extGrid=h('div',{className:'fade s6',style:{display:'grid',gridTemplateColumns:'repeat(3,minmax(180px,1fr))',gap:'3px',marginBottom:'32px'}});
+  var extGrid=h('div',{className:'fade s6',style:{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'3px',marginBottom:'32px'}});
 
   // Playlist card
   var plCard=h('div',{className:'card',style:{height:'240px',background:'#0D0D0D',cursor:'pointer'}});
@@ -741,12 +671,7 @@ function buildTOC(){
 
   // Follow strip
   var fw=h('div',{className:'fade s5',style:{display:'flex',alignItems:'center',gap:'24px',padding:'16px 0',borderTop:'.5px solid #ddd',borderBottom:'.5px solid #ddd',marginBottom:'40px',flexWrap:'wrap'}});
-  fw.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'4px',color:'rgba(244,240,230,.3)',textTransform:'uppercase',flexShrink:0}},'Follow Us'));
-  var paA=h('a',{href:'https://patreon.com/afternoise',target:'_blank',rel:'noopener',style:{display:'flex',alignItems:'center',gap:'7px',textDecoration:'none',transition:'opacity .2s'}});
-  paA.onmouseenter=function(){paA.style.opacity='.6';};paA.onmouseleave=function(){paA.style.opacity='1';};
-  var paIco=h('div',{style:{width:'18px',height:'18px',borderRadius:'50%',background:'#FF424D',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}});
-  paIco.innerHTML='<span style="color:white;font-size:9px;font-weight:bold;font-family:sans-serif">P</span>';
-  paA.appendChild(paIco);paA.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',color:'rgba(244,240,230,.4)',letterSpacing:'1px'}},'Patreon'));fw.appendChild(paA);
+  fw.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'4px',color:'#bbb',textTransform:'uppercase',flexShrink:0}},'Follow Us'));
   var igA=h('a',{href:'https://instagram.com/afternoisemagazine',target:'_blank',rel:'noopener',style:{display:'flex',alignItems:'center',gap:'7px',textDecoration:'none',transition:'opacity .2s'}});
   igA.onmouseenter=function(){igA.style.opacity='.6';};igA.onmouseleave=function(){igA.style.opacity='1';};
   var igI=h('div',{});igI.innerHTML='<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:16px;height:16px"><rect x="2" y="2" width="20" height="20" rx="6" stroke="#111" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="#111" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="#111"/></svg>';
@@ -1019,9 +944,9 @@ function buildRadar(){
   var inner=h('div',{style:{maxWidth:'800px',margin:'0 auto',padding:'60px 44px 100px'}});
   // Header
   var hdr=h('div',{className:'fade',style:{marginBottom:'40px'}});
-  hdr.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'6px',color:'#888888',textTransform:'uppercase',marginBottom:'12px'}},'Vol. I — New Artist Radar'));
-  hdr.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(28px,4vw,52px)',fontWeight:900,lineHeight:1,color:'#111111',marginBottom:'8px'}},'Watch This Space'));
-  var sub2=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'16px',color:'#666666',maxWidth:'520px',lineHeight:1.6}});
+  hdr.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'6px',color:'rgba(244,240,230,.4)',textTransform:'uppercase',marginBottom:'12px'}},'Vol. I — New Artist Radar'));
+  hdr.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(28px,4vw,52px)',fontWeight:900,lineHeight:1,color:'#F4F0E6',marginBottom:'8px'}},'Watch This Space'));
+  var sub2=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'16px',color:'rgba(244,240,230,.55)',maxWidth:'520px',lineHeight:1.6}});
   sub2.textContent='One artist building something real before the world catches up. Vol. I Radar: Yannaabaiibee.';
   hdr.appendChild(sub2);inner.appendChild(hdr);
   inner.appendChild(h('div',{style:{height:'2px',background:'#D4A853',marginBottom:'44px'}}));
@@ -1034,32 +959,32 @@ function buildRadar(){
   var leftCol=h('div',{className:'fade s1'});
   var ph=h('div',{className:'ph-img',style:{height:'420px',marginBottom:'16px',position:'relative'}});
   ph.style.background='linear-gradient(135deg,#1a1a1a 0%,#2a2a2a 100%)';
-  var phNote=h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'#888888',textTransform:'uppercase',textAlign:'center',marginTop:'8px'}});phNote.textContent='[REPLACE: Photo of Yannaabaiibee]';
+  var phNote=h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'rgba(244,240,230,.4)',textTransform:'uppercase',textAlign:'center',marginTop:'8px'}});phNote.textContent='[REPLACE: Photo of Yannaabaiibee]';
   leftCol.appendChild(ph);leftCol.appendChild(phNote);
   // Handles
   var handles=h('div',{style:{marginTop:'16px'}});
   var igH=h('a',{href:'https://www.instagram.com/yannaabaiibee/',target:'_blank',rel:'noopener',style:{display:'flex',alignItems:'center',gap:'8px',textDecoration:'none',marginBottom:'8px',transition:'opacity .2s'}});
   igH.onmouseenter=function(){igH.style.opacity='.6';};igH.onmouseleave=function(){igH.style.opacity='1';};
   var igIc=h('div',{});igIc.innerHTML='<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:15px;height:15px"><rect x="2" y="2" width="20" height="20" rx="6" stroke="#111" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="#111" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="#111"/></svg>';
-  igH.appendChild(igIc);igH.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'11px',color:'#444444'}},'@yannaabaiibee'));
+  igH.appendChild(igIc);igH.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'11px',color:'rgba(244,240,230,.75)'}},'@yannaabaiibee'));
   var tkH=h('div',{style:{display:'flex',alignItems:'center',gap:'8px'}});
   var tkIc=h('div',{style:{width:'15px',height:'15px',display:'flex',alignItems:'center',justifyContent:'center'}});tkIc.innerHTML='<svg viewBox="0 0 24 24" fill="#111" xmlns="http://www.w3.org/2000/svg" style="width:15px;height:15px"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>';
-  tkH.appendChild(tkIc);tkH.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'11px',color:'#444444'}},'1YannaaBaiibee'));
+  tkH.appendChild(tkIc);tkH.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'11px',color:'rgba(244,240,230,.75)'}},'1YannaaBaiibee'));
   handles.appendChild(igH);handles.appendChild(tkH);leftCol.appendChild(handles);
   // Right — bio + Q&A
   var rightCol=h('div',{className:'fade s2'});
   rightCol.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'4px',color:'#D4A853',textTransform:'uppercase',marginBottom:'8px'}},'Radar \u2014 Vol. I'));
-  rightCol.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(28px,3.5vw,44px)',fontWeight:900,lineHeight:1,color:'#111111',marginBottom:'4px'}},'Yannaabaiibee'));
-  rightCol.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'11px',letterSpacing:'2px',color:'#888888',textTransform:'uppercase',marginBottom:'20px'}},'Canada \u00b7 Musical Artist'));
-  var bio=h('div',{style:{fontFamily:"var(--lb)",fontSize:'14px',lineHeight:1.8,color:'#555555',marginBottom:'28px',borderLeft:'3px solid #D4A853',paddingLeft:'16px'}});
+  rightCol.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(28px,3.5vw,44px)',fontWeight:900,lineHeight:1,color:'#F4F0E6',marginBottom:'4px'}},'Yannaabaiibee'));
+  rightCol.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'11px',letterSpacing:'2px',color:'rgba(244,240,230,.45)',textTransform:'uppercase',marginBottom:'20px'}},'Canada \u00b7 Musical Artist'));
+  var bio=h('div',{style:{fontFamily:"var(--lb)",fontSize:'14px',lineHeight:1.8,color:'rgba(244,240,230,.65)',marginBottom:'28px',borderLeft:'3px solid #D4A853',paddingLeft:'16px'}});
   bio.textContent='[REPLACE: 2-3 sentence intro on Yannaabaiibee — what she does, what makes her worth watching right now, why she is on the Vol. I radar. Send Craig the answer to question 3 and I will write this.]';
   rightCol.appendChild(bio);
   // Q&A
-  rightCol.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'4px',color:'#111111',textTransform:'uppercase',marginBottom:'16px',paddingBottom:'8px',borderBottom:'1.5px solid #111'}},'Rapid Q&A'));
+  rightCol.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'4px',color:'#F4F0E6',textTransform:'uppercase',marginBottom:'16px',paddingBottom:'8px',borderBottom:'1.5px solid #111'}},'Rapid Q&A'));
   RADAR_QA.forEach(function(qa,i){
     var item=h('div',{style:{marginBottom:'22px',paddingBottom:'22px',borderBottom:i<RADAR_QA.length-1?'.5px solid #eee':'none'}});
-    var q=h('div',{style:{fontFamily:"var(--lb)",fontSize:'11px',fontWeight:700,color:'#111111',marginBottom:'6px',lineHeight:1.5}});q.textContent='Q: '+qa.q;item.appendChild(q);
-    var a=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'14px',color:'#111111',lineHeight:1.7}});a.textContent=qa.a;item.appendChild(a);
+    var q=h('div',{style:{fontFamily:"var(--lb)",fontSize:'11px',fontWeight:700,color:'#F4F0E6',marginBottom:'6px',lineHeight:1.5}});q.textContent='Q: '+qa.q;item.appendChild(q);
+    var a=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'14px',color:'#F4F0E6',lineHeight:1.7}});a.textContent=qa.a;item.appendChild(a);
     rightCol.appendChild(item);
   });
   var twoCol=h('div',{style:{display:'grid',gridTemplateColumns:'1fr 1.4fr',gap:'40px',alignItems:'start'}});twoCol.className='radar-grid';
@@ -1188,7 +1113,7 @@ function buildArchive(){
   var wrap=h('div',{style:{background:'#0D0D0D',minHeight:'calc(100vh - 28px)'}});
 
   // Nav
-  var nav=h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 44px',borderBottom:'.5px solid rgba(255,255,255,.08)',display:'none',position:'sticky',top:0,zIndex:20,background:'#0D0D0D',flexWrap:'wrap',gap:'8px'}});
+  var nav=h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 44px',borderBottom:'.5px solid rgba(255,255,255,.08)',position:'sticky',top:0,zIndex:20,background:'#0D0D0D',flexWrap:'wrap',gap:'8px'}});
   var bb=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.4)'}},'\u2190 Stories');bb.onclick=function(){go('toc');};nav.appendChild(bb);
   var aboutMastBtn=h('button',{style:{fontFamily:"var(--pf)",fontSize:'22px',fontWeight:400,letterSpacing:'3px',color:'#F4F0E6',background:'none',border:'none',cursor:'pointer',padding:0,transition:'opacity .15s',flex:1,textAlign:'center'}});
   aboutMastBtn.textContent='AFTERNOISE';
@@ -1212,7 +1137,7 @@ function buildArchive(){
   inner.appendChild(h('div',{style:{height:'1px',background:'rgba(212,168,83,.2)',marginBottom:'48px'}}));
 
   // Issues grid
-  var grid=h('div',{className:'fade s1',style:{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(180px,1fr))',gap:'24px',marginBottom:'60px'}});
+  var grid=h('div',{className:'fade s1',style:{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'24px',marginBottom:'60px'}});
 
   ISSUES.forEach(function(issue){
     var card=h('div',{style:{
@@ -1365,7 +1290,7 @@ function buildSpinTheBlock(){
   var wrap=h('div',{style:{background:'#080B14',minHeight:'calc(100vh - 28px)'}});
 
   // Nav
-  var nav=h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 44px',borderBottom:'.5px solid rgba(212,168,83,.15)',display:'none',position:'sticky',top:0,zIndex:20,background:'#080B14',flexWrap:'wrap',gap:'8px'}});
+  var nav=h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 44px',borderBottom:'.5px solid rgba(212,168,83,.15)',position:'sticky',top:0,zIndex:20,background:'#080B14',flexWrap:'wrap',gap:'8px'}});
   var bb=h('button',{className:'nbtn',style:{color:'rgba(244,240,230,.4)'}},'\u2190 Magazine');bb.onclick=function(){go('toc');};nav.appendChild(bb);
   var navMast=h('button',{style:{fontFamily:"var(--pf)",fontSize:'20px',fontWeight:400,letterSpacing:'3px',color:'#F4F0E6',background:'none',border:'none',cursor:'pointer',transition:'opacity .15s',flex:1,textAlign:'center'}});
   navMast.textContent='AFTERNOISE';navMast.onmouseenter=function(){navMast.style.opacity='.6';};navMast.onmouseleave=function(){navMast.style.opacity='1';};navMast.onclick=function(){go('toc');};nav.appendChild(navMast);
@@ -1619,34 +1544,6 @@ function render(){
 
 render();
 
-
-// Show nav scroll hint on mobile
-(function(){
-  function checkMobile(){return window.innerWidth <= 768;}
-  var hint = document.getElementById('nav-scroll-hint');
-  var nav = document.getElementById('outer-nav-inner');
-  if(!hint || !nav) return;
-  if(checkMobile()){
-    hint.style.display = 'flex';
-    // Hide hint after user scrolls nav
-    nav.addEventListener('scroll', function(){
-      hint.style.opacity = '0';
-      hint.style.transition = 'opacity .4s';
-      setTimeout(function(){ hint.style.display = 'none'; }, 400);
-    }, {once:true});
-    // Also auto-hide after 4 seconds
-    setTimeout(function(){
-      if(hint.style.display !== 'none'){
-        hint.style.opacity = '0';
-        hint.style.transition = 'opacity .6s';
-        setTimeout(function(){ hint.style.display = 'none'; }, 600);
-      }
-    }, 4000);
-  }
-  window.addEventListener('resize', function(){
-    if(!checkMobile()) hint.style.display = 'none';
-  });
-})();
 
 // Radio toggle
 var _playing = false;
