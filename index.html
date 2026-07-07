@@ -284,7 +284,7 @@
     #mag-nav{display:none !important;}
 
     /* Archive grid — stack on mobile */
-    div[style*="gridTemplateColumns"]{grid-template-columns:1fr !important;}
+    div[style*="gridTemplateColumns"]{grid-template-columns:1fr 1fr !important;}
 
     /* Fade animation off for performance */
     .fade{animation:none !important;opacity:1 !important;}
@@ -705,7 +705,7 @@ function buildTOC(){
   extHdr.appendChild(h('div',{style:{flex:1,height:'.5px',background:'#ccc'}}));
   inner.appendChild(extHdr);
 
-  var extGrid=h('div',{className:'fade s6',style:{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'3px',marginBottom:'32px'}});
+  var extGrid=h('div',{className:'fade s6',style:{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:'3px',marginBottom:'32px'}});
 
   // Playlist card
   var plCard=h('div',{className:'card',style:{height:'240px',background:'#0D0D0D',cursor:'pointer'}});
@@ -740,6 +740,19 @@ function buildTOC(){
   rdCard.appendChild(rdBot);
   rdCard.onclick=function(){go('radar');};
   extGrid.appendChild(rdCard);
+
+  // Don Fresh Radar card
+  var dfCard=h('div',{className:'card',style:{height:'240px',background:'#0D0D0D',cursor:'pointer'}});
+  var dfTop=h('div',{style:{position:'absolute',top:0,left:0,right:0,padding:'16px 20px'}});
+  dfTop.appendChild(h('div',{style:{background:'#8B4A00',padding:'3px 10px',display:'inline-block'}},h('span',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'3px',textTransform:'uppercase',color:'#F4F0E6'}},'RADAR')));
+  dfCard.appendChild(dfTop);
+  var dfBot=h('div',{style:{position:'absolute',inset:0,padding:'16px 20px',display:'flex',flexDirection:'column',justifyContent:'flex-end',background:'linear-gradient(135deg,#0D0D0D 0%,#1a0d00 100%)'}});
+  dfBot.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'rgba(212,168,83,.6)',textTransform:'uppercase',marginBottom:'8px'}},'New Artist'));
+  var dfHl=h('div',{style:{fontFamily:"var(--pf)",fontSize:'22px',fontWeight:900,color:'#F4F0E6',lineHeight:1.05,marginBottom:'5px'}});dfHl.textContent='DJ Don Fresh';dfBot.appendChild(dfHl);
+  var dfShl=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'12px',color:'rgba(244,240,230,.5)',lineHeight:1.3}});dfShl.textContent='Toronto \u00b7 Carnival DJ \u00b7 Watch this space';dfBot.appendChild(dfShl);
+  dfCard.appendChild(dfBot);
+  dfCard.onclick=function(){window.open('https://www.instagram.com/dj_donfresh','_blank');};
+  extGrid.appendChild(dfCard);
 
   // Photo Essay card
   var peCard=h('div',{className:'card',style:{height:'240px',background:'#0D0D0D',cursor:'pointer'}});
