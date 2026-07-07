@@ -734,7 +734,7 @@ function buildTOC(){
   rdTop.appendChild(h('div',{style:{background:'#4A1A6B',padding:'3px 10px',display:'inline-block'}},h('span',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'3px',textTransform:'uppercase',color:'#F4F0E6'}},'RADAR')));
   rdCard.appendChild(rdTop);
   var rdBot=h('div',{style:{position:'absolute',inset:0,padding:'16px 20px',display:'flex',flexDirection:'column',justifyContent:'flex-end',background:'linear-gradient(135deg,#0D0D0D 0%,#1a1a2e 100%)'}});
-  rdBot.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'rgba(212,168,83,.6)',textTransform:'uppercase',marginBottom:'8px'}},'New Artist'));
+  rdBot.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'rgba(212,168,83,.6)',textTransform:'uppercase',marginBottom:'8px'}},'Artist Spotlight'));
   var rdHl=h('div',{style:{fontFamily:"var(--pf)",fontSize:'22px',fontWeight:900,color:'#F4F0E6',lineHeight:1.05,marginBottom:'5px'}});rdHl.textContent='Yannaabaiibee';rdBot.appendChild(rdHl);
   var rdShl=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'12px',color:'rgba(244,240,230,.5)',lineHeight:1.3}});rdShl.textContent='Canada \u00b7 Watch this space';rdBot.appendChild(rdShl);
   rdCard.appendChild(rdBot);
@@ -747,11 +747,11 @@ function buildTOC(){
   dfTop.appendChild(h('div',{style:{background:'#8B4A00',padding:'3px 10px',display:'inline-block'}},h('span',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'3px',textTransform:'uppercase',color:'#F4F0E6'}},'RADAR')));
   dfCard.appendChild(dfTop);
   var dfBot=h('div',{style:{position:'absolute',inset:0,padding:'16px 20px',display:'flex',flexDirection:'column',justifyContent:'flex-end',background:'linear-gradient(135deg,#0D0D0D 0%,#1a0d00 100%)'}});
-  dfBot.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'rgba(212,168,83,.6)',textTransform:'uppercase',marginBottom:'8px'}},'New Artist'));
+  dfBot.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'rgba(212,168,83,.6)',textTransform:'uppercase',marginBottom:'8px'}},'DJ Spotlight'));
   var dfHl=h('div',{style:{fontFamily:"var(--pf)",fontSize:'22px',fontWeight:900,color:'#F4F0E6',lineHeight:1.05,marginBottom:'5px'}});dfHl.textContent='DJ Don Fresh';dfBot.appendChild(dfHl);
-  var dfShl=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'12px',color:'rgba(244,240,230,.5)',lineHeight:1.3}});dfShl.textContent='Toronto \u00b7 Carnival DJ \u00b7 Watch this space';dfBot.appendChild(dfShl);
+  var dfShl=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'12px',color:'rgba(244,240,230,.5)',lineHeight:1.3}});dfShl.textContent='Toronto \u00b7 DJ \u00b7 Watch this space';dfBot.appendChild(dfShl);
   dfCard.appendChild(dfBot);
-  dfCard.onclick=function(){window.open('https://www.instagram.com/dj_donfresh','_blank');};
+  dfCard.onclick=function(){go('radar-donfresh');};
   extGrid.appendChild(dfCard);
 
   // Photo Essay card
@@ -1103,6 +1103,65 @@ function buildRadar(){
   inner.appendChild(cta);
   wrap.appendChild(inner);return wrap;
 }
+
+// ─── DON FRESH RADAR PAGE ─────────────────────────────────────────────────────
+function buildRadarDonFresh(){
+  var wrap=pageShell({backPage:'toc',backLabel:'All Stories',rightLabel:'Vol. I',rightPage:'toc'});
+  var inner=h('div',{style:{maxWidth:'800px',margin:'0 auto',padding:'60px 44px 100px'}});
+  // Header
+  var hdr=h('div',{className:'fade',style:{marginBottom:'40px'}});
+  hdr.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'6px',color:'#888888',textTransform:'uppercase',marginBottom:'12px'}},'Vol. I \u2014 DJ Spotlight'));
+  hdr.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(28px,4vw,52px)',fontWeight:900,lineHeight:1,color:'#111111',marginBottom:'8px'}},'Watch This Space'));
+  var sub2=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'16px',color:'#555555',maxWidth:'520px',lineHeight:1.6}});
+  sub2.textContent='A DJ who knows the room. Vol. I DJ Spotlight: Don Fresh.';
+  hdr.appendChild(sub2);inner.appendChild(hdr);
+  inner.appendChild(h('div',{style:{height:'2px',background:'#D4A853',marginBottom:'44px'}}));
+  // Left col — photo + handles
+  var leftCol=h('div',{className:'fade s1'});
+  var ph=h('div',{className:'ph-img',style:{height:'420px',marginBottom:'16px',position:'relative'}});
+  ph.style.background='linear-gradient(135deg,#1a0d00 0%,#2a1a00 100%)';
+  var phNote=h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'#888888',textTransform:'uppercase',textAlign:'center',marginTop:'8px'}});phNote.textContent='[REPLACE: Photo of DJ Don Fresh]';
+  leftCol.appendChild(ph);leftCol.appendChild(phNote);
+  // Handles
+  var handles=h('div',{style:{marginTop:'16px'}});
+  var igH=h('a',{href:'https://www.instagram.com/dj_donfresh',target:'_blank',rel:'noopener',style:{display:'flex',alignItems:'center',gap:'8px',textDecoration:'none',marginBottom:'8px',transition:'opacity .2s'}});
+  igH.onmouseenter=function(){igH.style.opacity='.6';};igH.onmouseleave=function(){igH.style.opacity='1';};
+  var igIc=h('div',{});igIc.innerHTML='<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:15px;height:15px"><rect x="2" y="2" width="20" height="20" rx="6" stroke="#111" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="#111" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="#111"/></svg>';
+  igH.appendChild(igIc);igH.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'11px',color:'#333333'}},'@dj_donfresh'));
+  handles.appendChild(igH);leftCol.appendChild(handles);
+  // Right col — bio + Q&A
+  var rightCol=h('div',{className:'fade s2'});
+  rightCol.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'4px',color:'#D4A853',textTransform:'uppercase',marginBottom:'8px'}},'DJ Spotlight \u2014 Vol. I'));
+  rightCol.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(28px,3.5vw,44px)',fontWeight:900,lineHeight:1,color:'#111111',marginBottom:'4px'}},'DJ Don Fresh'));
+  rightCol.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'11px',letterSpacing:'2px',color:'#777777',textTransform:'uppercase',marginBottom:'20px'}},'Toronto \u00b7 DJ'));
+  var bio=h('div',{style:{fontFamily:"var(--lb)",fontSize:'14px',lineHeight:1.8,color:'#444444',marginBottom:'28px',borderLeft:'3px solid #D4A853',paddingLeft:'16px'}});
+  bio.textContent='[REPLACE: 2\u20133 sentence intro on DJ Don Fresh \u2014 who he is, where he plays, why he is on the Vol. I radar. In Toronto for Caribbean Carnival and playing on the Costume Creators truck for the road.]';
+  rightCol.appendChild(bio);
+  // Q&A
+  rightCol.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'4px',color:'#111111',textTransform:'uppercase',marginBottom:'16px',paddingBottom:'8px',borderBottom:'1.5px solid #111'}},'Rapid Q&A'));
+  var DF_QA=[
+    {q:'Where are you from and how did you get into DJing?',a:'[REPLACE: Don Fresh answer]'},
+    {q:'What does it mean to you to be playing on the Costume Creators truck at Toronto Carnival?',a:'[REPLACE: Don Fresh answer]'},
+    {q:'How do you describe your sound to someone who has never heard you play?',a:'[REPLACE: Don Fresh answer]'},
+    {q:'Who are the artists you are playing the most right now?',a:'[REPLACE: Don Fresh answer]'},
+    {q:'What is next for you after Toronto?',a:'[REPLACE: Don Fresh answer]'},
+  ];
+  DF_QA.forEach(function(qa,i){
+    var item=h('div',{style:{marginBottom:'22px',paddingBottom:'22px',borderBottom:i<DF_QA.length-1?'.5px solid #eee':'none'}});
+    var q=h('div',{style:{fontFamily:"var(--lb)",fontSize:'11px',fontWeight:700,color:'#111111',marginBottom:'6px',lineHeight:1.5}});q.textContent='Q: '+qa.q;item.appendChild(q);
+    var a=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'14px',color:'#111111',lineHeight:1.7}});a.textContent=qa.a;item.appendChild(a);
+    rightCol.appendChild(item);
+  });
+  var twoCol=h('div',{style:{display:'grid',gridTemplateColumns:'1fr 1.4fr',gap:'40px',alignItems:'start'}});twoCol.className='radar-grid';
+  twoCol.appendChild(leftCol);twoCol.appendChild(rightCol);
+  inner.appendChild(twoCol);
+  // Footer CTA
+  var cta=h('div',{className:'fade s8',style:{marginTop:'48px',paddingTop:'28px',borderTop:'.5px solid #ddd',textAlign:'center'}});
+  var rb=h('button',{className:'btn-g',style:{fontSize:'10px',letterSpacing:'3px'}},'Back to Vol. I \u2192');rb.onclick=function(){go('toc');};cta.appendChild(rb);
+  inner.appendChild(cta);
+  wrap.appendChild(inner);return wrap;
+}
+
 
 // ─── PHOTO ESSAY ──────────────────────────────────────────────────────────────
 var ESSAY_SLOTS = [
@@ -1546,6 +1605,7 @@ function render(){
   if(ST.page==='letter')pw.appendChild(buildLetter());
   if(ST.page==='playlist')pw.appendChild(buildPlaylist());
   if(ST.page==='radar')pw.appendChild(buildRadar());
+  if(ST.page==='radar-donfresh')pw.appendChild(buildRadarDonFresh());
   if(ST.page==='essay')pw.appendChild(buildEssay());
   if(ST.page==='archive')pw.appendChild(buildArchive());
   if(ST.page==='spintheblock')pw.appendChild(buildSpinTheBlock());
