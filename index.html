@@ -1819,6 +1819,15 @@ function buildSpinTheBlock(){
 // ─── RENDER ───────────────────────────────────────────────────────────────────
 function render(){
   cancelAnimationFrame(TRaf);window.onscroll=null;
+  // Show masthead only on TOC/stories page
+  var mast=document.querySelector('.outer-masthead');
+  if(mast){
+    if(ST.page==='toc'){
+      mast.style.display='';
+    } else {
+      mast.style.display='none';
+    }
+  }
   var root=document.getElementById('root');root.innerHTML='';
   var pw=h('div',{id:'page-wrap',style:{opacity:0,transform:'translateY(10px)'}});
   if(ST.page==='toc')pw.appendChild(buildTOC());
