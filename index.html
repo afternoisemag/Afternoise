@@ -324,7 +324,7 @@
     <button class="outer-nav-item" onclick="go('essay')">Photos</button>
     <button class="outer-nav-item" onclick="go('about')">About</button>
     <button class="outer-nav-item" onclick="go('archive')">Issues</button>
-    <div class="outer-nav-radio" onclick="var rp=document.getElementById('radio-player');rp.classList.toggle('show');">
+    <div class="outer-nav-radio" onclick="go('radio');" title="Open Afternoise Radio">
       <div class="outer-nav-radio-dot"></div>
       <span class="outer-nav-radio-label">Listen Live</span>
     </div>
@@ -1237,6 +1237,152 @@ function buildRadarDonFresh(){
 }
 
 
+// ─── RADIO PAGE ────────────────────────────────────────────────────────────────
+function buildRadioPage(){
+  var wrap=h('div',{style:{minHeight:'100vh',background:'#0D0D0D',color:'#F4F0E6',fontFamily:"var(--lb)"}});
+
+  // Back bar
+  var bar=h('div',{style:{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'12px 24px',borderBottom:'1px solid #1A1A1A',background:'#0A0A0A',position:'sticky',top:'0',zIndex:'100'}});
+  var back=h('button',{style:{background:'none',border:'none',fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'2px',color:'#666',textTransform:'uppercase',cursor:'pointer',display:'flex',alignItems:'center',gap:'8px'}});
+  back.textContent='\u2190 Magazine';back.onclick=function(){go('toc');};
+  bar.appendChild(back);
+  var barLogo=h('div',{style:{fontFamily:"'Abril Fatface',serif",fontSize:'18px',color:'#F4F0E6',letterSpacing:'1px'}});barLogo.textContent='AFTERNOISE';
+  bar.appendChild(barLogo);
+  var barLive=h('div',{style:{display:'flex',alignItems:'center',gap:'8px'}});
+  var dot=h('div',{style:{width:'7px',height:'7px',borderRadius:'50%',background:'#D4A853',animation:'pulse 1.8s ease-in-out infinite'}});
+  barLive.appendChild(dot);
+  barLive.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'2px',color:'#D4A853',textTransform:'uppercase'}},'Live'));
+  bar.appendChild(barLive);
+  wrap.appendChild(bar);
+
+  // Hero
+  var hero=h('div',{style:{padding:'48px 24px 0',textAlign:'center',background:'linear-gradient(to bottom,#0A0A0A,#0D0D0D)',borderBottom:'1px solid #1A1A1A'}});
+  var eyebrow=h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'5px',color:'#D4A853',textTransform:'uppercase',marginBottom:'12px',display:'flex',alignItems:'center',justifyContent:'center',gap:'10px'}});
+  var dot2=h('div',{style:{width:'7px',height:'7px',borderRadius:'50%',background:'#D4A853',animation:'pulse 1.8s ease-in-out infinite',display:'inline-block'}});
+  eyebrow.appendChild(dot2);eyebrow.appendChild(document.createTextNode('Streaming Live 24 / 7'));
+  hero.appendChild(eyebrow);
+  var title=h('div',{style:{fontFamily:"'Abril Fatface',serif",fontSize:'clamp(48px,10vw,96px)',color:'#F4F0E6',lineHeight:.95,letterSpacing:'2px',marginBottom:'8px'}});title.textContent='AFTERNOISE\nRADIO';title.style.whiteSpace='pre-line';
+  hero.appendChild(title);
+  hero.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'11px',letterSpacing:'4px',color:'#555',textTransform:'uppercase',marginBottom:'40px'}},'The Magazine of Urban Culture \u00b7 On Air'));
+  wrap.appendChild(hero);
+
+  // Player
+  var playerSec=h('div',{style:{padding:'40px 24px',display:'flex',flexDirection:'column',alignItems:'center',gap:'24px',maxWidth:'960px',margin:'0 auto'}});
+  var playerWrap=h('div',{style:{width:'100%',maxWidth:'450px',border:'1px solid #1A1A1A'}});
+  var playerFrame=h('iframe',{src:'https://live365.com/embeds/v1/player/a82938?s=md&m=dark&c=mp3',width:'450',height:'316',frameborder:'0',allow:'autoplay',title:'Afternoise Radio Live Player'});
+  playerFrame.style.display='block';playerFrame.style.width='100%';
+  playerWrap.appendChild(playerFrame);playerSec.appendChild(playerWrap);
+  // Genre tags
+  var tags=h('div',{style:{display:'flex',flexWrap:'wrap',gap:'8px',justifyContent:'center'}});
+  ['Hip-Hop','R&B','Afrobeats','Dancehall','Soca','Urban Culture'].forEach(function(g){
+    var t=h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'2px',textTransform:'uppercase',padding:'5px 14px',border:'1px solid #222',color:'#666'}});t.textContent=g;tags.appendChild(t);
+  });
+  playerSec.appendChild(tags);
+  wrap.appendChild(playerSec);
+
+  // Section helper
+  function secRule(label){
+    var r=h('div',{style:{display:'flex',alignItems:'center',gap:'14px',padding:'0 24px',maxWidth:'960px',margin:'0 auto 20px'}});
+    r.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'5px',color:'#F4F0E6',textTransform:'uppercase',whiteSpace:'nowrap',fontWeight:'700'}},label));
+    r.appendChild(h('div',{style:{flex:1,height:'1px',background:'#1A1A1A'}}));
+    return r;
+  }
+
+  // Show schedule
+  wrap.appendChild(secRule('On Air This Week'));
+  var showSec=h('div',{style:{padding:'0 24px 40px',maxWidth:'960px',margin:'0 auto'}});
+  var shows=[
+    {day:'Friday',name:'Spin The Block',hosts:'DJ 3 Live & DJ Black Ent',time:'11PM EST · Weekly',badge:'Live',color:'#D4A853'},
+    {day:'Daily',name:'24 / 7 Rotation',hosts:'Hip-Hop · R&B · Afrobeats · Dancehall · Soca',time:'Always On',badge:'',color:'#333'},
+  ];
+  shows.forEach(function(s){
+    var card=h('div',{style:{background:'#111',borderLeft:'3px solid '+s.color,padding:'24px 28px',marginBottom:'1px',display:'flex',alignItems:'center',gap:'24px'}});
+    card.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'13px',color:'#D4A853',letterSpacing:'2px',textTransform:'uppercase',minWidth:'90px'}},s.day));
+    var info=h('div',{style:{flex:1}});
+    info.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(20px,3vw,28px)',color:'#F4F0E6',lineHeight:1,marginBottom:'4px'}},s.name));
+    info.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'11px',color:'#555',marginBottom:'4px'}},s.hosts));
+    info.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'10px',letterSpacing:'2px',color:'#D4A853',textTransform:'uppercase'}},s.time));
+    card.appendChild(info);
+    if(s.badge){var b=h('div',{style:{fontFamily:"var(--lb)",fontSize:'7px',letterSpacing:'2px',textTransform:'uppercase',padding:'4px 12px',background:'#D4A853',color:'#111',fontWeight:'700',flexShrink:'0'}});b.textContent=s.badge;card.appendChild(b);}
+    showSec.appendChild(card);
+  });
+  wrap.appendChild(showSec);
+
+  // DJs
+  wrap.appendChild(secRule('The DJs'));
+  var djSec=h('div',{style:{padding:'0 24px 40px',maxWidth:'960px',margin:'0 auto',display:'grid',gridTemplateColumns:'1fr 1fr',gap:'12px'}});
+  var djs=[
+    {role:'Founder · Head DJ · Host',name:'DJ 3 Live',base:'South Florida · Broward County',bio:'Founder of Afternoise Magazine & Radio. South Florida DJ, editor, and culture curator. Co-host of Spin The Block.'},
+    {role:'Resident DJ · Co-Host',name:'DJ Black Ent',base:'Fort Myers, FL · Dominica',bio:'Fort Myers DJ with Dominican roots. Co-host of Spin The Block. Has been in the room before the room existed.'},
+  ];
+  djs.forEach(function(d){
+    var card=h('div',{style:{background:'#111',padding:'24px',borderTop:'2px solid #D4A853'}});
+    card.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'7px',letterSpacing:'3px',color:'#D4A853',textTransform:'uppercase',marginBottom:'8px'}},d.role));
+    card.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(22px,3vw,32px)',color:'#F4F0E6',lineHeight:1,marginBottom:'4px'}},d.name));
+    card.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'10px',color:'#555',letterSpacing:'1px',textTransform:'uppercase',marginBottom:'12px'}},d.base));
+    card.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'12px',color:'#666',lineHeight:1.7}},d.bio));
+    djSec.appendChild(card);
+  });
+  wrap.appendChild(djSec);
+
+  // Last played
+  wrap.appendChild(secRule('Last Played'));
+  var playedSec=h('div',{style:{padding:'0 24px 40px',maxWidth:'960px',margin:'0 auto',display:'flex',justifyContent:'center'}});
+  var playedWrap=h('div',{style:{width:'100%',maxWidth:'450px',border:'1px solid #1A1A1A'}});
+  var playedFrame=h('iframe',{src:'https://live365.com/embeds/v1/played/a82938?s=md&m=dark',width:'450',height:'511',frameborder:'0',title:'Afternoise Radio \u2014 Recently Played'});
+  playedFrame.style.display='block';playedFrame.style.width='100%';
+  playedWrap.appendChild(playedFrame);playedSec.appendChild(playedWrap);
+  wrap.appendChild(playedSec);
+
+  // About
+  var aboutSec=h('div',{style:{borderTop:'1px solid #1A1A1A',padding:'48px 24px',maxWidth:'960px',margin:'0 auto',display:'grid',gridTemplateColumns:'1fr 1fr',gap:'48px',alignItems:'start'}});
+  var aboutLeft=h('div',{});
+  aboutLeft.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(28px,4vw,44px)',color:'#F4F0E6',lineHeight:1,marginBottom:'16px'}},'The Station'));
+  var p1=h('p',{style:{fontFamily:"var(--lb)",fontSize:'13px',lineHeight:1.8,color:'#666',marginBottom:'16px'}});p1.textContent='Afternoise Radio is the audio arm of Afternoise Magazine — an independent urban culture platform based in South Florida. The station plays hip-hop, R&B, Afrobeats, dancehall, and soca 24 hours a day, seven days a week.';
+  var p2=h('p',{style:{fontFamily:"var(--lb)",fontSize:'13px',lineHeight:1.8,color:'#666'}});p2.textContent='We do not play what labels tell us to play. We play what the culture actually listens to. Independent artists sit alongside major releases. No algorithm. Just the work.';
+  aboutLeft.appendChild(p1);aboutLeft.appendChild(p2);
+  var stats=h('div',{style:{borderTop:'1px solid #1A1A1A',paddingTop:'16px',marginTop:'16px',display:'flex',gap:'32px',flexWrap:'wrap'}});
+  [['24/7','Live Stream'],['5','Genres'],['Fri','Live Show']].forEach(function(s){
+    var si=h('div',{});
+    si.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'32px',color:'#D4A853',lineHeight:1}},s[0]));
+    si.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'2px',color:'#555',textTransform:'uppercase',marginTop:'4px'}},s[1]));
+    stats.appendChild(si);
+  });
+  aboutLeft.appendChild(stats);
+  aboutSec.appendChild(aboutLeft);
+  var aboutRight=h('div',{style:{display:'flex',flexDirection:'column',gap:'10px'}});
+  var links=[
+    {href:'https://streaming.live365.com/a82938',label:'Stream Direct',text:'streaming.live365.com/a82938',icon:'\u25B6'},
+    {href:'https://www.instagram.com/afternoisemagazine',label:'Instagram',text:'@afternoisemagazine',icon:'\uD83D\uDCF7'},
+    {href:'https://twitter.com/afternoisemag',label:'X / Twitter',text:'@afternoisemag',icon:'\uD835\uDD4F'},
+    {href:'https://www.patreon.com/AfternoiseMagazine',label:'Support the Station',text:'patreon.com/AfternoiseMagazine',icon:'P'},
+  ];
+  links.forEach(function(l){
+    var a=h('a',{href:l.href,target:'_blank',rel:'noopener',style:{display:'flex',alignItems:'center',gap:'12px',fontFamily:"var(--lb)",fontSize:'12px',color:'#555',textDecoration:'none',padding:'14px 16px',border:'1px solid #1A1A1A',transition:'all .2s'}});
+    a.onmouseenter=function(){a.style.borderColor='#D4A853';a.style.color='#D4A853';};
+    a.onmouseleave=function(){a.style.borderColor='#1A1A1A';a.style.color='#555';};
+    var ic=h('span',{style:{fontSize:'14px',flexShrink:'0'}});ic.textContent=l.icon;a.appendChild(ic);
+    var info=h('div',{});
+    info.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'2px',color:'#333',textTransform:'uppercase',display:'block',marginBottom:'2px'}},l.label));
+    info.appendChild(document.createTextNode(l.text));
+    a.appendChild(info);aboutRight.appendChild(a);
+  });
+  aboutSec.appendChild(aboutRight);
+  wrap.appendChild(aboutSec);
+
+  // Footer
+  var foot=h('div',{style:{background:'#0A0A0A',borderTop:'2px solid #D4A853',padding:'20px 24px',display:'flex',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap',gap:'12px'}});
+  foot.appendChild(h('span',{style:{fontFamily:"'Abril Fatface',serif",fontSize:'18px',color:'#F4F0E6'}},'AFTERNOISE'));
+  foot.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'11px',color:'#333'}},'Culture Doesn\u2019t Wait.'));
+  var backBtn=h('button',{style:{background:'none',border:'none',fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'2px',color:'#555',textTransform:'uppercase',cursor:'pointer'}});
+  backBtn.textContent='\u2190 Back to Magazine';backBtn.onclick=function(){go('toc');};
+  foot.appendChild(backBtn);
+  wrap.appendChild(foot);
+
+  return wrap;
+}
+
+
 // ─── PHOTO ESSAY ──────────────────────────────────────────────────────────────
 var ESSAY_SLOTS = [
   {slot:'cover',   caption:'[REPLACE: Caption — location, moment, context]', size:'full'},
@@ -1678,6 +1824,7 @@ function render(){
   if(ST.page==='about')pw.appendChild(buildAbout());
   if(ST.page==='letter')pw.appendChild(buildLetter());
   if(ST.page==='playlist')pw.appendChild(buildPlaylist());
+  if(ST.page==='radio')pw.appendChild(buildRadioPage());
   if(ST.page==='radar')pw.appendChild(buildRadar());
   if(ST.page==='radar-donfresh')pw.appendChild(buildRadarDonFresh());
   if(ST.page==='essay')pw.appendChild(buildEssay());
