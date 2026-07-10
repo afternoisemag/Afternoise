@@ -301,6 +301,10 @@
   @media(max-width:900px){.yanna-name{font-size:15px !important;}}
   @media(max-width:600px){.yanna-name{font-size:13px !important;word-break:break-word;}}
   @media(max-width:400px){.yanna-name{font-size:11px !important;}}
+  .outer-nav-item{text-decoration:none;}
+  .card{transition:transform .2s ease,box-shadow .2s ease;}
+  .card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.4);}
+  .outer-nav-inner{justify-content:center !important;width:100% !important;min-width:unset !important;}
 </style>
 </head>
 <body>
@@ -316,15 +320,10 @@
 <!-- NAV BAR -->
 <nav class="outer-nav">
   <div class="outer-nav-inner">
-    <button class="outer-nav-item" onclick="go('toc')">Stories</button>
-    <button class="outer-nav-item" onclick="go('letter')">Letter</button>
-    <button class="outer-nav-item" onclick="go('playlist')">Playlist</button>
-    <button class="outer-nav-item" onclick="go('spintheblock')">Spin The Block</button>
-    <button class="outer-nav-item" onclick="go('radar')">Radar</button>
-    <button class="outer-nav-item" onclick="go('essay')">Photos</button>
-    <button class="outer-nav-item" onclick="go('about')">About</button>
-    <button class="outer-nav-item" onclick="go('archive')">Issues</button>
-    <button class="outer-nav-item" onclick="go('radio')">Radio</button>
+    <a class="outer-nav-item" href="#toc" onclick="go('toc');return false;">Stories</a>
+    <a class="outer-nav-item" href="#radar" onclick="go('radar');return false;">Radar</a>
+    <a class="outer-nav-item" href="#radio" onclick="go('radio');return false;">Radio</a>
+    <a class="outer-nav-item" href="#archive" onclick="go('archive');return false;">Issues</a>
     <div class="outer-nav-radio" onclick="var rp=document.getElementById('radio-player');rp.classList.toggle('show');" title="Listen Live">
       <div class="outer-nav-radio-dot"></div>
       <span class="outer-nav-radio-label">Listen Live</span>
@@ -344,9 +343,9 @@
     <span class="ticker-item">Future announces <em>The Real Me</em> &mdash; no AI &nbsp;&middot;&nbsp;</span>
     <span class="ticker-item">Afternoise Radio streaming live 24/7 on Live365 &nbsp;&middot;&nbsp;</span>
     <span class="ticker-item">Shakira &times; Burna Boy &mdash; FIFA World Cup 2026 official track &nbsp;&middot;&nbsp;</span>
-    <span class="ticker-item">Spin The Block &mdash; Episode 1 feat. DT the Artist, 4D &amp; Yannaabaiibee &nbsp;&middot;&nbsp;</span>
-    <span class="ticker-item">Pretty Ricky defeats B2K 9&ndash;7 in Verzuz &nbsp;&middot;&nbsp;</span>
+    <span class="ticker-item">Spin The Block &mdash; Episode 1 feat. DT the Artist &amp; 4D &nbsp;&middot;&nbsp;</span>
     <span class="ticker-item">Toronto Caribbean Carnival 2026 &mdash; Grand Parade August 1st &nbsp;&middot;&nbsp;</span>
+    <span class="ticker-item">DJ Don Fresh playing the Costume Creators truck at carnival &nbsp;&middot;&nbsp;</span>
     <span class="ticker-item">Afternoise Vol. I &mdash; Origins dropping this summer &nbsp;&middot;&nbsp;</span>
     <span class="ticker-item">Future announces <em>The Real Me</em> &mdash; no AI &nbsp;&middot;&nbsp;</span>
     <span class="ticker-item">Afternoise Radio streaming live 24/7 on Live365 &nbsp;&middot;&nbsp;</span>
@@ -780,6 +779,24 @@ function buildTOC(){
 
   // Follow strip
   var fw=h('div',{className:'fade s5',style:{display:'flex',alignItems:'center',gap:'24px',padding:'16px 0',borderTop:'.5px solid #ddd',borderBottom:'.5px solid #ddd',marginBottom:'40px',flexWrap:'wrap'}});
+  // Secondary nav links row — pages removed from main nav
+  var secNav=h('div',{style:{display:'flex',gap:'24px',padding:'0 0 16px',flexWrap:'wrap',borderBottom:'.5px solid #eee',marginBottom:'16px'}});
+  var secLinks=[
+    {label:'Letter',page:'letter'},
+    {label:'Playlist',page:'playlist'},
+    {label:'Spin The Block',page:'spintheblock'},
+    {label:'Photos',page:'essay'},
+    {label:'About',page:'about'},
+  ];
+  secLinks.forEach(function(sl){
+    var sa=h('a',{href:'#'+sl.page,style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'2px',color:'#aaa',textTransform:'uppercase',textDecoration:'none',transition:'color .15s',cursor:'pointer'}});
+    sa.textContent=sl.label;
+    sa.onclick=function(e){e.preventDefault();go(sl.page);};
+    sa.onmouseenter=function(){sa.style.color='#111';};
+    sa.onmouseleave=function(){sa.style.color='#aaa';};
+    secNav.appendChild(sa);
+  });
+  fw.appendChild(secNav);
   fw.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'4px',color:'#bbb',textTransform:'uppercase',flexShrink:0}},'Follow Us'));
   var paA2=h('a',{href:'https://www.patreon.com/AfternoiseMagazine',target:'_blank',rel:'noopener',style:{display:'flex',alignItems:'center',gap:'7px',textDecoration:'none',transition:'opacity .2s'}});
   paA2.onmouseenter=function(){paA2.style.opacity='.6';};paA2.onmouseleave=function(){paA2.style.opacity='1';};
@@ -1828,6 +1845,16 @@ function render(){
       mast.style.display='none';
     }
   }
+  // Active nav state
+  var navMap={'toc':'#toc','radar':'#radar','radio':'#radio','archive':'#archive'};
+  document.querySelectorAll('.outer-nav-item').forEach(function(a){
+    var pg=a.getAttribute('href')?a.getAttribute('href').replace('#',''):'';
+    if(pg===ST.page||(ST.page==='article'&&pg==='toc')||(ST.page==='radar-yanna'&&pg==='radar')||(ST.page==='radar-donfresh'&&pg==='radar')){
+      a.style.color='#D4A853';
+    } else {
+      a.style.color='';
+    }
+  });
   var root=document.getElementById('root');root.innerHTML='';
   var pw=h('div',{id:'page-wrap',style:{opacity:0,transform:'translateY(10px)'}});
   if(ST.page==='toc')pw.appendChild(buildTOC());
