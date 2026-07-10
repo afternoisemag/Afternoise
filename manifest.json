@@ -23,5 +23,19 @@
   ],
   "categories": ["entertainment", "news", "music"],
   "screenshots": [],
-  "related_applications": []
+  "related_applications": [],
+  "shortcuts": [
+    {
+      "name": "Listen Live",
+      "short_name": "Radio",
+      "description": "Open Afternoise Radio — streaming live 24/7",
+      "url": "/#radio"
+    },
+    {
+      "name": "Read Vol. I",
+      "short_name": "Magazine",
+      "description": "Read Afternoise Vol. I — Origins",
+      "url": "/"
+    }
+  ]
 }
