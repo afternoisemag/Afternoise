@@ -324,7 +324,8 @@
     <button class="outer-nav-item" onclick="go('essay')">Photos</button>
     <button class="outer-nav-item" onclick="go('about')">About</button>
     <button class="outer-nav-item" onclick="go('archive')">Issues</button>
-    <div class="outer-nav-radio" onclick="go('radio');" title="Open Afternoise Radio">
+    <button class="outer-nav-item" onclick="go('radio')">Radio</button>
+    <div class="outer-nav-radio" onclick="var rp=document.getElementById('radio-player');rp.classList.toggle('show');" title="Listen Live">
       <div class="outer-nav-radio-dot"></div>
       <span class="outer-nav-radio-label">Listen Live</span>
     </div>
@@ -378,6 +379,7 @@
     <div style="height:1px;background:rgba(212,168,83,.4);margin:12px auto;width:200px;"></div>
     <div style="font-family:var(--lb);font-size:8px;letter-spacing:4px;color:rgba(212,168,83,.6);text-transform:uppercase;">Loading</div>
   </div>
+  <div onclick="document.getElementById('radio-player').classList.remove('show');go('radio');" style="font-family:var(--lb);font-size:8px;letter-spacing:2px;color:#D4A853;text-transform:uppercase;padding:10px 16px 14px;text-align:center;cursor:pointer;border-top:1px solid rgba(255,255,255,.06);">Full Station Page &#8250;</div>
 </div>
 
 <script>
