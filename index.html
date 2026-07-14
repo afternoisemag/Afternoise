@@ -2006,35 +2006,33 @@ render();
   }
 })();
 
-// Nav scroll hint on mobile
+// Nav scroll hint — only show if nav actually overflows
 (function(){
-  function isMobile(){ return window.innerWidth <= 768; }
   var hint = document.getElementById('nav-scroll-hint');
   var nav  = document.getElementById('outer-nav-inner');
-  if(!hint || !nav) return;
-  function showHint(){
-    if(!isMobile()) return;
-    hint.style.display = 'flex';
-    hint.style.opacity = '1';
-    // Hide after user scrolls nav
-    nav.addEventListener('scroll', function hide(){
-      hint.style.opacity = '0';
-      setTimeout(function(){ hint.style.display = 'none'; }, 500);
-      nav.removeEventListener('scroll', hide);
-    }, {once:true});
-    // Auto-hide after 3.5 seconds
-    setTimeout(function(){
-      if(hint.style.display !== 'none'){
-        hint.style.opacity = '0';
-        setTimeout(function(){ hint.style.display = 'none'; }, 500);
-      }
-    }, 3500);
+  var navWrap = document.getElementById('outer-nav');
+  if(!hint || !nav || !navWrap) return;
+
+  function checkOverflow(){
+    // Only show hint if nav content is wider than the nav container
+    var overflows = nav.scrollWidth > navWrap.clientWidth + 10;
+    if(overflows && window.innerWidth <= 768){
+      hint.style.display = 'flex';
+      hint.style.opacity = '1';
+    } else {
+      hint.style.display = 'none';
+    }
   }
-  // Show after short delay so page has loaded
-  setTimeout(showHint, 800);
-  window.addEventListener('resize', function(){
-    if(!isMobile()) hint.style.display = 'none';
-  });
+
+  // Hide hint once user scrolls
+  nav.addEventListener('scroll', function(){
+    hint.style.opacity = '0';
+    setTimeout(function(){ hint.style.display = 'none'; }, 400);
+  }, {once:true});
+
+  // Check on load and resize
+  setTimeout(checkOverflow, 300);
+  window.addEventListener('resize', checkOverflow);
 })();
 
 // Radio toggle
