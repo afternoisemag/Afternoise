@@ -192,20 +192,11 @@
     color:#888;text-transform:uppercase;
   }
 
-  .ticker-wrap{
-    background:#D4A853;overflow:hidden;padding:7px 0;
-    border-bottom:1px solid #B8900D;
-  }
-  .ticker-inner{
-    display:flex;animation:tickermove 32s linear infinite;width:max-content;
-  }
-  .ticker-inner:hover{animation-play-state:paused;}
-  .ticker-item{
-    font-family:var(--lb);font-size:10px;letter-spacing:1.5px;
-    color:#111;padding:0 32px;white-space:nowrap;font-weight:500;
-    display:inline-block;
-  }
-  @keyframes tickermove{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  
+  
+  
+  
+  to{transform:translateX(-50%);}}
 
   /* Magazine content wrapper */
   #root{padding-bottom:20px;background:#F4F0E6;}
@@ -273,8 +264,8 @@
     }
 
     /* Ticker */
-    .ticker-item{font-size:9px !important;padding:0 20px !important;letter-spacing:1px !important;}
-    .ticker-wrap{padding:6px 0;}
+    
+    
 
     /* Hide inner sticky nav bars */
     div[style*="position:sticky"]{display:none !important;}
@@ -320,8 +311,10 @@
 <!-- NAV BAR -->
 <nav class="outer-nav">
   <div class="outer-nav-inner">
-    <a class="outer-nav-item" href="#toc" onclick="go('toc');return false;">Stories</a>
+    <a class="outer-nav-item" href="#toc" onclick="go('toc');return false;">Home</a>
+    <a class="outer-nav-item" href="#noise" onclick="go('noise');return false;">Noise</a>
     <a class="outer-nav-item" href="#radar" onclick="go('radar');return false;">Radar</a>
+    <a class="outer-nav-item" href="#spintheblock" onclick="go('spintheblock');return false;">Spin The Block</a>
     <a class="outer-nav-item" href="#radio" onclick="go('radio');return false;">Radio</a>
     <a class="outer-nav-item" href="#archive" onclick="go('archive');return false;">Issues</a>
     <div class="outer-nav-radio" onclick="var rp=document.getElementById('radio-player');rp.classList.toggle('show');" title="Listen Live">
@@ -334,25 +327,7 @@
   </div>
 </nav>
 
-<!-- TICKER -->
-<div class="ticker-wrap">
-  <div class="ticker-inner">
-    <span class="ticker-item">Pretty Ricky defeats B2K 9&ndash;7 in Verzuz &nbsp;&middot;&nbsp;</span>
-    <span class="ticker-item">Toronto Caribbean Carnival 2026 &mdash; Grand Parade August 1st &nbsp;&middot;&nbsp;</span>
-    <span class="ticker-item">Afternoise Vol. I &mdash; Origins dropping this summer &nbsp;&middot;&nbsp;</span>
-    <span class="ticker-item">Future announces <em>The Real Me</em> &mdash; no AI &nbsp;&middot;&nbsp;</span>
-    <span class="ticker-item">Afternoise Radio streaming live 24/7 on Live365 &nbsp;&middot;&nbsp;</span>
-    <span class="ticker-item">Shakira &times; Burna Boy &mdash; FIFA World Cup 2026 official track &nbsp;&middot;&nbsp;</span>
-    <span class="ticker-item">Spin The Block &mdash; Episode 1 feat. DT the Artist &amp; 4D &nbsp;&middot;&nbsp;</span>
-    <span class="ticker-item">Toronto Caribbean Carnival 2026 &mdash; Grand Parade August 1st &nbsp;&middot;&nbsp;</span>
-    <span class="ticker-item">DJ Don Fresh playing the Costume Creators truck at carnival &nbsp;&middot;&nbsp;</span>
-    <span class="ticker-item">Afternoise Vol. I &mdash; Origins dropping this summer &nbsp;&middot;&nbsp;</span>
-    <span class="ticker-item">Future announces <em>The Real Me</em> &mdash; no AI &nbsp;&middot;&nbsp;</span>
-    <span class="ticker-item">Afternoise Radio streaming live 24/7 on Live365 &nbsp;&middot;&nbsp;</span>
-    <span class="ticker-item">Shakira &times; Burna Boy &mdash; FIFA World Cup 2026 official track &nbsp;&middot;&nbsp;</span>
-    <span class="ticker-item">Spin The Block &mdash; Episode 1 feat. DT the Artist, 4D &amp; Yannaabaiibee &nbsp;&middot;&nbsp;</span>
-  </div>
-</div>
+
 
 <!-- MAGAZINE ROOT — full magazine renders here -->
 <div id="root" style="min-height:200px;"></div>
@@ -1402,6 +1377,128 @@ function buildRadioPage(){
 }
 
 
+// ─── NOISE PAGE ────────────────────────────────────────────────────────────────
+function buildNoisePage(){
+  var wrap=pageShell({backPage:'toc',backLabel:'Home',rightLabel:'Vol. I',rightPage:'toc'});
+  var inner=h('div',{style:{maxWidth:'960px',margin:'0 auto',padding:'0 44px 80px'}});
+
+  // Page header
+  var hdr=h('div',{className:'fade',style:{padding:'40px 0 24px',borderBottom:'2px solid #111'}});
+  hdr.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'5px',color:'#999',textTransform:'uppercase',marginBottom:'8px'}},'Afternoise'));
+  hdr.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(36px,6vw,72px)',color:'#111',lineHeight:1}},'Noise'));
+  hdr.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'13px',color:'#888',marginTop:'8px'}},'Fashion. Music. Events. What\'s happening right now.'));
+  inner.appendChild(hdr);
+
+  // ── MUSIC UPDATES ────────────────────────────────────────────────
+  inner.appendChild(buildNoiseSection('Music Updates'));
+
+  var musicGrid=h('div',{style:{display:'grid',gridTemplateColumns:'1.4fr 1fr 1fr',gap:'1px',background:'#e5e5e5',marginBottom:'2px'}});
+  var musicItems=[
+    {cat:'Hip-Hop',catColor:'#8B1A0A',hl:'Kendrick Lamar Grand National Tour Announced',deck:'The victory lap nobody saw coming. Every major city. Dates dropping this week.',meta:'Today · 5 min read',dark:true},
+    {cat:'Afrobeats',catColor:'#0A3D2E',hl:'Burna Boy x J. Cole Collab Is Confirmed',deck:'Two of the biggest names in music. One record.',meta:'Today · 3 min read',dark:false},
+    {cat:'Dancehall',catColor:'#D4A853',hl:'Vybz Kartel — First Album Since Release',deck:'The culture has been waiting. It\'s everything they feared it would be.',meta:'Yesterday · 6 min read',dark:false},
+  ];
+  musicItems.forEach(function(item){
+    var card=h('div',{style:{background:item.dark?'#0D0D0D':'#F4F0E6',padding:'20px',cursor:'pointer',transition:'opacity .2s'}});
+    card.onmouseenter=function(){card.style.opacity='.85';};
+    card.onmouseleave=function(){card.style.opacity='1';};
+    var cat=h('div',{style:{fontFamily:"var(--lb)",fontSize:'7px',letterSpacing:'3px',textTransform:'uppercase',fontWeight:'700',color:item.catColor,marginBottom:'8px'}});cat.textContent=item.cat;
+    var hl=h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(16px,1.8vw,22px)',color:item.dark?'#F4F0E6':'#111',lineHeight:1.05,marginBottom:'6px'}});hl.textContent=item.hl;
+    var deck=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'11px',color:item.dark?'rgba(244,240,230,.4)':'#888',lineHeight:1.6,marginBottom:'8px'}});deck.textContent=item.deck;
+    var meta=h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'1px',textTransform:'uppercase',color:item.dark?'rgba(244,240,230,.2)':'#bbb'}});meta.textContent=item.meta;
+    card.appendChild(cat);card.appendChild(hl);card.appendChild(deck);card.appendChild(meta);
+    musicGrid.appendChild(card);
+  });
+  inner.appendChild(musicGrid);
+
+  // ── FASHION ──────────────────────────────────────────────────────
+  inner.appendChild(buildNoiseSection('Fashion'));
+
+  var fashGrid=h('div',{style:{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:'1px',background:'#e5e5e5',marginBottom:'2px'}});
+  var fashItems=[
+    {cat:'Carnival Fashion',catColor:'#4A1A6B',hl:'The Costume Creators Making Art You Wear on the Road'},
+    {cat:'Streetwear',catColor:'#1A3A5C',hl:'The Sneakers Running the Culture Right Now'},
+    {cat:'Diaspora Style',catColor:'#0A3D2E',hl:'How Toronto Carnival Became a Fashion Moment'},
+    {cat:'Collab',catColor:'#8B1A0A',hl:'OVO x Puma — What the Drop Means'},
+  ];
+  fashItems.forEach(function(item){
+    var card=h('div',{style:{background:'#F4F0E6',cursor:'pointer',transition:'background .15s',overflow:'hidden'}});
+    card.onmouseenter=function(){card.style.background='#EDE9E0';};
+    card.onmouseleave=function(){card.style.background='#F4F0E6';};
+    // Image placeholder
+    var img=h('div',{style:{width:'100%',aspectRatio:'4/5',background:'linear-gradient(135deg,#1a1a1a,#0d0d0d)',display:'flex',alignItems:'center',justifyContent:'center'}});
+    img.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'2px',color:'#333',textTransform:'uppercase'}},'[Photo]'));
+    var body=h('div',{style:{padding:'12px 14px 16px'}});
+    var cat=h('div',{style:{fontFamily:"var(--lb)",fontSize:'7px',letterSpacing:'2px',textTransform:'uppercase',fontWeight:'700',color:item.catColor,marginBottom:'5px'}});cat.textContent=item.cat;
+    var hl=h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(13px,1.4vw,16px)',color:'#111',lineHeight:1.1}});hl.textContent=item.hl;
+    body.appendChild(cat);body.appendChild(hl);
+    card.appendChild(img);card.appendChild(body);
+    fashGrid.appendChild(card);
+  });
+  inner.appendChild(fashGrid);
+
+  // ── UPCOMING EVENTS ──────────────────────────────────────────────
+  inner.appendChild(buildNoiseSection('Upcoming Events'));
+
+  var evGrid=h('div',{style:{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'8px',marginBottom:'2px'}});
+  var events=[
+    {date:'Aug 1',name:'Toronto Caribbean Carnival',city:'Toronto, ON',type:'Carnival',color:'#8B1A0A',detail:'Grand Parade · Free along most of route'},
+    {date:'Aug 10',name:'Burna Boy Live in Concert',city:'Madison Square Garden, NY',type:'Show',color:'#0A3D2E',detail:'Tickets from $85 · On sale now'},
+    {date:'Aug 16',name:'Soca Monarch Pre-Fete',city:'Miami, FL',type:'Fete',color:'#4A1A6B',detail:'Island vibes · Tickets at door'},
+    {date:'Aug 30',name:'Labor Day Carnival',city:'Brooklyn, NY',type:'Carnival',color:'#8B1A0A',detail:'Eastern Pkwy · Free event'},
+    {date:'Oct 4',name:'Miami Carnival',city:'Miami, FL',type:'Carnival',color:'#8B1A0A',detail:'Hard Rock Stadium · Free parade'},
+    {date:'TBA',name:'Afternoise Vol. II Launch',city:'South Florida',type:'Magazine',color:'#D4A853',detail:'Coming 2027 · Stay tuned'},
+  ];
+  events.forEach(function(ev){
+    var card=h('div',{style:{background:'#111',padding:'18px',cursor:'pointer',borderLeft:'3px solid '+ev.color,transition:'background .15s'}});
+    card.onmouseenter=function(){card.style.background='#1a1a1a';};
+    card.onmouseleave=function(){card.style.background='#111';};
+    var type=h('div',{style:{fontFamily:"var(--lb)",fontSize:'7px',letterSpacing:'2px',textTransform:'uppercase',fontWeight:'700',color:ev.color,marginBottom:'6px'}});type.textContent=ev.type;
+    var date=h('div',{style:{fontFamily:"var(--lb)",fontSize:'10px',letterSpacing:'2px',color:'#D4A853',textTransform:'uppercase',fontWeight:'700',marginBottom:'6px'}});date.textContent=ev.date;
+    var name=h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(15px,1.6vw,19px)',color:'#F4F0E6',lineHeight:1.05,marginBottom:'4px'}});name.textContent=ev.name;
+    var city=h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'1px',color:'#555',textTransform:'uppercase',marginBottom:'8px'}});city.textContent=ev.city;
+    var detail=h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',color:'#D4A853',borderTop:'1px solid #1a1a1a',paddingTop:'8px'}});detail.textContent=ev.detail;
+    card.appendChild(type);card.appendChild(date);card.appendChild(name);card.appendChild(city);card.appendChild(detail);
+    evGrid.appendChild(card);
+  });
+  inner.appendChild(evGrid);
+
+  // ── NEWS ─────────────────────────────────────────────────────────
+  inner.appendChild(buildNoiseSection('News'));
+
+  var newsGrid=h('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'1px',background:'#e5e5e5',marginBottom:'32px'}});
+  var newsItems=[
+    {cat:'Sports & Culture',catColor:'#8B1A0A',hl:'LeBron James Announces Retirement — What the Culture Lost',deck:'23 years. 4 rings. A career that transcended the game.',meta:'Today · 7 min read'},
+    {cat:'Caribbean · Sports',catColor:'#1A3A5C',hl:'West Indies Cricket Is Back and the Diaspora Is Watching',deck:'A new generation bringing the culture back to the crease.',meta:'Yesterday · 5 min read'},
+    {cat:'FIFA 2026 · Music',catColor:'#D4A853',hl:'Shakira x Burna Boy — The FIFA World Cup 2026 Anthem',deck:'Two global superstars. One tournament. The track bridging two cultures.',meta:'2 days ago · 4 min read'},
+    {cat:'Media',catColor:'#0A3D2E',hl:'Independent Media Is the Only Media That Tells the Full Truth About the Culture',deck:'The major platforms cover who they\'re paid to cover. That\'s a problem.',meta:'3 days ago · 6 min read'},
+  ];
+  newsItems.forEach(function(item){
+    var card=h('div',{style:{background:'#F4F0E6',padding:'20px',cursor:'pointer',transition:'background .15s',borderBottom:'.5px solid #e5e5e5'}});
+    card.onmouseenter=function(){card.style.background='#EDE9E0';};
+    card.onmouseleave=function(){card.style.background='#F4F0E6';};
+    var cat=h('div',{style:{fontFamily:"var(--lb)",fontSize:'7px',letterSpacing:'3px',textTransform:'uppercase',fontWeight:'700',color:item.catColor,marginBottom:'7px'}});cat.textContent=item.cat;
+    var hl=h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(15px,1.6vw,20px)',color:'#111',lineHeight:1.05,marginBottom:'6px'}});hl.textContent=item.hl;
+    var deck=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'11px',color:'#888',lineHeight:1.6,marginBottom:'8px'}});deck.textContent=item.deck;
+    var meta=h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'1px',textTransform:'uppercase',color:'#bbb'}});meta.textContent=item.meta;
+    card.appendChild(cat);card.appendChild(hl);card.appendChild(deck);card.appendChild(meta);
+    newsGrid.appendChild(card);
+  });
+  inner.appendChild(newsGrid);
+
+  wrap.appendChild(inner);
+  return wrap;
+}
+
+// Section label helper for Noise page
+function buildNoiseSection(label){
+  var sec=h('div',{style:{display:'flex',alignItems:'center',gap:'14px',padding:'28px 0 12px'}});
+  sec.appendChild(h('span',{style:{fontFamily:"var(--pf)",fontSize:'clamp(20px,2.5vw,28px)',color:'#111',whiteSpace:'nowrap'}},label));
+  sec.appendChild(h('div',{style:{flex:1,height:'1px',background:'#e5e5e5'}}));
+  return sec;
+}
+
+
 // ─── PHOTO ESSAY ──────────────────────────────────────────────────────────────
 var ESSAY_SLOTS = [
   {slot:'cover',   caption:'[REPLACE: Caption — location, moment, context]', size:'full'},
@@ -1863,6 +1960,7 @@ function render(){
   if(ST.page==='letter')pw.appendChild(buildLetter());
   if(ST.page==='playlist')pw.appendChild(buildPlaylist());
   if(ST.page==='radio')pw.appendChild(buildRadioPage());
+  if(ST.page==='noise')pw.appendChild(buildNoisePage());
   if(ST.page==='radar')pw.appendChild(buildRadar());
   if(ST.page==='radar-donfresh')pw.appendChild(buildRadarDonFresh());
   if(ST.page==='essay')pw.appendChild(buildEssay());
