@@ -155,7 +155,7 @@
 
   .outer-nav{
     background:#111;position:sticky;top:0;z-index:100;
-    border-bottom:2px solid #B87A45;
+    border-bottom:1px solid rgba(255,255,255,.12);
     position:relative;
   }
   .outer-nav::after{
@@ -319,19 +319,7 @@
 
 <!-- MASTHEAD -->
 <div class="outer-masthead">
-  <!-- AN Logo Mark -->
-  <div style="display:flex;justify-content:center;margin-bottom:10px;">
-    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="44" height="44" rx="3" fill="#111115"/>
-      <!-- A letterform -->
-      <path d="M5 36L13.5 11H17L25.5 36H22L19.8 29.5H10.7L8.5 36H5Z" fill="#F5F2EB"/>
-      <path d="M11.7 26L15.25 16L18.8 26H11.7Z" fill="#B87A45"/>
-      <!-- N letterform -->
-      <path d="M28 11H31.5L38 28.5V11H41V36H37.5L31 18.5V36H28V11Z" fill="#F5F2EB"/>
-      <!-- Bronze rule -->
-      <line x1="2" y1="42" x2="42" y2="42" stroke="#B87A45" stroke-width="1.5"/>
-    </svg>
-  </div>
+
   <a class="outer-masthead-name" onclick="go('toc');return false;" href="#">AFTERNOISE</a>
   <div class="outer-masthead-sub">The Magazine of Urban Culture &nbsp;&middot;&nbsp; Vol. I &nbsp;&middot;&nbsp; Origins &nbsp;&middot;&nbsp; 2026</div>
 </div>
@@ -1085,7 +1073,7 @@ function buildRadar(){
   var hdr=h('div',{className:'fade',style:{marginBottom:'40px'}});
   hdr.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'6px',color:'#9A9A98',textTransform:'uppercase',marginBottom:'12px'}},'Vol. I — Radar'));
   hdr.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(28px,4vw,52px)',fontWeight:900,lineHeight:1,color:'#F5F2EB',marginBottom:'8px'}},'Watch This Space'));
-  var sub2=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'16px',color:'#9A9A98',maxWidth:'560px',lineHeight:1.6}});
+  var sub2=h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(28px,4vw,48px)',color:'#0B0B0D',textAlign:'center',width:'100%',lineHeight:1,marginTop:'8px'}});
   sub2.textContent='Noise Makers.';
   hdr.appendChild(sub2);
   inner.appendChild(hdr);
@@ -1415,9 +1403,9 @@ function buildNoisePage(){
   var inner=h('div',{style:{maxWidth:'960px',margin:'0 auto',padding:'0 44px 80px'}});
 
   // Page header
-  var hdr=h('div',{className:'fade',style:{padding:'40px 0 24px',borderBottom:'2px solid #111'}});
-  hdr.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'5px',color:'#9A9A98',textTransform:'uppercase',marginBottom:'8px'}},'Afternoise'));
-  hdr.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(36px,6vw,72px)',color:'#111',lineHeight:1}},'Noise'));
+  var hdr=h('div',{className:'fade',style:{padding:'40px 0 24px',borderBottom:'1px solid #B87A45'}});
+
+  hdr.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(36px,6vw,72px)',color:'#F5F2EB',lineHeight:1}},'Noise'));
   hdr.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'13px',color:'#9A9A98',marginTop:'8px'}},'Fashion. Music. Events. What\'s happening right now.'));
   inner.appendChild(hdr);
 
@@ -1435,7 +1423,7 @@ function buildNoisePage(){
     card.onmouseenter=function(){card.style.opacity='.85';};
     card.onmouseleave=function(){card.style.opacity='1';};
     var cat=h('div',{style:{fontFamily:"var(--lb)",fontSize:'7px',letterSpacing:'3px',textTransform:'uppercase',fontWeight:'700',color:item.catColor,marginBottom:'8px'}});cat.textContent=item.cat;
-    var hl=h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(16px,1.8vw,22px)',color:item.dark?'#F5F2EB':'#111',lineHeight:1.05,marginBottom:'6px'}});hl.textContent=item.hl;
+    var hl=h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(16px,1.8vw,22px)',color:'#F5F2EB',lineHeight:1.05,marginBottom:'6px'}});hl.textContent=item.hl;
     var deck=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'11px',color:item.dark?'rgba(244,240,230,.4)':'#9A9A98',lineHeight:1.6,marginBottom:'8px'}});deck.textContent=item.deck;
     var meta=h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'1px',textTransform:'uppercase',color:item.dark?'rgba(244,240,230,.2)':'#9A9A98'}});meta.textContent=item.meta;
     card.appendChild(cat);card.appendChild(hl);card.appendChild(deck);card.appendChild(meta);
@@ -1462,7 +1450,7 @@ function buildNoisePage(){
     img.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'2px',color:'#9A9A98',textTransform:'uppercase'}},'[Photo]'));
     var body=h('div',{style:{padding:'12px 14px 16px'}});
     var cat=h('div',{style:{fontFamily:"var(--lb)",fontSize:'7px',letterSpacing:'2px',textTransform:'uppercase',fontWeight:'700',color:item.catColor,marginBottom:'5px'}});cat.textContent=item.cat;
-    var hl=h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(13px,1.4vw,16px)',color:'#111',lineHeight:1.1}});hl.textContent=item.hl;
+    var hl=h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(13px,1.4vw,16px)',color:'#F5F2EB',lineHeight:1.1}});hl.textContent=item.hl;
     body.appendChild(cat);body.appendChild(hl);
     card.appendChild(img);card.appendChild(body);
     fashGrid.appendChild(card);
@@ -1510,7 +1498,7 @@ function buildNoisePage(){
     card.onmouseenter=function(){card.style.background='#1E1E22';};
     card.onmouseleave=function(){card.style.background='#F5F2EB';};
     var cat=h('div',{style:{fontFamily:"var(--lb)",fontSize:'7px',letterSpacing:'3px',textTransform:'uppercase',fontWeight:'700',color:item.catColor,marginBottom:'7px'}});cat.textContent=item.cat;
-    var hl=h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(15px,1.6vw,20px)',color:'#111',lineHeight:1.05,marginBottom:'6px'}});hl.textContent=item.hl;
+    var hl=h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(15px,1.6vw,20px)',color:'#F5F2EB',lineHeight:1.05,marginBottom:'6px'}});hl.textContent=item.hl;
     var deck=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'11px',color:'#9A9A98',lineHeight:1.6,marginBottom:'8px'}});deck.textContent=item.deck;
     var meta=h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'1px',textTransform:'uppercase',color:'#9A9A98'}});meta.textContent=item.meta;
     card.appendChild(cat);card.appendChild(hl);card.appendChild(deck);card.appendChild(meta);
@@ -1525,7 +1513,7 @@ function buildNoisePage(){
 // Section label helper for Noise page
 function buildNoiseSection(label){
   var sec=h('div',{style:{display:'flex',alignItems:'center',gap:'14px',padding:'28px 0 12px'}});
-  sec.appendChild(h('span',{style:{fontFamily:"var(--pf)",fontSize:'clamp(20px,2.5vw,28px)',color:'#111',whiteSpace:'nowrap'}},label));
+  sec.appendChild(h('span',{style:{fontFamily:"var(--pf)",fontSize:'clamp(20px,2.5vw,28px)',color:'#F5F2EB',whiteSpace:'nowrap'}},label));
   sec.appendChild(h('div',{style:{flex:1,height:'1px',background:'#27272C'}}));
   return sec;
 }
