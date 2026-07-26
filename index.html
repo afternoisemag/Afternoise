@@ -771,7 +771,7 @@ function buildTOC(){
   // Follow strip
   var fw=h('div',{className:'fade s5',style:{display:'flex',alignItems:'center',gap:'24px',padding:'16px 0',borderTop:'.5px solid #333338',borderBottom:'.5px solid #333338',marginBottom:'40px',flexWrap:'wrap'}});
   // Secondary nav links row — pages removed from main nav
-  var secNav=h('div',{style:{display:'flex',gap:'24px',padding:'0 0 16px',flexWrap:'wrap',borderBottom:'.5px solid #27272C',marginBottom:'16px'}});
+  var secNav=h('div',{style:{display:'flex',gap:'24px',padding:'0 0 16px',flexWrap:'wrap',borderBottom:'.5px solid #333338',marginBottom:'16px'}});
   var secLinks=[
     {label:'Letter',page:'letter'},
     {label:'Playlist',page:'playlist'},
@@ -783,7 +783,7 @@ function buildTOC(){
     var sa=h('a',{href:'#'+sl.page,style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'2px',color:'#9A9A98',textTransform:'uppercase',textDecoration:'none',transition:'color .15s',cursor:'pointer'}});
     sa.textContent=sl.label;
     sa.onclick=function(e){e.preventDefault();go(sl.page);};
-    sa.onmouseenter=function(){sa.style.color='#111';};
+    sa.onmouseenter=function(){sa.style.color='#F5F2EB';};
     sa.onmouseleave=function(){sa.style.color='#9A9A98';};
     secNav.appendChild(sa);
   });
@@ -1073,7 +1073,7 @@ function buildRadar(){
   var hdr=h('div',{className:'fade',style:{marginBottom:'40px'}});
   hdr.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'6px',color:'#9A9A98',textTransform:'uppercase',marginBottom:'12px'}},'Vol. I — Radar'));
   hdr.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(28px,4vw,52px)',fontWeight:900,lineHeight:1,color:'#F5F2EB',marginBottom:'8px'}},'Watch This Space'));
-  var sub2=h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(52px,8vw,96px)',color:'#F5F2EB',textAlign:'center',width:'100%',lineHeight:1,marginTop:'12px',letterSpacing:'2px'}});
+  var sub2=h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(52px,8vw,96px)',color:'#B87A45',textAlign:'center',width:'100%',lineHeight:1,marginTop:'12px',letterSpacing:'2px'}});
   sub2.textContent='Noise Makers';
   hdr.appendChild(sub2);
   inner.appendChild(hdr);
