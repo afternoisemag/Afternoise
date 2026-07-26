@@ -773,9 +773,9 @@ function buildTOC(){
   var fw=h('div',{className:'fade s5',style:{display:'flex',alignItems:'center',gap:'24px',padding:'16px 0',borderTop:'.5px solid #333338',borderBottom:'.5px solid #333338',marginBottom:'40px',flexWrap:'wrap'}});
   // Secondary nav links row — pages removed from main nav
   
-  // ── 5 PAGE LINKS — Letter, Playlist, Spin The Block, Photos, About ──
-  var pageNavRow=h('div',{style:{display:'flex',gap:'32px',flexWrap:'wrap',alignItems:'center',padding:'16px 0',borderTop:'.5px solid #333338'}});
-  [{label:'Letter',page:'letter'},{label:'Playlist',page:'playlist'},{label:'Spin The Block',page:'spintheblock'},{label:'Photos',page:'essay'},{label:'About',page:'about'}].forEach(function(lnk){
+  // ── Letter + About links — aligned with Follow Us ──
+  var pageNavRow=h('div',{style:{display:'flex',gap:'24px',flexWrap:'wrap',alignItems:'center',padding:'14px 0',borderTop:'.5px solid #333338'}});
+  [{label:'Letter',page:'letter'},{label:'About',page:'about'}].forEach(function(lnk){
     var a=h('a',{href:'#'+lnk.page,style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'#9A9A98',textTransform:'uppercase',textDecoration:'none',cursor:'pointer',transition:'color .15s',fontWeight:'500'}});
     a.textContent=lnk.label;
     a.onclick=function(e){e.preventDefault();go(lnk.page);};
@@ -784,7 +784,7 @@ function buildTOC(){
     pageNavRow.appendChild(a);
   });
   fw.appendChild(pageNavRow);
-  var followRow=h('div',{style:{display:'flex',alignItems:'center',gap:'20px',flexWrap:'wrap',padding:'14px 0 0',borderTop:'.5px solid #333338'}});
+  var followRow=h('div',{style:{display:'flex',alignItems:'center',gap:'20px',flexWrap:'wrap',padding:'14px 0',borderTop:'.5px solid #333338'}});
   followRow.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'3px',color:'#9A9A98',textTransform:'uppercase',flexShrink:0}},'Follow Us'));
   fw.appendChild(followRow);
   // Re-point social links to followRow instead of fw
