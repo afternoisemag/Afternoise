@@ -1393,9 +1393,29 @@ function buildRadioPage(){
   plHead.appendChild(h('div',{style:{flex:1,height:'1px',background:'#27272C'}}));
   plHead.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'2px',color:'#B87A45',textTransform:'uppercase'}},'Updated Each Issue'));
   plSec.appendChild(plHead);
-  var plDesc=h('p',{style:{fontFamily:"var(--lb)",fontSize:'13px',color:'#9A9A98',lineHeight:1.8,marginBottom:'20px',maxWidth:'560px'}});
+  var plDesc=h('p',{style:{fontFamily:"var(--lb)",fontSize:'13px',color:'#9A9A98',lineHeight:1.8,marginBottom:'24px',maxWidth:'560px'}});
   plDesc.textContent='The Afternoise Vol. I playlist. Every track that defined the Toronto Carnival 2026 season — soca, dancehall, Afrobeats, hip-hop. Curated by DJ 3 Live.';
   plSec.appendChild(plDesc);
+  // Column headers
+  var colHdr=h('div',{style:{display:'flex',gap:'16px',padding:'10px 0',borderBottom:'.5px solid #333338',marginBottom:'4px'}});
+  colHdr.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'3px',color:'#9A9A98',textTransform:'uppercase',width:'32px',flexShrink:0}},'#'));
+  colHdr.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'3px',color:'#9A9A98',textTransform:'uppercase',flex:1}},'Track'));
+  plSec.appendChild(colHdr);
+  // Track list
+  TRACKS.forEach(function(t,i){
+    var row=h('div',{style:{display:'flex',gap:'16px',padding:'14px 0',borderBottom:'.5px solid #27272C',alignItems:'flex-start',cursor:'default',transition:'background .15s'}});
+    row.onmouseenter=function(){row.style.background='rgba(255,255,255,.03)';};
+    row.onmouseleave=function(){row.style.background='transparent';};
+    if(t.link){row.style.cursor='pointer';row.onclick=function(){window.open(t.link,'_blank');};}
+    row.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'11px',letterSpacing:'1px',color:'#9A9A98',width:'32px',flexShrink:0,paddingTop:'3px'}},t.num));
+    var info=h('div',{style:{flex:1}});
+    var title=h('div',{style:{fontFamily:"var(--pf)",fontSize:'18px',fontWeight:700,color:'#F5F2EB',lineHeight:1.2,marginBottom:'3px'}});title.textContent=t.title;info.appendChild(title);
+    var artist=h('div',{style:{fontFamily:"var(--lb)",fontSize:'12px',color:'#9A9A98',marginBottom:'6px'}});artist.textContent=t.artist;info.appendChild(artist);
+    var note=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'11px',color:'rgba(245,242,235,.4)',lineHeight:1.5}});note.textContent=t.note;info.appendChild(note);
+    row.appendChild(info);
+    plSec.appendChild(row);
+  });
+  plSec.appendChild(h('div',{style:{height:'24px'}}));
   var spotWrap=h('div',{style:{background:'#27272C',border:'1px solid #333338',padding:'20px',marginBottom:'8px',cursor:'pointer',transition:'background .15s'}});
   spotWrap.onmouseenter=function(){spotWrap.style.background='#333338';};spotWrap.onmouseleave=function(){spotWrap.style.background='#27272C';};
   spotWrap.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'7px',letterSpacing:'3px',color:'#1DB954',textTransform:'uppercase',marginBottom:'6px'}},'Spotify'));
