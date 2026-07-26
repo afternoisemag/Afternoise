@@ -1145,30 +1145,34 @@ function buildRadar(){
 function buildRadarYanna(){
   var wrap=pageShell({backPage:'radar',backLabel:'Radar',rightLabel:'Vol. I',rightPage:'toc'});
   var inner=h('div',{style:{maxWidth:'800px',margin:'0 auto',padding:'60px 44px 100px',background:'#F5F2EB',minHeight:'100vh'}});
+  // Header
   var hdr=h('div',{className:'fade',style:{marginBottom:'40px'}});
-  hdr.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'6px',color:'#555555',textTransform:'uppercase',marginBottom:'12px'}},'Vol. I \u2014 Artist Spotlight'));
+  hdr.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'6px',color:'#555555',textTransform:'uppercase',marginBottom:'12px'}},'Vol. I — Artist Spotlight'));
   hdr.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(28px,4vw,52px)',fontWeight:900,lineHeight:1,color:'#111111',marginBottom:'8px'}},'Watch This Space'));
   var sub2=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'16px',color:'#555555',maxWidth:'520px',lineHeight:1.6}});
-  sub2.textContent='Noise Makers — the artists and DJs building something real before the world catches up.';
+  sub2.textContent='An artist building something real before the world catches up. Vol. I Artist Spotlight: Yannaabaiibee.';
   hdr.appendChild(sub2);inner.appendChild(hdr);
   inner.appendChild(h('div',{style:{height:'2px',background:'#B87A45',marginBottom:'44px'}}));
+  // Left col
   var leftCol=h('div',{className:'fade s1'});
   var ph=h('div',{className:'ph-img',style:{height:'420px',marginBottom:'16px',position:'relative'}});
   ph.style.background='linear-gradient(135deg,#1a1a1a 0%,#2a2a2a 100%)';
   var phNote=h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'#555555',textTransform:'uppercase',textAlign:'center',marginTop:'8px'}});phNote.textContent='[REPLACE: Photo of Yannaabaiibee]';
   leftCol.appendChild(ph);leftCol.appendChild(phNote);
+  // Instagram handle
   var handles=h('div',{style:{marginTop:'16px'}});
   var igH=h('a',{href:'https://www.instagram.com/yannaabaiibee/',target:'_blank',rel:'noopener',style:{display:'flex',alignItems:'center',gap:'8px',textDecoration:'none',marginBottom:'8px',transition:'opacity .2s'}});
   igH.onmouseenter=function(){igH.style.opacity='.6';};igH.onmouseleave=function(){igH.style.opacity='1';};
-  var igIc=h('div',{});igIc.innerHTML='<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:15px;height:15px"><rect x="2" y="2" width="20" height="20" rx="6" stroke="#F5F2EB" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="#F5F2EB" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="#F5F2EB"/></svg>';
+  var igIc=h('div',{});igIc.innerHTML='<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:15px;height:15px"><rect x="2" y="2" width="20" height="20" rx="6" stroke="#111111" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="#111111" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="#111111"/></svg>';
   igH.appendChild(igIc);igH.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'11px',color:'#111111'}},'@yannaabaiibee'));
   handles.appendChild(igH);leftCol.appendChild(handles);
+  // Right col
   var rightCol=h('div',{className:'fade s2'});
-  rightCol.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'4px',color:'#B87A45',textTransform:'uppercase',marginBottom:'8px'}},'Artist Spotlight \u2014 Vol. I'));
+  rightCol.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'4px',color:'#B87A45',textTransform:'uppercase',marginBottom:'8px'}},'Artist Spotlight — Vol. I'));
   rightCol.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(28px,3.5vw,44px)',fontWeight:900,lineHeight:1,color:'#111111',marginBottom:'4px'}},'Yannaabaiibee'));
-  rightCol.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'11px',letterSpacing:'2px',color:'#555555',textTransform:'uppercase',marginBottom:'20px'}},'Canada \u00b7 Musical Artist'));
+  rightCol.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'11px',letterSpacing:'2px',color:'#555555',textTransform:'uppercase',marginBottom:'20px'}},'Canada · Musical Artist'));
   var bio=h('div',{style:{fontFamily:"var(--lb)",fontSize:'14px',lineHeight:1.8,color:'#555555',marginBottom:'28px',borderLeft:'3px solid #B87A45',paddingLeft:'16px'}});
-  bio.textContent='[REPLACE: 2\u20133 sentence intro on Yannaabaiibee.]';
+  bio.textContent='[REPLACE: 2–3 sentence intro on Yannaabaiibee.]';
   rightCol.appendChild(bio);
   rightCol.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'4px',color:'#111111',textTransform:'uppercase',marginBottom:'16px',paddingBottom:'8px',borderBottom:'1.5px solid #B87A45'}},'Q&A'));
   var YQ=[
@@ -1179,16 +1183,16 @@ function buildRadarYanna(){
     {q:'What does it mean to be the Vol. I Radar pick for Afternoise?',a:'[REPLACE: Yannaabaiibee answer]'},
   ];
   YQ.forEach(function(qa,i){
-    var item=h('div',{style:{marginBottom:'22px',paddingBottom:'22px',borderBottom:i<YQ.length-1?'.5px solid #27272C':'none'}});
+    var item=h('div',{style:{marginBottom:'22px',paddingBottom:'22px',borderBottom:i<YQ.length-1?'.5px solid #ddd':'none'}});
     var q=h('div',{style:{fontFamily:"var(--lb)",fontSize:'11px',fontWeight:700,color:'#111111',marginBottom:'6px',lineHeight:1.5}});q.textContent='Q: '+qa.q;item.appendChild(q);
-    var a=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'14px',color:'#111111',lineHeight:1.7}});a.textContent=qa.a;item.appendChild(a);
+    var a=h('div',{style:{fontFamily:"var(--pf)",fontStyle:'italic',fontSize:'14px',color:'#555555',lineHeight:1.7}});a.textContent=qa.a;item.appendChild(a);
     rightCol.appendChild(item);
   });
   var twoCol=h('div',{style:{display:'grid',gridTemplateColumns:'1fr 1.4fr',gap:'40px',alignItems:'start'}});twoCol.className='radar-grid';
   twoCol.appendChild(leftCol);twoCol.appendChild(rightCol);
   inner.appendChild(twoCol);
-  var cta=h('div',{className:'fade s8',style:{marginTop:'48px',paddingTop:'28px',borderTop:'.5px solid #333338',textAlign:'center'}});
-  var rb=h('button',{className:'btn-g',style:{fontSize:'10px',letterSpacing:'3px',background:'#B87A45',color:'#0B0B0D',border:'none',padding:'10px 20px',cursor:'pointer',fontFamily:"var(--lb)"}},'\u2190 Back to Radar');rb.onclick=function(){go('radar');};cta.appendChild(rb);
+  var cta=h('div',{className:'fade s8',style:{marginTop:'48px',paddingTop:'28px',borderTop:'.5px solid #ddd',textAlign:'center'}});
+  var rb=h('button',{className:'btn-g',style:{fontSize:'10px',letterSpacing:'3px'}},'\u2190 Back to Radar');rb.onclick=function(){go('radar');};cta.appendChild(rb);
   inner.appendChild(cta);
   wrap.appendChild(inner);return wrap;
 }
@@ -1214,7 +1218,7 @@ function buildRadarDonFresh(){
   var handles=h('div',{style:{marginTop:'16px'}});
   var igH=h('a',{href:'https://www.instagram.com/dj_donfresh',target:'_blank',rel:'noopener',style:{display:'flex',alignItems:'center',gap:'8px',textDecoration:'none',marginBottom:'8px',transition:'opacity .2s'}});
   igH.onmouseenter=function(){igH.style.opacity='.6';};igH.onmouseleave=function(){igH.style.opacity='1';};
-  var igIc=h('div',{});igIc.innerHTML='<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:15px;height:15px"><rect x="2" y="2" width="20" height="20" rx="6" stroke="#F5F2EB" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="#F5F2EB" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="#F5F2EB"/></svg>';
+  var igIc=h('div',{});igIc.innerHTML='<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:15px;height:15px"><rect x="2" y="2" width="20" height="20" rx="6" stroke="#111111" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="#111111" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="#111111"/></svg>';
   igH.appendChild(igIc);igH.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'11px',color:'#111111'}},'@dj_donfresh'));
   handles.appendChild(igH);leftCol.appendChild(handles);
   // Right col — bio + Q&A
