@@ -663,6 +663,17 @@ function buildCover(){
   var twIc=h('div',{});twIc.innerHTML='<svg viewBox="0 0 24 24" fill="rgba(244,240,230,0.35)" xmlns="http://www.w3.org/2000/svg" style="width:11px;height:11px"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L2.25 2.25h6.988l4.26 5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
   twA.appendChild(twIc);twA.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'8px',color:'rgba(244,240,230,.3)',letterSpacing:'1px'}},'@afternoisemag'));
   fw.appendChild(igA);fw.appendChild(twA);
+  // Letter + About — right aligned
+  var pageLinks=h('div',{style:{marginLeft:'auto',display:'flex',gap:'20px',alignItems:'center'}});
+  [{label:'Letter',page:'letter'},{label:'About',page:'about'}].forEach(function(lnk){
+    var a=h('a',{href:'#'+lnk.page,style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'#9A9A98',textTransform:'uppercase',textDecoration:'none',cursor:'pointer',transition:'color .15s'}});
+    a.textContent=lnk.label;
+    a.onclick=function(e){e.preventDefault();go(lnk.page);};
+    a.onmouseenter=function(){a.style.color='#F5F2EB';};
+    a.onmouseleave=function(){a.style.color='#9A9A98';};
+    pageLinks.appendChild(a);
+  });
+  fw.appendChild(pageLinks);
   bottomStrip.appendChild(fw);
   // Footer text
   var ft=h('div',{style:{display:'flex',gap:'16px',alignItems:'center'}});
@@ -771,23 +782,7 @@ function buildTOC(){
   // Follow strip
   var fw=h('div',{className:'fade s5',style:{display:'flex',alignItems:'center',gap:'24px',padding:'16px 0',borderTop:'.5px solid #333338',borderBottom:'.5px solid #333338',marginBottom:'40px',flexWrap:'wrap'}});
   // Secondary nav links row — pages removed from main nav
-  var secNav=h('div',{style:{display:'flex',gap:'24px',padding:'0 0 16px',flexWrap:'wrap',borderBottom:'.5px solid #333338',marginBottom:'16px'}});
-  var secLinks=[
-    {label:'Letter',page:'letter'},
-    {label:'Playlist',page:'playlist'},
-    {label:'Spin The Block',page:'spintheblock'},
-    {label:'Photos',page:'essay'},
-    {label:'About',page:'about'},
-  ];
-  secLinks.forEach(function(sl){
-    var sa=h('a',{href:'#'+sl.page,style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'2px',color:'#9A9A98',textTransform:'uppercase',textDecoration:'none',transition:'color .15s',cursor:'pointer'}});
-    sa.textContent=sl.label;
-    sa.onclick=function(e){e.preventDefault();go(sl.page);};
-    sa.onmouseenter=function(){sa.style.color='#F5F2EB';};
-    sa.onmouseleave=function(){sa.style.color='#9A9A98';};
-    secNav.appendChild(sa);
-  });
-  fw.appendChild(secNav);
+  
   var followRow=h('div',{style:{display:'flex',alignItems:'center',gap:'20px',flexWrap:'wrap',padding:'10px 0 0',borderTop:'.5px solid #333338'}});
   followRow.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'3px',color:'#9A9A98',textTransform:'uppercase',flexShrink:0}},'Follow Us'));
   fw.appendChild(followRow);
@@ -1389,6 +1384,30 @@ function buildRadioPage(){
   wrap.appendChild(aboutSec);
 
   // Footer
+  // ── PLAYLIST ─────────────────────────────────────────────────────
+  var plSec=h('div',{style:{maxWidth:'960px',margin:'0 auto',padding:'0 24px 40px'}});
+  var plHead=h('div',{style:{display:'flex',alignItems:'center',gap:'14px',marginBottom:'20px',paddingTop:'32px',borderTop:'1px solid #27272C'}});
+  plHead.appendChild(h('span',{style:{fontFamily:"var(--pf)",fontSize:'clamp(20px,2.5vw,28px)',color:'#F5F2EB',whiteSpace:'nowrap'}},'Vol. I Playlist'));
+  plHead.appendChild(h('div',{style:{flex:1,height:'1px',background:'#27272C'}}));
+  plHead.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'2px',color:'#B87A45',textTransform:'uppercase'}},'Updated Each Issue'));
+  plSec.appendChild(plHead);
+  var plDesc=h('p',{style:{fontFamily:"var(--lb)",fontSize:'13px',color:'#9A9A98',lineHeight:1.8,marginBottom:'20px',maxWidth:'560px'}});
+  plDesc.textContent='The Afternoise Vol. I playlist. Every track that defined the Toronto Carnival 2026 season — soca, dancehall, Afrobeats, hip-hop. Curated by DJ 3 Live.';
+  plSec.appendChild(plDesc);
+  var spotWrap=h('div',{style:{background:'#27272C',border:'1px solid #333338',padding:'20px',marginBottom:'8px',cursor:'pointer',transition:'background .15s'}});
+  spotWrap.onmouseenter=function(){spotWrap.style.background='#333338';};spotWrap.onmouseleave=function(){spotWrap.style.background='#27272C';};
+  spotWrap.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'7px',letterSpacing:'3px',color:'#1DB954',textTransform:'uppercase',marginBottom:'6px'}},'Spotify'));
+  spotWrap.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'18px',color:'#F5F2EB',marginBottom:'4px'}},'Afternoise Vol. I — Origins'));
+  spotWrap.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'11px',color:'#9A9A98'}}))[0];
+  var spotSub=h('div',{style:{fontFamily:"var(--lb)",fontSize:'11px',color:'#9A9A98'}});spotSub.textContent='[REPLACE: Add Spotify playlist link]';spotWrap.appendChild(spotSub);
+  plSec.appendChild(spotWrap);
+  var amWrap=h('div',{style:{background:'#27272C',border:'1px solid #333338',padding:'20px',cursor:'pointer',transition:'background .15s'}});
+  amWrap.onmouseenter=function(){amWrap.style.background='#333338';};amWrap.onmouseleave=function(){amWrap.style.background='#27272C';};
+  amWrap.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'7px',letterSpacing:'3px',color:'#FC3C44',textTransform:'uppercase',marginBottom:'6px'}},'Apple Music'));
+  amWrap.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'18px',color:'#F5F2EB',marginBottom:'4px'}},'Afternoise Vol. I — Origins'));
+  var amSub=h('div',{style:{fontFamily:"var(--lb)",fontSize:'11px',color:'#9A9A98'}});amSub.textContent='[REPLACE: Add Apple Music playlist link]';amWrap.appendChild(amSub);
+  plSec.appendChild(amWrap);
+  wrap.appendChild(plSec);
   var foot=h('div',{style:{background:'#0B0B0D',borderTop:'2px solid #B87A45',padding:'20px 24px',display:'flex',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap',gap:'12px'}});
   foot.appendChild(h('span',{style:{fontFamily:"'Abril Fatface',serif",fontSize:'18px',color:'#111111'}},'AFTERNOISE'));
   foot.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'11px',color:'#555555'}},'Culture Doesn\u2019t Wait.'));
