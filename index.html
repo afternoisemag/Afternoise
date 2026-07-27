@@ -1451,106 +1451,98 @@ function buildNoisePage(){
 
   // Page header
   var hdr=h('div',{className:'fade',style:{padding:'40px 0 24px',borderBottom:'1px solid #B87A45'}});
-
-  hdr.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(36px,6vw,72px)',color:'#111111',lineHeight:1}},'Noise'));
-  hdr.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'13px',color:'#555555',marginTop:'8px'}},'Fashion. Music. Events. What\'s happening right now.'));
+  hdr.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(36px,6vw,72px)',color:'#F5F2EB',lineHeight:1}},'Noise'));
+  hdr.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'13px',color:'rgba(245,242,235,.55)',marginTop:'8px'}},"Fashion. Music. Events. What\'s happening right now."));
   inner.appendChild(hdr);
 
-  // ── MUSIC UPDATES ────────────────────────────────────────────────
+  // ── MUSIC UPDATES ──
   inner.appendChild(buildNoiseSection('Music Updates'));
-
-  var musicGrid=h('div',{style:{display:'grid',gridTemplateColumns:'1.4fr 1fr 1fr',gap:'1px',background:'#27272C',marginBottom:'2px'}});
   var musicItems=[
-    {cat:'Hip-Hop',catColor:'#B87A45',hl:"Future Dropped The Real Me and It's Exactly What the Name Says",deck:'Four years between solo albums. No features. No apologies. Just Pluto — and it hits different.',meta:'July 10, 2026 · 5 min read'},
+    {cat:'Hip-Hop',catColor:'#B87A45',hl:"Future Dropped The Real Me and It\'s Exactly What the Name Says",deck:'Four years between solo albums. No features. No apologies. Just Pluto — and it hits different.',meta:'July 10, 2026 · 5 min read'},
     {cat:'Hip-Hop',catColor:'#5957FF',hl:'YG Got Arrested the Morning of His Verzuz and Still Showed Up',deck:'SWAT team at 7AM. On stage by 9:30PM. Only in hip-hop. YG took the win and the whole conversation that followed.',meta:'July 23, 2026 · 4 min read'},
     {cat:'R&B',catColor:'#416356',hl:'The R&B Summer of 2026 Has No Ceiling',deck:'Isaiah Rashad. Brent Faiyaz. Kehlani. Jordan Ward. Five conversations happening at once. All of them worth your time.',meta:'July 2026 · 3 min read'},
   ];
-  musicItems.forEach(function(item){
-    var card=h('div',{style:{background:item.dark?'#0B0B0D':'#F5F2EB',padding:'20px',cursor:'pointer',transition:'opacity .2s'}});
-    card.onmouseenter=function(){card.style.opacity='.85';};
-    card.onmouseleave=function(){card.style.opacity='1';};
+  var musicGrid=h('div',{style:{display:'grid',gridTemplateColumns:'1.4fr 1fr 1fr',gap:'1px',background:'#1E1E22',marginBottom:'2px'}});
+  musicItems.forEach(function(item,i){
+    var card=h('div',{style:{background:'#27272C',padding:'20px',cursor:'pointer',transition:'opacity .2s'}});
+    card.onmouseenter=function(){card.style.opacity='.8';};card.onmouseleave=function(){card.style.opacity='1';};
     var cat=h('div',{style:{fontFamily:"var(--lb)",fontSize:'7px',letterSpacing:'3px',textTransform:'uppercase',fontWeight:'700',color:item.catColor,marginBottom:'8px'}});cat.textContent=item.cat;
-    var hl=h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(16px,1.8vw,22px)',color:'#111111',lineHeight:1.05,marginBottom:'6px'}});hl.textContent=item.hl;
-    var deck=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'11px',color:item.dark?'rgba(244,240,230,.4)':'#9A9A98',lineHeight:1.6,marginBottom:'8px'}});deck.textContent=item.deck;
-    var meta=h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'1px',textTransform:'uppercase',color:item.dark?'rgba(244,240,230,.2)':'#9A9A98'}});meta.textContent=item.meta;
-    card.appendChild(cat);card.appendChild(hl);card.appendChild(deck);card.appendChild(meta);
+    var hl=h('div',{style:{fontFamily:"var(--pf)",fontSize:i===0?'clamp(18px,2vw,24px)':'clamp(15px,1.6vw,19px)',color:'#F5F2EB',lineHeight:1.1,marginBottom:'8px'}});hl.textContent=item.hl;
+    var deck=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'11px',color:'rgba(245,242,235,.55)',lineHeight:1.6,marginBottom:'10px'}});deck.textContent=item.deck;
+    var meta=h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'1px',textTransform:'uppercase',color:'rgba(245,242,235,.3)'}});meta.textContent=item.meta;
+    var byline=h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'1px',textTransform:'uppercase',color:'rgba(245,242,235,.25)',marginTop:'4px'}});byline.textContent='By Afternoise Editorial';
+    card.appendChild(cat);card.appendChild(hl);card.appendChild(deck);card.appendChild(meta);card.appendChild(byline);
     musicGrid.appendChild(card);
   });
   inner.appendChild(musicGrid);
 
-  // ── FASHION ──────────────────────────────────────────────────────
+  // ── FASHION ──
   inner.appendChild(buildNoiseSection('Fashion'));
-
-  var fashGrid=h('div',{style:{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:'1px',background:'#27272C',marginBottom:'2px'}});
   var fashItems=[
-    {cat:'Style',catColor:'#B87A45',hl:"The Sneaker Game in 2026 Has No Wrong Answer",deck:'Bad Bunny built a silhouette from scratch. Jordan brought back the Dream Team 7. New Balance is at the same table as Nike. The market is $131 billion and the culture figured it out first.',img:'linear-gradient(135deg,#1a1a1a,#0d0d0d)'},
-    {cat:'Streetwear',catColor:'#5957FF',hl:'Quiet Is the New Loud in Streetwear',deck:'The era of the logo as the whole outfit is over. Clean silhouettes. Monochrome fits. Proportion over branding. The culture figured out what fashion took decades to learn.',img:'linear-gradient(135deg,#0A0A14,#050510)'},
-    {cat:'Fashion',catColor:'#416356',hl:'Adidas x Willy Chavarria Is the Most Interesting Collab of the Year',deck:'A sculptural midsole. A World Cup context. And a designer who understood the brief was bigger than just selling product.',img:'linear-gradient(135deg,#0A1A0A,#050D05)'},
-    {cat:'Culture / Style',catColor:'#D9C8AE',hl:'The Jersey Is the Outfit Now',deck:'World Cup jerseys. Vintage NBA. Worn tucked, open, or solo. The brands that understood the jersey was always a fashion piece are the ones winning right now.',img:'linear-gradient(135deg,#1A0A0A,#0D0505)'},
+    {cat:'Style',catColor:'#B87A45',hl:'The Sneaker Game in 2026 Has No Wrong Answer',deck:'Bad Bunny built a silhouette from scratch. Jordan brought back the Dream Team 7. New Balance at the same table as Nike. The market is $131 billion and the culture figured it out first.'},
+    {cat:'Streetwear',catColor:'#5957FF',hl:'Quiet Is the New Loud in Streetwear',deck:'The era of the logo as the whole outfit is over. Clean silhouettes. Monochrome fits. Proportion over branding. The culture figured out what fashion took decades to learn.'},
+    {cat:'Fashion',catColor:'#416356',hl:'Adidas x Willy Chavarria Is the Most Interesting Collab of the Year',deck:'A sculptural midsole. A World Cup context. A designer who understood the brief was bigger than just selling product.'},
+    {cat:'Culture / Style',catColor:'#D9C8AE',hl:'The Jersey Is the Outfit Now',deck:'World Cup jerseys. Vintage NBA. Worn tucked, open, or solo. The brands that understood the jersey was always a fashion piece are winning right now.'},
   ];
+  var fashGrid=h('div',{style:{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:'1px',background:'#1E1E22',marginBottom:'2px'}});
   fashItems.forEach(function(item){
-    var card=h('div',{style:{background:'#27272C',cursor:'pointer',transition:'background .15s',overflow:'hidden'}});
-    card.onmouseenter=function(){card.style.background='#1E1E22';};
-    card.onmouseleave=function(){card.style.background='#F5F2EB';};
-    // Image placeholder
+    var card=h('div',{style:{background:'#27272C',cursor:'pointer',overflow:'hidden',transition:'opacity .2s'}});
+    card.onmouseenter=function(){card.style.opacity='.8';};card.onmouseleave=function(){card.style.opacity='1';};
     var img=h('div',{style:{width:'100%',aspectRatio:'4/5',background:'linear-gradient(135deg,#1a1a1a,#0d0d0d)',display:'flex',alignItems:'center',justifyContent:'center'}});
-    img.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'2px',color:'#555555',textTransform:'uppercase'}},'[Photo]'));
-    var body=h('div',{style:{padding:'12px 14px 16px',background:'#27272C'}});
-    var cat=h('div',{style:{fontFamily:"var(--lb)",fontSize:'7px',letterSpacing:'2px',textTransform:'uppercase',fontWeight:'700',color:item.catColor,marginBottom:'5px'}});cat.textContent=item.cat;
-    var hl=h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(13px,1.4vw,16px)',color:'#111111',lineHeight:1.1}});hl.textContent=item.hl;
-    body.appendChild(cat);body.appendChild(hl);
-    if(item.deck){fdeck.textContent=item.deck;body.appendChild(fdeck);}
-    var fbyline=h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'1px',color:'rgba(245,242,235,.3)',textTransform:'uppercase',marginTop:'8px'}});fbyline.textContent='By Afternoise Editorial';body.appendChild(fbyline);
+    img.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'2px',color:'#333338',textTransform:'uppercase'}},'[Photo]'));
+    var body=h('div',{style:{padding:'12px 14px 16px'}});
+    var cat=h('div',{style:{fontFamily:"var(--lb)",fontSize:'7px',letterSpacing:'2px',textTransform:'uppercase',fontWeight:'700',color:item.catColor,marginBottom:'6px'}});cat.textContent=item.cat;
+    var hl=h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(13px,1.4vw,16px)',color:'#F5F2EB',lineHeight:1.1,marginBottom:'6px'}});hl.textContent=item.hl;
+    var deck=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'10px',color:'rgba(245,242,235,.5)',lineHeight:1.5}});deck.textContent=item.deck;
+    var byline=h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'1px',textTransform:'uppercase',color:'rgba(245,242,235,.25)',marginTop:'8px'}});byline.textContent='By Afternoise Editorial';
+    body.appendChild(cat);body.appendChild(hl);body.appendChild(deck);body.appendChild(byline);
     card.appendChild(img);card.appendChild(body);
     fashGrid.appendChild(card);
   });
   inner.appendChild(fashGrid);
 
-  // ── UPCOMING EVENTS ──────────────────────────────────────────────
+  // ── UPCOMING EVENTS ──
   inner.appendChild(buildNoiseSection('Upcoming Events'));
-
-  var evGrid=h('div',{style:{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'8px',marginBottom:'2px'}});
   var events=[
     {date:'Aug 1',name:'Toronto Caribbean Carnival',city:'Toronto, ON',type:'Carnival',color:'#B87A45',detail:'Grand Parade · Free along most of route'},
     {date:'Aug 10',name:'Burna Boy Live in Concert',city:'Madison Square Garden, NY',type:'Show',color:'#416356',detail:'Tickets from $85 · On sale now'},
     {date:'Aug 16',name:'Soca Monarch Pre-Fete',city:'Miami, FL',type:'Fete',color:'#5957FF',detail:'Island vibes · Tickets at door'},
     {date:'Aug 30',name:'Labor Day Carnival',city:'Brooklyn, NY',type:'Carnival',color:'#B87A45',detail:'Eastern Pkwy · Free event'},
     {date:'Oct 4',name:'Miami Carnival',city:'Miami, FL',type:'Carnival',color:'#B87A45',detail:'Hard Rock Stadium · Free parade'},
-    {date:'TBA',name:'Afternoise Vol. II Launch',city:'South Florida',type:'Magazine',color:'#B87A45',detail:'Coming 2027 · Stay tuned'},
+    {date:'TBA',name:'Afternoise Vol. II Launch',city:'South Florida',type:'Magazine',color:'#D9C8AE',detail:'Coming 2027 · Stay tuned'},
   ];
+  var evGrid=h('div',{style:{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'8px',marginBottom:'2px'}});
   events.forEach(function(ev){
-    var card=h('div',{style:{background:'#111',padding:'18px',cursor:'pointer',borderLeft:'3px solid '+ev.color,transition:'background .15s'}});
-    card.onmouseenter=function(){card.style.background='#1a1a1a';};
-    card.onmouseleave=function(){card.style.background='#111';};
+    var card=h('div',{style:{background:'#27272C',padding:'18px',cursor:'pointer',borderLeft:'3px solid '+ev.color,transition:'opacity .2s'}});
+    card.onmouseenter=function(){card.style.opacity='.8';};card.onmouseleave=function(){card.style.opacity='1';};
     var type=h('div',{style:{fontFamily:"var(--lb)",fontSize:'7px',letterSpacing:'2px',textTransform:'uppercase',fontWeight:'700',color:ev.color,marginBottom:'6px'}});type.textContent=ev.type;
     var date=h('div',{style:{fontFamily:"var(--lb)",fontSize:'10px',letterSpacing:'2px',color:'#B87A45',textTransform:'uppercase',fontWeight:'700',marginBottom:'6px'}});date.textContent=ev.date;
-    var name=h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(15px,1.6vw,19px)',color:'#111111',lineHeight:1.05,marginBottom:'4px'}});name.textContent=ev.name;
-    var city=h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'1px',color:'#555555',textTransform:'uppercase',marginBottom:'8px'}});city.textContent=ev.city;
-    var detail=h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',color:'#B87A45',borderTop:'1px solid #1a1a1a',paddingTop:'8px'}});detail.textContent=ev.detail;
+    var name=h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(15px,1.6vw,19px)',color:'#F5F2EB',lineHeight:1.05,marginBottom:'4px'}});name.textContent=ev.name;
+    var city=h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'1px',color:'rgba(245,242,235,.45)',textTransform:'uppercase',marginBottom:'8px'}});city.textContent=ev.city;
+    var detail=h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',color:'rgba(245,242,235,.5)',borderTop:'1px solid #333338',paddingTop:'8px'}});detail.textContent=ev.detail;
     card.appendChild(type);card.appendChild(date);card.appendChild(name);card.appendChild(city);card.appendChild(detail);
     evGrid.appendChild(card);
   });
   inner.appendChild(evGrid);
 
-  // ── NEWS ─────────────────────────────────────────────────────────
+  // ── NEWS ──
   inner.appendChild(buildNoiseSection('News'));
-
-  var newsGrid=h('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'1px',background:'#27272C',marginBottom:'32px'}});
   var newsItems=[
-    {cat:'Sports & Culture',catColor:'#B87A45',hl:'LeBron James Announces Retirement — What the Culture Lost',deck:'23 years. 4 rings. A career that transcended the game.',meta:'Today · 7 min read'},
-    {cat:'Caribbean · Sports',catColor:'#5957FF',hl:'West Indies Cricket Is Back and the Diaspora Is Watching',deck:'A new generation bringing the culture back to the crease.',meta:'Yesterday · 5 min read'},
-    {cat:'FIFA 2026 · Music',catColor:'#B87A45',hl:'Shakira x Burna Boy — The FIFA World Cup 2026 Anthem',deck:'Two global superstars. One tournament. The track bridging two cultures.',meta:'2 days ago · 4 min read'},
-    {cat:'Media',catColor:'#416356',hl:'Independent Media Is the Only Media That Tells the Full Truth About the Culture',deck:'The major platforms cover who they\'re paid to cover. That\'s a problem.',meta:'3 days ago · 6 min read'},
+    {cat:'Sports & Culture',catColor:'#B87A45',hl:'LeBron James Announces Retirement — What the Culture Lost',deck:'23 years. 4 rings. A career that transcended the game and reshaped what an athlete could be in the culture.',meta:'Today · 7 min read'},
+    {cat:'Caribbean · Sports',catColor:'#5957FF',hl:'West Indies Cricket Is Back and the Diaspora Is Watching',deck:'A new generation bringing the culture back to the crease. Toronto is paying attention.',meta:'Yesterday · 5 min read'},
+    {cat:'FIFA 2026 · Music',catColor:'#D9C8AE',hl:'Shakira x Burna Boy — The FIFA World Cup 2026 Anthem',deck:'Two global superstars. One tournament. The track bridging two cultures.',meta:'2 days ago · 4 min read'},
+    {cat:'Media',catColor:'#416356',hl:'Independent Media Is the Only Media That Tells the Full Truth',deck:'The major platforms cover who they are paid to cover. That is a problem and the culture is starting to notice.',meta:'3 days ago · 6 min read'},
   ];
+  var newsGrid=h('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'1px',background:'#1E1E22',marginBottom:'32px'}});
   newsItems.forEach(function(item){
-    var card=h('div',{style:{background:'#27272C',padding:'20px',cursor:'pointer',transition:'background .15s',borderBottom:'.5px solid #27272C'}});
-    card.onmouseenter=function(){card.style.background='#1E1E22';};
-    card.onmouseleave=function(){card.style.background='#F5F2EB';};
+    var card=h('div',{style:{background:'#27272C',padding:'20px',cursor:'pointer',transition:'opacity .2s'}});
+    card.onmouseenter=function(){card.style.opacity='.8';};card.onmouseleave=function(){card.style.opacity='1';};
     var cat=h('div',{style:{fontFamily:"var(--lb)",fontSize:'7px',letterSpacing:'3px',textTransform:'uppercase',fontWeight:'700',color:item.catColor,marginBottom:'7px'}});cat.textContent=item.cat;
-    var hl=h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(15px,1.6vw,20px)',color:'#111111',lineHeight:1.05,marginBottom:'6px'}});hl.textContent=item.hl;
-    var deck=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'11px',color:'#555555',lineHeight:1.6,marginBottom:'8px'}});deck.textContent=item.deck;
-    var meta=h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'1px',textTransform:'uppercase',color:'#555555'}});meta.textContent=item.meta;
-    card.appendChild(cat);card.appendChild(hl);card.appendChild(deck);card.appendChild(meta);
+    var hl=h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(15px,1.6vw,20px)',color:'#F5F2EB',lineHeight:1.05,marginBottom:'6px'}});hl.textContent=item.hl;
+    var deck=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'11px',color:'rgba(245,242,235,.55)',lineHeight:1.6,marginBottom:'8px'}});deck.textContent=item.deck;
+    var meta=h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'1px',textTransform:'uppercase',color:'rgba(245,242,235,.3)'}});meta.textContent=item.meta;
+    var byline=h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'1px',textTransform:'uppercase',color:'rgba(245,242,235,.2)',marginTop:'4px'}});byline.textContent='By Afternoise Editorial';
+    card.appendChild(cat);card.appendChild(hl);card.appendChild(deck);card.appendChild(meta);card.appendChild(byline);
     newsGrid.appendChild(card);
   });
   inner.appendChild(newsGrid);
