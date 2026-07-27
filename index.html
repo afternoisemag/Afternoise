@@ -138,10 +138,10 @@
   .util-bar a:hover{color:#B87A45;}
 
   .outer-masthead{
-    text-align:center;padding:16px 44px 14px;
-    border-bottom:2px solid #B87A45;background:#0B0B0D;
+    text-align:center;padding:20px 44px 16px;
+    border-bottom:2px solid #B87A45;background:#000000;
   }
-  .outer-masthead-name{font-family:"Abril Fatface",serif !important;
+  .outer-masthead-name{font-family:"Abril Fatface",serif !important;display:none !important;
     font-family:var(--pf);font-size:clamp(56px,10vw,120px);
     font-weight:400;letter-spacing:clamp(1px,0.3vw,4px);
     color:#F5F2EB;line-height:1;display:block;text-decoration:none;
@@ -320,7 +320,9 @@
 <!-- MASTHEAD -->
 <div class="outer-masthead">
 
-  <a class="outer-masthead-name" onclick="go('toc');return false;" href="#">AFTERNOISE</a>
+  <a onclick="go('toc');return false;" href="#" style="display:inline-block;cursor:pointer;text-decoration:none;">
+  <img src="/afternoise-logo.png" alt="Afternoise" style="height:clamp(60px,8vw,110px);width:auto;display:block;margin:0 auto;" />
+</a>
   <div class="outer-masthead-sub">The Magazine of Urban Culture &nbsp;&middot;&nbsp; Vol. I &nbsp;&middot;&nbsp; Origins &nbsp;&middot;&nbsp; 2026</div>
 </div>
 
