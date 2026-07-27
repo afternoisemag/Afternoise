@@ -1461,9 +1461,9 @@ function buildNoisePage(){
 
   var musicGrid=h('div',{style:{display:'grid',gridTemplateColumns:'1.4fr 1fr 1fr',gap:'1px',background:'#27272C',marginBottom:'2px'}});
   var musicItems=[
-    {cat:'Hip-Hop',catColor:'#B87A45',hl:'Kendrick Lamar Grand National Tour Announced',deck:'The victory lap nobody saw coming. Every major city. Dates dropping this week.',meta:'Today · 5 min read',dark:true},
-    {cat:'Afrobeats',catColor:'#416356',hl:'Burna Boy x J. Cole Collab Is Confirmed',deck:'Two of the biggest names in music. One record.',meta:'Today · 3 min read',dark:false},
-    {cat:'Dancehall',catColor:'#B87A45',hl:'Vybz Kartel — First Album Since Release',deck:'The culture has been waiting. It\'s everything they feared it would be.',meta:'Yesterday · 6 min read',dark:false},
+    {cat:'Hip-Hop',catColor:'#B87A45',hl:"Future Dropped The Real Me and It's Exactly What the Name Says",deck:'Four years between solo albums. No features. No apologies. Just Pluto — and it hits different.',meta:'July 10, 2026 · 5 min read'},
+    {cat:'Hip-Hop',catColor:'#5957FF',hl:'YG Got Arrested the Morning of His Verzuz and Still Showed Up',deck:'SWAT team at 7AM. On stage by 9:30PM. Only in hip-hop. YG took the win and the whole conversation that followed.',meta:'July 23, 2026 · 4 min read'},
+    {cat:'R&B',catColor:'#416356',hl:'The R&B Summer of 2026 Has No Ceiling',deck:'Isaiah Rashad. Brent Faiyaz. Kehlani. Jordan Ward. Five conversations happening at once. All of them worth your time.',meta:'July 2026 · 3 min read'},
   ];
   musicItems.forEach(function(item){
     var card=h('div',{style:{background:item.dark?'#0B0B0D':'#F5F2EB',padding:'20px',cursor:'pointer',transition:'opacity .2s'}});
@@ -1483,10 +1483,10 @@ function buildNoisePage(){
 
   var fashGrid=h('div',{style:{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:'1px',background:'#27272C',marginBottom:'2px'}});
   var fashItems=[
-    {cat:'Carnival Fashion',catColor:'#5957FF',hl:'The Costume Creators Making Art You Wear on the Road'},
-    {cat:'Streetwear',catColor:'#5957FF',hl:'The Sneakers Running the Culture Right Now'},
-    {cat:'Diaspora Style',catColor:'#416356',hl:'How Toronto Carnival Became a Fashion Moment'},
-    {cat:'Collab',catColor:'#B87A45',hl:'OVO x Puma — What the Drop Means'},
+    {cat:'Style',catColor:'#B87A45',hl:"The Sneaker Game in 2026 Has No Wrong Answer",deck:'Bad Bunny built a silhouette from scratch. Jordan brought back the Dream Team 7. New Balance is at the same table as Nike. The market is $131 billion and the culture figured it out first.',img:'linear-gradient(135deg,#1a1a1a,#0d0d0d)'},
+    {cat:'Streetwear',catColor:'#5957FF',hl:'Quiet Is the New Loud in Streetwear',deck:'The era of the logo as the whole outfit is over. Clean silhouettes. Monochrome fits. Proportion over branding. The culture figured out what fashion took decades to learn.',img:'linear-gradient(135deg,#0A0A14,#050510)'},
+    {cat:'Fashion',catColor:'#416356',hl:'Adidas x Willy Chavarria Is the Most Interesting Collab of the Year',deck:'A sculptural midsole. A World Cup context. And a designer who understood the brief was bigger than just selling product.',img:'linear-gradient(135deg,#0A1A0A,#050D05)'},
+    {cat:'Culture / Style',catColor:'#D9C8AE',hl:'The Jersey Is the Outfit Now',deck:'World Cup jerseys. Vintage NBA. Worn tucked, open, or solo. The brands that understood the jersey was always a fashion piece are the ones winning right now.',img:'linear-gradient(135deg,#1A0A0A,#0D0505)'},
   ];
   fashItems.forEach(function(item){
     var card=h('div',{style:{background:'#27272C',cursor:'pointer',transition:'background .15s',overflow:'hidden'}});
@@ -1499,6 +1499,8 @@ function buildNoisePage(){
     var cat=h('div',{style:{fontFamily:"var(--lb)",fontSize:'7px',letterSpacing:'2px',textTransform:'uppercase',fontWeight:'700',color:item.catColor,marginBottom:'5px'}});cat.textContent=item.cat;
     var hl=h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(13px,1.4vw,16px)',color:'#111111',lineHeight:1.1}});hl.textContent=item.hl;
     body.appendChild(cat);body.appendChild(hl);
+    if(item.deck){fdeck.textContent=item.deck;body.appendChild(fdeck);}
+    var fbyline=h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'1px',color:'rgba(245,242,235,.3)',textTransform:'uppercase',marginTop:'8px'}});fbyline.textContent='By Afternoise Editorial';body.appendChild(fbyline);
     card.appendChild(img);card.appendChild(body);
     fashGrid.appendChild(card);
   });
