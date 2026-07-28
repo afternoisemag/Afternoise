@@ -947,7 +947,10 @@ function pageShell(opts){
   var nav=h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 44px',borderBottom:'1.5px solid '+(opts.borderColor||'#ddd'),background:opts.bg||'#F5F2EB',position:'sticky',top:0,zIndex:20,flexWrap:'wrap',gap:'8px'}});
   var bb=h('button',{className:'nbtn',style:{color:opts.dark?'rgba(244,240,230,.5)':'#555555'}},'\u2190 '+(opts.backLabel||'Back'));
   bb.onclick=function(){go(opts.backPage||'toc');};nav.appendChild(bb);
-  nav.appendChild(h('div',{style:{fontFamily:"var(--pf)",fontSize:'22px',fontWeight:400,letterSpacing:'3px',color:opts.dark?'#F5F2EB':'#111111'}},'AFTERNOISE'));
+  var logoLink=h('a',{href:'#',onclick:"go('toc');return false;",style:{display:'inline-block',cursor:'pointer',textDecoration:'none'}});
+  var logoImg=h('img',{src:'/afternoise-logo.png',alt:'Afternoise',style:{height:'40px',width:'auto',display:'block'}});
+  logoLink.appendChild(logoImg);
+  nav.appendChild(logoLink);
   if(opts.rightLabel){var rb=h('button',{className:'nbtn',style:{color:opts.dark?'rgba(244,240,230,.4)':'#555555'}},opts.rightLabel);rb.onclick=function(){go(opts.rightPage||'toc');};nav.appendChild(rb);}
   else nav.appendChild(h('div',{style:{width:'80px'}}));
   wrap.appendChild(nav);
@@ -1491,6 +1494,10 @@ function buildNoisePage(){
   var fashGrid=h('div',{style:{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:'1px',background:'#1E1E22',marginBottom:'2px'}});
   fashItems.forEach(function(item){
     var card=h('div',{style:{background:'#27272C',cursor:'pointer',overflow:'hidden',transition:'opacity .2s'}});
+    var fashKeys=['sneakers-2026','quiet-streetwear','chavarria-adidas','jersey-outfit'];
+    var fIdx=fashItems.indexOf(item);
+    card.onclick=function(){go('noise-art',fashKeys[fIdx]);};
+    card.style.cursor='pointer';
     card.onmouseenter=function(){card.style.opacity='.8';};card.onmouseleave=function(){card.style.opacity='1';};
     var img=h('div',{style:{width:'100%',aspectRatio:'4/5',background:'linear-gradient(135deg,#1a1a1a,#0d0d0d)',display:'flex',alignItems:'center',justifyContent:'center'}});
     img.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'2px',color:'#333338',textTransform:'uppercase'}},'[Photo]'));
@@ -1499,7 +1506,8 @@ function buildNoisePage(){
     var hl=h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(13px,1.4vw,16px)',color:'#F5F2EB',lineHeight:1.1,marginBottom:'6px'}});hl.textContent=item.hl;
     var deck=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'10px',color:'rgba(245,242,235,.5)',lineHeight:1.5}});deck.textContent=item.deck;
     var byline=h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'1px',textTransform:'uppercase',color:'rgba(245,242,235,.25)',marginTop:'8px'}});byline.textContent='By Afternoise Editorial';
-    body.appendChild(cat);body.appendChild(hl);body.appendChild(deck);body.appendChild(byline);
+    var fashRead=h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'2px',color:'#B87A45',textTransform:'uppercase',marginTop:'8px'}});fashRead.textContent='Read Story →';
+    body.appendChild(cat);body.appendChild(hl);body.appendChild(deck);body.appendChild(byline);body.appendChild(fashRead);
     card.appendChild(img);card.appendChild(body);
     fashGrid.appendChild(card);
   });
@@ -1635,6 +1643,39 @@ var NOISE_ARTS={
       "Then there is Brent Faiyaz. Icon, released February 13th, leans into his songwriting strengths \u2014 each track diving deeper into the ebbs and flows of fast-paced love. Faiyaz has always understood that R&B at its best is not about volume or spectacle. It is about precision. Every note placed where it will do the most damage. Icon proves that thesis across an entire album without a single wasted moment.",
       "Kehlani\u2019s self-titled album. Jordan Ward\u2019s Backward. Elmiene\u2019s sounds for someone. Rising names like Samara Cyn are quietly building catalogs the culture will be talking about for years. What makes this R&B moment different from prior summers is the diversity of approach. Nobody is doing the same thing. Rashad is confessional and chaotic. Faiyaz is precise and cool. Kehlani is emotionally direct. Elmiene is stretching the genre toward something that does not have a clean name yet.",
       "None of them sound like each other. All of them are worth your full attention. The summer is not done. Pay attention."
+    ]
+  },
+  'sneakers-2026':{
+    cat:'Style',catColor:'#B87A45',
+    headline:"The Sneaker Game in 2026 Has No Wrong Answer",
+    byline:'By Afternoise Editorial',date:'July 2026',
+    body:[
+      "The sneaker market hit $131 billion globally in 2025. That number keeps growing. And the reason it keeps growing is the same reason it exploded in the first place \u2014 the culture decided that footwear was not an accessory. It was a statement. That decision was made in the streets, in barbershops, on courts and corners, long before any analyst put a dollar figure on it.",
+      "In 2026, the conversation is more interesting than ever because the field is more wide open than it has ever been. Bad Bunny built a new silhouette from scratch with adidas and called it the BadBo 1.0. Pharrell continues to make adidas do things nobody thought were possible. Jordan Brand brought back the Air Jordan 7 Dream Team colorway in time for the FIFA World Cup, deploying nostalgia at exactly the right moment. Kobe Protros are back in rotation. The Air Jordan 11 got its first women\u2019s collab in history through Jaide and The Whitaker Group.",
+      "But the real story of 2026 sneakers is what is happening outside of Nike and Jordan. New Balance has been on a run that feels generational \u2014 the 1906R, the 990v6, the collaborations with Aimé Leon Dore that keep setting a standard for what a lifestyle sneaker can be. ASICS and On Running are sitting at the same table as the giants now, serving customers who care more about fit, feel, and design than they do about the logo on the heel.",
+      "The days when one brand dictated the entire conversation are behind us. The market is bigger, the consumer is more informed, and the options are better than they have ever been. Wear what moves you. That has always been the rule. In 2026, the options have never been more worth choosing from."
+    ]
+  },
+  'quiet-streetwear':{
+    cat:'Streetwear',catColor:'#5957FF',
+    headline:"Quiet Is the New Loud in Streetwear",
+    byline:'By Afternoise Editorial',date:'July 2026',
+    body:[
+      "There was a moment in streetwear \u2014 you felt it if you were paying attention \u2014 when the logo became the whole outfit. You wore the brand name the way you would wear a credential. The bigger the font, the more you spent, the louder the signal. For a while that worked. Then it stopped working.",
+      "Streetwear in 2026 is moving toward something more considered. Clean silhouettes. Monochrome fits. Structured oversized cuts that look intentional rather than accidental. The pieces that are moving right now are built around quality and versatility \u2014 things that work at a cookout, a gallery opening, and a late-night set without requiring you to change. The fit does the talking. The logo, if it is there at all, is secondary.",
+      "This shift did not come from fashion weeks or trend forecasters. It came from the same place every real style movement comes from \u2014 the people who were overdressed for casual situations and underdressed for formal ones decided to solve both problems with one wardrobe. The culture figured out what fashion took decades to learn: if the fit is right, you do not need a logo to announce yourself.",
+      "The brands winning in this space right now understand the assignment. Fear of God Essentials. Represent. A-Cold-Wall. ERD. Stone Island in a quieter configuration. Pieces designed to last, built to layer, priced to justify. The streetwear era is not over. It has just grown up."
+    ]
+  },
+  'chavarria-adidas':{
+    cat:'Fashion',catColor:'#416356',
+    headline:"Adidas x Willy Chavarria Is the Most Interesting Collab of the Year",
+    byline:'By Afternoise Editorial',date:'July 2026',
+    body:[
+      "Fashion collaborations fail when the brand and the designer want different things. The brand wants product that moves. The designer wants creative control. When those two things cannot coexist, you get something that looks like a collab but operates like a transaction. The adidas x Willy Chavarria collaboration for the FIFA World Cup 2026 avoided that failure entirely.",
+      "Willy Chavarria designing for the Mexican national team during the biggest sporting event on American soil is the kind of intersection that fashion rarely gets right. The adidas x Chavarria Megaride \u2014 sculptural midsole, open air tunnels, deep black upper with cream details \u2014 is not a football shoe trying to be a lifestyle sneaker. It is a design statement that happens to come with a World Cup context. There is a difference, and Chavarria understood it.",
+      "Chavarria has been one of the most culturally aware designers working today. His runway work at Valentino brought a perspective rooted in Chicano culture and American working-class identity into one of the most elite spaces in fashion. That background does not disappear when he works with adidas. It informs every decision, including the decision about what this shoe is not \u2014 it is not a limited-release hype object designed to flip. It is a piece designed to be worn and understood.",
+      "The best fashion happens when the creative brief is bigger than just selling product. This collab had a brief worth designing for \u2014 the World Cup, the Mexican national team, the diaspora watching from cities across North America. Chavarria answered that brief. The result is the most interesting collab of 2026 and it is not particularly close."
     ]
   }
 };
