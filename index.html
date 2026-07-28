@@ -1465,13 +1465,17 @@ function buildNoisePage(){
   var musicGrid=h('div',{style:{display:'grid',gridTemplateColumns:'1.4fr 1fr 1fr',gap:'1px',background:'#1E1E22',marginBottom:'2px'}});
   musicItems.forEach(function(item,i){
     var card=h('div',{style:{background:'#27272C',padding:'20px',cursor:'pointer',transition:'opacity .2s'}});
+    var artKey=['future-real-me','yg-verzuz','rb-summer-2026'][i];
+    card.onclick=function(){go('noise-art',artKey);};
+    card.style.cursor='pointer';
     card.onmouseenter=function(){card.style.opacity='.8';};card.onmouseleave=function(){card.style.opacity='1';};
     var cat=h('div',{style:{fontFamily:"var(--lb)",fontSize:'7px',letterSpacing:'3px',textTransform:'uppercase',fontWeight:'700',color:item.catColor,marginBottom:'8px'}});cat.textContent=item.cat;
     var hl=h('div',{style:{fontFamily:"var(--pf)",fontSize:i===0?'clamp(18px,2vw,24px)':'clamp(15px,1.6vw,19px)',color:'#F5F2EB',lineHeight:1.1,marginBottom:'8px'}});hl.textContent=item.hl;
     var deck=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'11px',color:'rgba(245,242,235,.55)',lineHeight:1.6,marginBottom:'10px'}});deck.textContent=item.deck;
     var meta=h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'1px',textTransform:'uppercase',color:'rgba(245,242,235,.3)'}});meta.textContent=item.meta;
     var byline=h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'1px',textTransform:'uppercase',color:'rgba(245,242,235,.25)',marginTop:'4px'}});byline.textContent='By Afternoise Editorial';
-    card.appendChild(cat);card.appendChild(hl);card.appendChild(deck);card.appendChild(meta);card.appendChild(byline);
+    var readmore=h('div',{style:{fontFamily:"var(--lb)",fontSize:'8px',letterSpacing:'2px',color:'#B87A45',textTransform:'uppercase',marginTop:'10px'}});readmore.textContent='Read Story →';
+    card.appendChild(cat);card.appendChild(hl);card.appendChild(deck);card.appendChild(meta);card.appendChild(byline);card.appendChild(readmore);
     musicGrid.appendChild(card);
   });
   inner.appendChild(musicGrid);
@@ -1559,6 +1563,81 @@ function buildNoiseSection(label){
   return sec;
 }
 
+
+// ─── NOISE ARTICLES ────────────────────────────────────────────────────────────
+
+function buildNoiseArt(art){
+  var wrap=pageShell({backPage:'noise',backLabel:'Noise',rightLabel:'Vol. I',rightPage:'toc'});
+  var inner=h('div',{style:{maxWidth:'720px',margin:'0 auto',padding:'60px 44px 100px',background:'#F5F2EB',minHeight:'100vh'}});
+
+  // Category badge
+  var badge=h('div',{style:{display:'inline-block',fontFamily:"var(--lb)",fontSize:'7px',letterSpacing:'3px',textTransform:'uppercase',padding:'4px 12px',background:art.catColor,color:'#F5F2EB',fontWeight:'700',marginBottom:'20px'}});badge.textContent=art.cat;
+  inner.appendChild(badge);
+
+  // Headline
+  var hl=h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(28px,4vw,48px)',color:'#111111',lineHeight:1.05,marginBottom:'12px'}});hl.textContent=art.headline;
+  inner.appendChild(hl);
+
+  // Byline + date
+  var byl=h('div',{style:{fontFamily:"var(--lb)",fontSize:'10px',letterSpacing:'2px',color:'#9A9A98',textTransform:'uppercase',marginBottom:'8px',paddingBottom:'20px',borderBottom:'2px solid #B87A45'}});byl.textContent=art.byline+' · '+art.date;
+  inner.appendChild(byl);
+
+  // Photo placeholder
+  var ph=h('div',{style:{width:'100%',aspectRatio:'16/9',background:'linear-gradient(135deg,#1a1a1a,#2a2a2a)',marginBottom:'32px',display:'flex',alignItems:'center',justifyContent:'center'}});
+  ph.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'#444',textTransform:'uppercase'}},'[REPLACE: Photo]'));
+  inner.appendChild(ph);
+
+  // Body paragraphs
+  art.body.forEach(function(para){
+    var p=h('p',{style:{fontFamily:"var(--lb)",fontSize:'15px',lineHeight:1.85,color:'#333333',marginBottom:'22px'}});p.textContent=para;
+    inner.appendChild(p);
+  });
+
+  // Back button
+  var cta=h('div',{style:{marginTop:'48px',paddingTop:'28px',borderTop:'.5px solid #ddd',textAlign:'left'}});
+  var rb=h('button',{className:'btn-g',style:{fontSize:'10px',letterSpacing:'3px'}});rb.textContent='\u2190 Back to Noise';rb.onclick=function(){go('noise');};cta.appendChild(rb);
+  inner.appendChild(cta);
+  wrap.appendChild(inner);return wrap;
+}
+
+var NOISE_ARTS={
+  'future-real-me':{
+    cat:'Hip-Hop',catColor:'#B87A45',
+    headline:"Future Dropped The Real Me and It\u2019s Exactly What the Name Says",
+    byline:'By Afternoise Editorial',date:'July 10, 2026',
+    body:[
+      "Four years is a long time in rap. Long enough for narratives to shift, for reputations to get tested, and for the culture to start wondering if you still have it. Future spent those four years making sure the answer was never in doubt. The Real Me \u2014 his tenth studio album, released July 10th through Freebandz and Epic \u2014 is not a comeback. You do not come back from somewhere you never left.",
+      "The album arrived after a methodical rollout that started with lead single \u201cRadio,\u201d which accumulated nearly six million Spotify streams before the album even dropped. Future announced the project on June 25th, revealed the 22-track tracklist two days before release, and let the anticipation do the work. No features listed in advance \u2014 just a cryptic Instagram caption: \u201cWho u think featured on my album?\u201d That is Future operating at his most confident. Not explaining himself. Not chasing anything. Just building the room and letting people walk in.",
+      "What makes The Real Me significant is not the numbers, although those will follow. It is the context. After WE DON\u2019T TRUST YOU and WE STILL DON\u2019T TRUST YOU with Metro Boomin in 2024, Future proved he could move the culture in collaboration mode. This album is the solo statement \u2014 produced by Allen Ritter, ATL Jacob, Pharrell Williams, Southside, TM88, and a collection of Atlanta\u2019s finest. Tracks like \u201cFukk a Interview,\u201d \u201cMoney Over Everything,\u201d and \u201cOff the Hinge\u201d are titles that tell you exactly what register this album operates in.",
+      "Future told GQ about the project: \u201cI\u2019m putting myself out there.\u201d For an artist who built a career on emotional distance wrapped in melodic trap, that statement carries weight. The Real Me is Pluto with the armor partially off \u2014 still untouchable, still operating at the frequency only he can reach, but more visible than he has allowed himself to be in years. On top of that, he performed \u201cGame Time\u201d with Tyla at the FIFA World Cup Opening Ceremony, reminding anyone who forgot that he operates across every lane the culture has.",
+      "His tenth album. His first solo project in four years. The real him. It turns out that was enough."
+    ]
+  },
+  'yg-verzuz':{
+    cat:'Hip-Hop',catColor:'#5957FF',
+    headline:"YG Got Arrested the Morning of His Verzuz and Still Showed Up",
+    byline:'By Afternoise Editorial',date:'July 23, 2026',
+    body:[
+      "Only in hip-hop does a story like this exist. On the morning of July 23rd \u2014 the same day as the most anticipated West Coast Verzuz in years \u2014 a California Highway Patrol SWAT team executed a search warrant at a Burbank property connected to YG at approximately 7 AM. The warrant was tied to the ongoing investigation into the 2021 murder of Drakeo the Ruler. YG was present, detained, and subsequently released without arrest. He did not comment publicly. He did not cancel. By 6:30 PM PT, YG was on stage at Apple Music Studios going hit for hit with The Game in the Compton Forever Verzuz.",
+      "The cultural math on that is worth sitting with. The same man who started his morning in the presence of a SWAT team closed it by winning a Verzuz battle 19-3 in front of the internet. Whatever your position on YG, whatever the investigation ultimately finds, that is a level of composure that deserves to be acknowledged.",
+      "The Game\u2019s 2005 debut The Documentary helped revive a post-2Pac West Coast and opened the door for a new generation that includes YG, whose 2014 album My Krazy Life became a defining project of the 2010s. That generational gap is what made Compton Forever compelling before a single record was played. Two eras of the same city. Two different blueprints for what West Coast rap could be. The Game with Dre behind him, the classics: Hate It or Love It, How We Do, Westside Story. YG with DJ Mustard\u2019s 808s underneath him, the street energy translated into something radio-ready without sacrificing anything.",
+      "The Game also turned the evening into a spectacle of its own, downing nearly an entire bottle of Don Julio tequila in a single gulp and dropping the empty bottle to the ground in celebration. That moment, combined with YG\u2019s morning, gave Compton Forever a narrative that no one could have scripted. The battle is now streaming on Apple Music. The conversation it started has not stopped.",
+      "West Coast supremacy was on the line. YG took it. The morning he had before walking on that stage made it mean something more."
+    ]
+  },
+  'rb-summer-2026':{
+    cat:'R&B',catColor:'#416356',
+    headline:"The R&B Summer of 2026 Has No Ceiling",
+    byline:'By Afternoise Editorial',date:'July 2026',
+    body:[
+      "From Drake\u2019s Iceman to Kehlani\u2019s self-titled project to Don Toliver\u2019s OCTANE, 2026 has been a great year for music broadly. But within that crowded landscape, the R&B conversation has been the most consistently rewarding.",
+      "Start with Isaiah Rashad. IT\u2019S BEEN AWFUL, released May 1st through TDE and Warner Records, is his first full-length project in five years \u2014 a 16-track, 54-minute album featuring SZA on the deceptively peppy BOY IN RED and Dominic Fike lending melodic support on the ethereal CAMERAS. The album is deeply personal \u2014 about rehab stints, family ties, the cost of the highs and the weight of the comedowns. It received universal acclaim on Metacritic. Five years between projects, and Rashad came back with arguably the most honest work of his career.",
+      "Then there is Brent Faiyaz. Icon, released February 13th, leans into his songwriting strengths \u2014 each track diving deeper into the ebbs and flows of fast-paced love. Faiyaz has always understood that R&B at its best is not about volume or spectacle. It is about precision. Every note placed where it will do the most damage. Icon proves that thesis across an entire album without a single wasted moment.",
+      "Kehlani\u2019s self-titled album. Jordan Ward\u2019s Backward. Elmiene\u2019s sounds for someone. Rising names like Samara Cyn are quietly building catalogs the culture will be talking about for years. What makes this R&B moment different from prior summers is the diversity of approach. Nobody is doing the same thing. Rashad is confessional and chaotic. Faiyaz is precise and cool. Kehlani is emotionally direct. Elmiene is stretching the genre toward something that does not have a clean name yet.",
+      "None of them sound like each other. All of them are worth your full attention. The summer is not done. Pay attention."
+    ]
+  }
+};
 
 // ─── PHOTO ESSAY ──────────────────────────────────────────────────────────────
 var ESSAY_SLOTS = [
@@ -2022,6 +2101,7 @@ function render(){
   if(ST.page==='playlist')pw.appendChild(buildPlaylist());
   if(ST.page==='radio')pw.appendChild(buildRadioPage());
   if(ST.page==='noise')pw.appendChild(buildNoisePage());
+  if(ST.page==='noise-art')pw.appendChild(buildNoiseArt(NOISE_ARTS[ST.idx]));
   if(ST.page==='radar')pw.appendChild(buildRadar());
   if(ST.page==='radar-yanna')pw.appendChild(buildRadarYanna());
   if(ST.page==='radar-donfresh')pw.appendChild(buildRadarDonFresh());
