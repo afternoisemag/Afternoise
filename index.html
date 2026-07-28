@@ -1073,7 +1073,7 @@ var RADAR_QA = [
 ];
 
 function buildRadar(){
-  var wrap=pageShell({backPage:'toc',backLabel:'All Stories',rightLabel:'Vol. I',rightPage:'toc'});
+  var wrap=pageShell({backPage:'toc',backLabel:'All Stories',rightLabel:'Vol. I',rightPage:'toc',bg:'#27272C',dark:true});
   var inner=h('div',{style:{maxWidth:'860px',margin:'0 auto',padding:'60px 44px 100px'}});
 
   // Header
@@ -1264,11 +1264,11 @@ function buildRadarDonFresh(){
 
 // ─── RADIO PAGE ────────────────────────────────────────────────────────────────
 function buildRadioPage(){
-  var wrap=h('div',{style:{minHeight:'100vh',background:'#0B0B0D',color:'#F5F2EB',fontFamily:"var(--lb)"}});
+  var wrap=h('div',{style:{minHeight:'100vh',background:'#27272C',color:'#F5F2EB',fontFamily:"var(--lb)"}});
   wrap.appendChild(bigMasthead());
 
   // Back bar
-  var bar=h('div',{style:{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'12px 24px',borderBottom:'1px solid #27272C',background:'#0B0B0D',position:'sticky',top:'0',zIndex:'100'}});
+  var bar=h('div',{style:{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'12px 24px',borderBottom:'1px solid #333338',background:'#27272C',position:'sticky',top:'0',zIndex:'100'}});
   var back=h('button',{style:{background:'none',border:'none',fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'2px',color:'#9A9A98',textTransform:'uppercase',cursor:'pointer',display:'flex',alignItems:'center',gap:'8px'}});
   back.textContent='\u2190 Magazine';back.onclick=function(){go('toc');};
   bar.appendChild(back);
@@ -1453,8 +1453,8 @@ function buildRadioPage(){
 
 // ─── NOISE PAGE ────────────────────────────────────────────────────────────────
 function buildNoisePage(){
-  var wrap=pageShell({backPage:'toc',backLabel:'Home',rightLabel:'Vol. I',rightPage:'toc'});
-  var inner=h('div',{style:{maxWidth:'960px',margin:'0 auto',padding:'0 44px 80px',background:'#0B0B0D'}});
+  var wrap=pageShell({backPage:'toc',backLabel:'Home',rightLabel:'Vol. I',rightPage:'toc',bg:'#27272C',dark:true});
+  var inner=h('div',{style:{maxWidth:'960px',margin:'0 auto',padding:'0 44px 80px',background:'#27272C'}});
 
   // Page header
   var hdr=h('div',{className:'fade',style:{padding:'40px 0 24px',borderBottom:'1px solid #B87A45'}});
@@ -1469,9 +1469,9 @@ function buildNoisePage(){
     {cat:'Hip-Hop',catColor:'#5957FF',hl:'YG Got Arrested the Morning of His Verzuz and Still Showed Up',deck:'SWAT team at 7AM. On stage by 9:30PM. Only in hip-hop. YG took the win and the whole conversation that followed.',meta:'July 23, 2026 · 4 min read'},
     {cat:'R&B',catColor:'#416356',hl:'The R&B Summer of 2026 Has No Ceiling',deck:'Isaiah Rashad. Brent Faiyaz. Kehlani. Jordan Ward. Five conversations happening at once. All of them worth your time.',meta:'July 2026 · 3 min read'},
   ];
-  var musicGrid=h('div',{style:{display:'grid',gridTemplateColumns:'1.4fr 1fr 1fr',gap:'1px',background:'#1E1E22',marginBottom:'2px'}});
+  var musicGrid=h('div',{style:{display:'grid',gridTemplateColumns:'1.4fr 1fr 1fr',gap:'1px',background:'#111115',marginBottom:'2px'}});
   musicItems.forEach(function(item,i){
-    var card=h('div',{style:{background:'#27272C',padding:'20px',cursor:'pointer',transition:'opacity .2s'}});
+    var card=h('div',{style:{background:'#0B0B0D',padding:'20px',cursor:'pointer',transition:'opacity .2s'}});
     var artKey=['future-real-me','yg-verzuz','rb-summer-2026'][i];
     card.onclick=function(){go('noise-art',artKey);};
     card.style.cursor='pointer';
@@ -1495,9 +1495,9 @@ function buildNoisePage(){
     {cat:'Fashion',catColor:'#416356',hl:'Adidas x Willy Chavarria Is the Most Interesting Collab of the Year',deck:'A sculptural midsole. A World Cup context. A designer who understood the brief was bigger than just selling product.'},
     {cat:'Culture / Style',catColor:'#D9C8AE',hl:'The Jersey Is the Outfit Now',deck:'World Cup jerseys. Vintage NBA. Worn tucked, open, or solo. The brands that understood the jersey was always a fashion piece are winning right now.'},
   ];
-  var fashGrid=h('div',{style:{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:'1px',background:'#1E1E22',marginBottom:'2px'}});
+  var fashGrid=h('div',{style:{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:'1px',background:'#111115',marginBottom:'2px'}});
   fashItems.forEach(function(item){
-    var card=h('div',{style:{background:'#27272C',cursor:'pointer',overflow:'hidden',transition:'opacity .2s'}});
+    var card=h('div',{style:{background:'#0B0B0D',cursor:'pointer',overflow:'hidden',transition:'opacity .2s'}});
     var fashKeys=['sneakers-2026','quiet-streetwear','chavarria-adidas','jersey-outfit'];
     var fIdx=fashItems.indexOf(item);
     card.onclick=function(){go('noise-art',fashKeys[fIdx]);};
@@ -1529,7 +1529,7 @@ function buildNoisePage(){
   ];
   var evGrid=h('div',{style:{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'8px',marginBottom:'2px'}});
   events.forEach(function(ev){
-    var card=h('div',{style:{background:'#27272C',padding:'18px',cursor:'pointer',borderLeft:'3px solid '+ev.color,transition:'opacity .2s'}});
+    var card=h('div',{style:{background:'#0B0B0D',padding:'18px',cursor:'pointer',borderLeft:'3px solid '+ev.color,transition:'opacity .2s'}});
     card.onmouseenter=function(){card.style.opacity='.8';};card.onmouseleave=function(){card.style.opacity='1';};
     var type=h('div',{style:{fontFamily:"var(--lb)",fontSize:'7px',letterSpacing:'2px',textTransform:'uppercase',fontWeight:'700',color:ev.color,marginBottom:'6px'}});type.textContent=ev.type;
     var date=h('div',{style:{fontFamily:"var(--lb)",fontSize:'10px',letterSpacing:'2px',color:'#B87A45',textTransform:'uppercase',fontWeight:'700',marginBottom:'6px'}});date.textContent=ev.date;
@@ -1549,9 +1549,9 @@ function buildNoisePage(){
     {cat:'FIFA 2026 · Music',catColor:'#D9C8AE',hl:'Shakira x Burna Boy — The FIFA World Cup 2026 Anthem',deck:'Two global superstars. One tournament. The track bridging two cultures.',meta:'2 days ago · 4 min read'},
     {cat:'Media',catColor:'#416356',hl:'Independent Media Is the Only Media That Tells the Full Truth',deck:'The major platforms cover who they are paid to cover. That is a problem and the culture is starting to notice.',meta:'3 days ago · 6 min read'},
   ];
-  var newsGrid=h('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'1px',background:'#1E1E22',marginBottom:'32px'}});
+  var newsGrid=h('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'1px',background:'#111115',marginBottom:'32px'}});
   newsItems.forEach(function(item){
-    var card=h('div',{style:{background:'#27272C',padding:'20px',cursor:'pointer',transition:'opacity .2s'}});
+    var card=h('div',{style:{background:'#0B0B0D',padding:'20px',cursor:'pointer',transition:'opacity .2s'}});
     card.onmouseenter=function(){card.style.opacity='.8';};card.onmouseleave=function(){card.style.opacity='1';};
     var cat=h('div',{style:{fontFamily:"var(--lb)",fontSize:'7px',letterSpacing:'3px',textTransform:'uppercase',fontWeight:'700',color:item.catColor,marginBottom:'7px'}});cat.textContent=item.cat;
     var hl=h('div',{style:{fontFamily:"var(--pf)",fontSize:'clamp(15px,1.6vw,20px)',color:'#F5F2EB',lineHeight:1.05,marginBottom:'6px'}});hl.textContent=item.hl;
