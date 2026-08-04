@@ -445,7 +445,7 @@
 // Replace null with your image URL when ready.
 // Example: cover: "https://res.cloudinary.com/yourname/image/upload/cover.jpg"
 var P = {
-  cover:null, dt1:null, dt2:null, dt3:null,
+  cover:null, dt1:'/Afternoise%20Vol.1%20Photos/DT-The-Artist%20TOC.PNG', dt2:null, dt3:null,
   fd1:null, fd2:null, fd3:null,
   soca1:null, soca2:null, soca3:null,
   costume1:null, costume2:null, costume3:null,
@@ -1813,13 +1813,15 @@ var ESSAY_SLOTS = [
 // To add a video: set url to your video file path (e.g. '/videos/carnival-recap.mp4')
 // OR for YouTube: set type:'youtube' and url to the embed URL (e.g. 'https://www.youtube.com/embed/VIDEO_ID')
 var ESSAY_VIDEOS = [
-  {type:'file', url:'', poster:'', caption:'[REPLACE: Caption — what this video shows, where, when]', title:'[REPLACE: Video Title]'},
+  {type:'file', url:'', poster:'', caption:'[REPLACE: Caption — what this clip shows, where, when]', title:'[REPLACE: Clip 1]'},
+  {type:'file', url:'', poster:'', caption:'[REPLACE: Caption — what this clip shows, where, when]', title:'[REPLACE: Clip 2]'},
+  {type:'file', url:'', poster:'', caption:'[REPLACE: Caption — what this clip shows, where, when]', title:'[REPLACE: Clip 3]'},
 ];
 
 function pVideo(v){
   // Shot portrait 9:16 (DJI Osmo Pocket 3) — constrain width so it reads as a vertical clip, not a giant landscape box
   var outer=h('div',{style:{display:'flex',justifyContent:'center'}});
-  var wrap=h('div',{style:{width:'100%',maxWidth:'420px',position:'relative',background:'#000',aspectRatio:'9/16',overflow:'hidden'}});
+  var wrap=h('div',{style:{width:'100%',maxWidth:'280px',position:'relative',background:'#000',aspectRatio:'9/16',overflow:'hidden'}});
   if(v.url && v.type==='youtube'){
     var iframe=h('iframe',{src:v.url,style:{width:'100%',height:'100%',border:'none',display:'block'},allow:'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture',allowfullscreen:'true'});
     wrap.appendChild(iframe);
@@ -1901,22 +1903,25 @@ function buildEssay(){
   fcap.appendChild(h('div',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'3px',color:'rgba(212,168,83,.4)',textTransform:'uppercase'}},ESSAY_SLOTS.length+' / '+ESSAY_SLOTS.length));
   fin.appendChild(fcap);inner.appendChild(fin);
 
-  // ── VIDEO SECTION ──────────────────────────────────────────────────
+  // ── VIDEO GALLERY ──────────────────────────────────────────────────
   if(ESSAY_VIDEOS && ESSAY_VIDEOS.length){
     var vidSec=h('div',{className:'reveal',style:{marginTop:'40px'}});
-    var vidHdr=h('div',{style:{display:'flex',alignItems:'center',gap:'14px',marginBottom:'20px'}});
+    var vidHdr=h('div',{style:{display:'flex',alignItems:'center',gap:'14px',marginBottom:'24px'}});
     vidHdr.appendChild(h('span',{style:{fontFamily:"var(--pf)",fontSize:'clamp(20px,2.5vw,28px)',color:'#F5F2EB',whiteSpace:'nowrap'}},'Video'));
     vidHdr.appendChild(h('div',{style:{flex:1,height:'1px',background:'rgba(212,168,83,.2)'}}));
+    vidHdr.appendChild(h('span',{style:{fontFamily:"var(--lb)",fontSize:'9px',letterSpacing:'2px',color:'rgba(212,168,83,.5)',textTransform:'uppercase'}},ESSAY_VIDEOS.length+' Clips'));
     vidSec.appendChild(vidHdr);
+    var vidGrid=h('div',{style:{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(200px,1fr))',gap:'16px',maxWidth:'900px',margin:'0 auto'}});
     ESSAY_VIDEOS.forEach(function(v,vi){
-      var vBlock=h('div',{style:{marginBottom:'32px'}});
+      var vBlock=h('div',{});
       vBlock.appendChild(pVideo(v));
-      var vCap=h('div',{style:{padding:'14px 0',maxWidth:'420px',margin:'0 auto',textAlign:'center'}});
-      var vTitle=h('div',{style:{fontFamily:"var(--pf)",fontSize:'16px',color:'#F5F2EB',marginBottom:'4px'}});vTitle.textContent=v.title;vCap.appendChild(vTitle);
-      var vCapT=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'11px',color:'rgba(244,240,230,.5)'}});vCapT.textContent=v.caption;vCap.appendChild(vCapT);
+      var vCap=h('div',{style:{padding:'10px 0',textAlign:'center'}});
+      var vTitle=h('div',{style:{fontFamily:"var(--pf)",fontSize:'15px',color:'#F5F2EB',marginBottom:'3px'}});vTitle.textContent=v.title;vCap.appendChild(vTitle);
+      var vCapT=h('div',{style:{fontFamily:"var(--lb)",fontStyle:'italic',fontSize:'10px',color:'rgba(244,240,230,.5)'}});vCapT.textContent=v.caption;vCap.appendChild(vCapT);
       vBlock.appendChild(vCap);
-      vidSec.appendChild(vBlock);
+      vidGrid.appendChild(vBlock);
     });
+    vidSec.appendChild(vidGrid);
     inner.appendChild(vidSec);
   }
 
