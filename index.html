@@ -158,23 +158,8 @@
     border-top:2px solid #F5F2EB;
     border-bottom:2px solid #F5F2EB;
   }
-  .outer-nav::after{
-    content:'scroll ›';
-    position:absolute;right:0;top:0;bottom:0;
-    width:72px;
-    background:linear-gradient(to right,transparent,#111 40%);
-    display:none;
-    align-items:center;justify-content:flex-end;
-    padding-right:10px;
-    font-family:var(--lb);font-size:8px;letter-spacing:1px;
-    color:rgba(212,168,83,.6);
-    pointer-events:none;
-    transition:opacity .4s;
-  }
-  @media(max-width:768px){
-    .outer-nav::after{display:flex;}
-    .outer-nav.scrolled::after{opacity:0;}
-  }
+  
+
   .outer-nav-fade{
     display:none;position:absolute;right:0;top:0;bottom:0;
     width:60px;pointer-events:none;z-index:5;
@@ -2359,25 +2344,6 @@ render();
   window.addEventListener('resize', updateFade);
   // Initial check after fonts load
   setTimeout(updateFade, 500);
-})();
-
-// Nav scroll hint — hide after user scrolls
-(function(){
-  var nav = document.getElementById('outer-nav-inner');
-  var outerNav = document.querySelector('.outer-nav');
-  if(!nav || !outerNav) return;
-  function checkScroll(){
-    if(nav.scrollLeft > 10){
-      outerNav.classList.add('scrolled');
-    }
-  }
-  nav.addEventListener('scroll', checkScroll, {passive:true});
-  // Also hide after 3 seconds automatically on mobile
-  if(window.innerWidth <= 768){
-    setTimeout(function(){
-      outerNav.classList.add('scrolled');
-    }, 3000);
-  }
 })();
 
 // Nav scroll hint — only show if nav actually overflows
